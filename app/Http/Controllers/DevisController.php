@@ -9,6 +9,11 @@ use App\Models\Entreprise;
 use App\Models\DetailDevis;
 class DevisController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     // Display a listing of the devis.
     public function index()
     {

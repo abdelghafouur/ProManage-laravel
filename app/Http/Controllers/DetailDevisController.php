@@ -8,6 +8,11 @@ use App\Models\DetailDevis;
 class DetailDevisController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function store(Request $request)
     {
 

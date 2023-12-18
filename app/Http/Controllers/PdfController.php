@@ -15,6 +15,11 @@ use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
 class PdfController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function generateDev(Request $request, $DevisId)
     {
         // Retrieve Facture data from the database

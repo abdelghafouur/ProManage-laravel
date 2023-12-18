@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class ResetPasswordController extends Controller
 {
@@ -29,7 +30,20 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/clients.index';
+    protected function redirectTo()
+    {
+        $user = Auth::user();
+
+        if (auth()->check()) {
+            if (auth()->user()->hasRole('superadmin')) {
+                return '/clients';
+            } elseif (auth()->user()->hasRole('admin')) {
+                return '/clients';
+            } elseif (auth()->user()->hasRole('comptable')) {
+                return '/factures';
+            }
+        }
+    }
 
     public function reset(Request $request)
     {

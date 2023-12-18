@@ -28,7 +28,20 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/clients';
+    protected function redirectTo()
+    {
+        $user = Auth::user();
+
+        if (auth()->check()) {
+            if (auth()->user()->hasRole('superadmin')) {
+                return '/clients';
+            } elseif (auth()->user()->hasRole('admin')) {
+                return '/clients';
+            } elseif (auth()->user()->hasRole('comptable')) {
+                return '/factures';
+            }
+        }
+    }
 
     /**
      * Create a new controller instance.

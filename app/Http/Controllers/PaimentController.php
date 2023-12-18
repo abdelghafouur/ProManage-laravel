@@ -10,6 +10,11 @@ use Illuminate\Validation\Rule;
 class PaimentController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $paiments = Paiment::paginate(10);
