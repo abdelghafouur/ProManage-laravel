@@ -86,7 +86,6 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'roles' => 'required',
         ]);
 
         // Find the user
@@ -125,7 +124,14 @@ class UserController extends Controller
             $user->assignRole($newRole);
         }
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        if (auth()->user()->hasRole('comptable')) 
+            {
+                return redirect()->route('factures.index')->with('success', 'User updated successfully.');
+            }
+        else
+            {
+                return redirect()->route('users.index')->with('success', 'User updated successfully.');
+            }
     }
 
     public function destroy($id)

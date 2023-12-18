@@ -56,7 +56,7 @@ Route::middleware(['auth', 'restrict.comptable.access'])->group(function () {
     Route::resource('devis', DevisController::class);
     Route::resource('factures', FactureController::class)->except(['index', 'show']);
     Route::resource('paiments', PaimentController::class)->except(['index', 'show']);
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->except(['edit','update']);
     Route::resource('entreprises', EntrepriseController::class);
     Route::resource('details', DetailDevisController::class)->except(['show']);
     Route::resource('detailsFac', DetailFactureController::class)->except(['show']);

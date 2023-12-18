@@ -73,6 +73,7 @@
                     </div>
                   </div>
                 </div>
+                @unless(auth()->user()->hasRole('comptable'))
                 <div class="row mb-3">
                   <label for="defaultSelect" class="col-sm-2 form-label">Role</label>
                   <div class="col-sm-10">
@@ -89,6 +90,7 @@
                   </div>
                   </div>
                 </div>
+                @endunless
                 <div class="row mb-3">
                   <label class="col-sm-2 form-label" for="basic-icon-default-message">Password</label>
                   <div class="col-sm-10">
