@@ -164,7 +164,7 @@
             @if($FactureData->detailFacture->isNotEmpty())
                                     
                                     @foreach($FactureData->detailFacture as $detail)
-                                    <tr height="50px">
+                                    <tr>
                                         <td>{{ $detail->designation }}</td>
                                         <td style="text-align: end;">{{ $detail->tva }} % </td>
                                         <td style="text-align: end;">{{ $detail->puht }}</td>
