@@ -32,7 +32,7 @@
                   </select>
                 </div>
                 <div class="mb-3 col-lg-6 col-md-6">
-                  <label for="defaultSelect2" class="form-label">Devis:</label>
+                  <label for="defaultSelect2" class="form-label">Code Devis:</label>
                   <!--                   <select id="defaultSelect1" class="form-select" name="devis_id" {/{ $selectedDevisId !== null ? 'disabled' : '' }}> -->
                   <select id="defaultSelect1" class="form-select" name="devis_id">
                     <option value="">No Devis</option>

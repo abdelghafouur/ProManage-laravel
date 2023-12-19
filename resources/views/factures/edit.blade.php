@@ -27,7 +27,7 @@
                 </select>
                 </div>
                 <div class="mb-3 col-lg-6 col-md-6">
-                  <label for="devis_id" class="form-label">Devis:</label>
+                  <label for="devis_id" class="form-label">Code Devis:</label>
                   <select name="devis_id" class="form-select">
                     <option value="" {{ $facture->devis_id == null ? 'selected' : '' }}>No Devis</option>
                   @foreach($devisList as $devis)

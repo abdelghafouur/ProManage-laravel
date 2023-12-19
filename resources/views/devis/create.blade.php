@@ -16,6 +16,10 @@
                         @csrf
                         <div class="row">
                             <div class="mb-3 col-lg-6 col-md-6">
+                                <label class="form-label" for="designationDev">Designation</label>
+                                <input type="text" class="form-control" id="designationDev" name="designationDev"/>
+                            </div>
+                            <div class="mb-3 col-lg-6 col-md-6">
                                 <label class="form-label" for="basic-default-fullname">Conditions de Règlement</label>
                                 <input type="text" class="form-control" id="basic-default-fullname" name="conditionsDeReglement" required />
                             </div>

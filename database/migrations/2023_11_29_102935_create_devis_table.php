@@ -16,13 +16,14 @@ class CreateDevisTable extends Migration
         Schema::create('devis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('client_id')->constrained()->onDelete('cascade')
-            ->onUpdate('cascade');;
+            ->onUpdate('cascade');
             $table->foreignId('entreprise_id')->constrained()->onDelete('cascade')
-            ->onUpdate('cascade');;
+            ->onUpdate('cascade');
             $table->string('codeDevis')->unique()->nullable();
-            $table->string('conditionsDeReglement');
+            $table->string('designationDev')->nullable();
+            $table->string('conditionsDeReglement')->nullable();
             $table->date('date')->nullable();
-            $table->string('devis');
+            $table->string('devis')->nullable();
             $table->timestamps();
         });
     }

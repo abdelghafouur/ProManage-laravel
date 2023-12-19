@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Devis extends Model
 {
     use HasFactory;
-    protected $fillable = ['client_id','entreprise_id', 'codeDevis','conditionsDeReglement','date','devis'];
+    protected $fillable = ['client_id','entreprise_id', 'codeDevis', 'designationDev' ,'conditionsDeReglement','date','devis'];
 
     public function client()
     {

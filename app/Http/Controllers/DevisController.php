@@ -45,6 +45,7 @@ class DevisController extends Controller
         $devis = Devis::create([
             'client_id' => $request->input('client_id'),
             'entreprise_id' => $request->input('entreprise_id'),
+            'designationDev' => $request->input('designationDev'),
             'conditionsDeReglement' => $request->input('conditionsDeReglement'),
             'date' => $request->input('date'),
             'devis' => $request->input('devis'),
@@ -104,6 +105,7 @@ class DevisController extends Controller
             'conditionsDeReglement' => 'required|string',
             'date' => 'date',
             'devis' => 'required|string',
+            'designationDev' => 'nullable|string',
             'client_id' => 'required|exists:clients,id',
             'entreprise_id' => 'required|exists:entreprises,id',
 
@@ -113,6 +115,7 @@ class DevisController extends Controller
         $devis = Devis::findOrFail($id);
 
         // Update the existing fields
+        $devis->designationDev = $validatedData['designationDev'];
         $devis->conditionsDeReglement = $validatedData['conditionsDeReglement'];
         $devis->date = $validatedData['date'];
         $devis->devis = $validatedData['devis'];

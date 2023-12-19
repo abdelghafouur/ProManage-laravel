@@ -145,6 +145,9 @@
           </div>
         </div>
       </div>
+      @if($DevisData->designationDev != null)
+        <h5 style="text-align: center;margin-bottom:15px"><strong> Designation Devis : {{ $DevisData->designationDev}}.</strong></h5>
+      @endif
       <div class="panel panel-default">
         <table class="table table-bordered table-condensed" border="1px" style="font-size: 12px;">
           <thead>

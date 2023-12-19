@@ -11,6 +11,11 @@
                 <dl class="row mt-2">
                   <dt class="col-sm-3"><strong>Code Devis: </strong></dt>
                   <dd class="col-sm-9">{{ $devis->codeDevis }}</dd>
+
+                  @if($devis->designationDev != null)
+                      <dt class="col-sm-3"><strong>Designation Devis: </strong> </dt>
+                      <dd class="col-sm-9">{{ $devis->designationDev }}</dd>
+                  @endif
                   <dt class="col-sm-3"><strong>Conditions de Règlement: </strong> </dt>
                   <dd class="col-sm-9">{{ $devis->conditionsDeReglement }}</dd>
                   <dt class="col-sm-3"><strong>Date: </strong> </dt>
