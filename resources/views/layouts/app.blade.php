@@ -85,43 +85,107 @@
             
                         <ul class="menu-inner py-1">
                         <!-- Apps -->
-                        <li class="menu-header small text-uppercase"><span class="menu-header-text">Daschoard</span></li>
+                        
                         @unless(auth()->user()->hasRole('comptable'))
-                        <li class="menu-item {{ request()->is('clients*') ? 'active' : '' }}">
+                        <li class="menu-item {{ request()->is('dashboard*') ? 'active' : '' }}">
                             <a
-                            href="{{ route('clients.index') }}"
+                            href="#"
                             class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-user"></i>
-                            <div data-i18n="Email">Gestion Client</div>
+                            <i class='menu-icon tf-icons bx bxs-dashboard'></i>
+                            <div>Dashboard</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ request()->is('devis*') ? 'active' : '' }}">
-                            <a
-                            href="{{ route('devis.index') }}"
-                            class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-notepad"></i>
-                            <div data-i18n="Chat">Gestion Devis</div>
-                            </a>
-                        </li>
-                        @endunless
 
-                        <li class="menu-item {{ request()->is('factures*') ? 'active' : '' }}">
-                            <a
-                            href="{{ route('factures.index') }}"
-                            class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-book-bookmark"></i>
-                            <div data-i18n="Calendar">Gestion Facture</div>
+                        <li class="menu-header small text-uppercase"><span class="menu-header-text">Clients</span></li>
+                        <li class="menu-item {{ request()->is('clients*') ? 'active' : '' }}" style="">
+                            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                <i class="menu-icon tf-icons bx bx-user"></i>
+                              <div>Clients</div>
                             </a>
-                        </li>
+                            <ul class="menu-sub">
+                              <li class="menu-item" >
+                                <a href="{{ route('clients.index') }}" class="menu-link">
+                                  <div>Tous les clients</div>
+                                </a>
+                              </li>
+                              <li class="menu-item">
+                                <a href="{{ route('clients.create') }}" class="menu-link">
+                                  <div>Ajouter client</div>
+                                </a>
+                              </li>
+                            </ul>
+                          </li>                        
+                          @endunless
+
+                        <li class="menu-header small text-uppercase"><span class="menu-header-text">Facturation</span></li>
+                        @unless(auth()->user()->hasRole('comptable'))
+
+                        <li class="menu-item {{ request()->is('devis*') ? 'active' : '' }}" style="">
+                            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                              <i class="menu-icon tf-icons bx bx-notepad"></i>
+                              <div>Devis</div>
+                            </a>
+                            <ul class="menu-sub">
+                              <li class="menu-item" >
+                                <a href="{{ route('devis.index') }}" class="menu-link">
+                                  <div>Tous les Devis</div>
+                                </a>
+                              </li>
+                              <li class="menu-item">
+                                <a href="{{ route('devis.create') }}" class="menu-link">
+                                  <div>Ajouter Devis</div>
+                                </a>
+                              </li>
+                            </ul>
+                          </li>
+                        @endunless
+                        <li class="menu-item {{ request()->is('factures*') ? 'active' : '' }}" style="">
+                            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                              <i class="menu-icon tf-icons bx bx-book-bookmark"></i>
+                              <div>Factures</div>
+                            </a>
+                            <ul class="menu-sub">
+                              <li class="menu-item" >
+                                <a href="{{ route('factures.index') }}" class="menu-link">
+                                  <div>Toutes les factures</div>
+                                </a>
+                              </li>
+                              @unless(auth()->user()->hasRole('comptable'))
+                              <li class="menu-item">
+                                <a href="{{ route('factures.create') }}" class="menu-link">
+                                  <div>Ajouter Facture</div>
+                                </a>
+                              </li>
+                              @endunless
+                            </ul>
+                          </li>
                         <li class="menu-item {{ request()->is('paiments*') ? 'active' : '' }}">
                             <a
                             href="{{ route('paiments.index') }}"
                             class="menu-link">
                             <i class='menu-icon tf-icons bx bx-credit-card'></i>
-                            <div data-i18n="Calendar">Gestion Paiments</div>
+                            <div>Règlements</div>
                             </a>
                         </li>
-                        
+                        @unless(auth()->user()->hasRole('admin') || auth()->user()->hasRole('comptable'))
+                        <li class="menu-header small text-uppercase"><span class="menu-header-text">Réglages</span></li>
+                        <li class="menu-item {{ request()->is('users*') ? 'active' : '' }}">
+                            <a
+                            href="{{ route('users.index') }}"
+                            class="menu-link">
+                            <i class='menu-icon tf-icons bx bxs-user-account'></i>
+                            <div>Utilisateurs</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ request()->is('entreprises*') ? 'active' : '' }}">
+                            <a
+                            href="{{ route('entreprises.index') }}"
+                            class="menu-link">
+                            <i class='menu-icon tf-icons bx bxs-business'></i>
+                            <div>Entreprises</div>
+                            </a>
+                        </li>
+                        @endunless
                         </ul>
                     </aside>
                 <!-- / Menu -->
@@ -174,23 +238,22 @@
                                 </a>
                             </li>
                             
-                            @unless(auth()->user()->hasRole('admin') || auth()->user()->hasRole('comptable'))
                             <li>
                                 <div class="dropdown-divider"></div>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('users.index') }}">
+                                <a class="dropdown-item" href="{{ route('users.edit', Auth::user()->id) }}">
                                 <i class='bx bxs-user me-2'></i>
-                                <span class="align-middle">Gestion Comptes</span>
+                                <span class="align-middle">Mon profil</span>
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('entreprises.index') }}">
-                                <i class='bx bx-building-house me-2'></i>
-                                <span class="align-middle">Gestion Entreprises</span>
+                                <a class="dropdown-item" href="#">
+                                <i class='bx bxs-lock'></i>
+                                <span class="align-middle">Mot de passe</span>
                                 </a>
                             </li>
-                            @endunless
+                            
                             <li>
                                 <div class="dropdown-divider"></div>
                             </li>
