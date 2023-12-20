@@ -5,27 +5,32 @@
 @section('content')
 
 <div class="container-xxl flex-grow-1">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('devis.index') }}" style="color:#a1acb8 !important">Gestion Devis/</a></span> Ajouter Devis</h4>
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('devis.index') }}"
+                style="color:#a1acb8 !important">Gestion Devis/</a></span> Ajouter Devis</h4>
 
     <!-- Basic Layout & Basic with Icons -->
     <div class="row">
         <div class="col-xxl">
             <div class="card mb-4">
                 <div class="card-body">
-                    <form method="post" action="{{ route('devis.store') }}" enctype="multipart/form-data" id="devis-form">
+                    <form method="post" action="{{ route('devis.store') }}" enctype="multipart/form-data"
+                        id="devis-form">
                         @csrf
                         <div class="row">
                             <div class="mb-3 col-lg-6 col-md-6">
                                 <label class="form-label" for="designationDev">Designation</label>
-                                <input type="text" class="form-control" id="designationDev" name="designationDev" required/>
+                                <input type="text" class="form-control" id="designationDev" name="designationDev"
+                                    required />
                             </div>
                             <div class="mb-3 col-lg-6 col-md-6">
                                 <label class="form-label" for="basic-default-fullname">Conditions de Règlement</label>
-                                <input type="text" class="form-control" required id="basic-default-fullname" name="conditionsDeReglement" />
+                                <input type="text" class="form-control" required id="basic-default-fullname"
+                                    name="conditionsDeReglement" />
                             </div>
                             <div class="mb-3 col-lg-6 col-md-6">
                                 <label class="form-label" for="basic-default-company">Devis</label>
-                                <input type="text" class="form-control" id="basic-default-company" name="devis" required />
+                                <input type="text" class="form-control" id="basic-default-company" name="devis"
+                                    required />
                             </div>
                             <div class="mb-3 col-lg-6 col-md-6">
                                 <label for="defaultSelect" class="form-label">Client</label>
@@ -36,9 +41,10 @@
                                 </select>
                             </div>
                             <div class="mb-3 col-lg-6 col-md-6">
-                                <label for="html5-date-input" class="col-md-2 col-form-label" >Date</label>
+                                <label for="html5-date-input" class="col-md-2 col-form-label">Date</label>
                                 <div class="col-md-12">
-                                    <input class="form-control" type="date" name="date" id="html5-date-input" required />
+                                    <input class="form-control" type="date" name="date" id="html5-date-input"
+                                        required />
                                 </div>
                             </div>
                             <!-- Basic Layout -->
@@ -54,11 +60,12 @@
                                                 <input type="hidden" name="detail_deviss[]" id="detail-deviss">
                                                 <div class="mb-3 col-lg-3 col-md-4">
                                                     <label class="form-label" for="designation[]">Designation:</label>
-                                                    <input type="text" class="form-control" name="designation[]" required/>
+                                                    <input type="text" class="form-control" name="designation[]"
+                                                        required />
                                                 </div>
                                                 <div class="mb-3 col-lg-3 col-md-4">
                                                     <label class="form-label" for="puht[]">PUHT:</label>
-                                                    <input type="text" class="form-control" name="puht[]" required/>
+                                                    <input type="text" class="form-control" name="puht[]" required />
                                                 </div>
                                                 <div class="mb-3 col-lg-3 col-md-4">
                                                     <label class="form-label" for="qte[]">Qte:</label>
@@ -66,10 +73,11 @@
                                                 </div>
                                                 <div class="mb-3 col-lg-3 col-md-4">
                                                     <label class="form-label" for="tva[]">TVA:</label>
-                                                    <input type="text" class="form-control" name="tva[]" required/>
+                                                    <input type="text" class="form-control" name="tva[]" required />
                                                 </div>
                                             </div>
-                                            <button type="button" class="btn btn-outline-primary" onclick="insertData()">Ajouter</button>
+                                            <button type="button" class="btn btn-outline-primary"
+                                                onclick="insertData()">Ajouter</button>
                                             <h5 class="card-header">Liste Details Devis : </h5>
                                             <div class="table-responsive text-nowrap">
                                                 <table class="table" id="entered-details-table">
@@ -93,7 +101,8 @@
                             </div>
                             <div class="row text-end">
                                 <div class="col-sm-12">
-                                    <button type="button" class="btn btn-primary text-end mx-4" onclick="submitForm()">Create Devis</button>
+                                    <button type="button" class="btn btn-primary text-end mx-4"
+                                        onclick="submitForm()">Create Devis</button>
                                 </div>
                             </div>
                     </form>

@@ -10,7 +10,6 @@
     ?>
   </style>
   <style>
-
     .logo {
       margin-top: -26px;
       border-radius: 37px;
@@ -38,6 +37,7 @@
       height: 590px !important;
       /* Optional: To collapse table borders */
     }
+
     /* Media Queries */
     @media (max-width: 768px) {
       .invoice {
@@ -95,20 +95,23 @@
         <div class="col-xs-7 col-sm-7" style="margin-left: 40px;margin-top: 50px;">
           <div class="media">
             <div class="media-left">
-              
+
               @if($EntrepriseData->typelogo == 'svg')
-              <img class="logo" alt="logoImayweb" height="130" width="255" src="data:image/{{ $EntrepriseData->typelogo }}+xml;base64,{{ base64_encode(file_get_contents(public_path('/storage/' . $EntrepriseData->logo))) }}">
+              <img class="logo" alt="logoImayweb" height="130" width="255"
+                src="data:image/{{ $EntrepriseData->typelogo }}+xml;base64,{{ base64_encode(file_get_contents(public_path('/storage/' . $EntrepriseData->logo))) }}">
               @else
-              <img class="logo" alt="logoImayweb" height="130" width="255" src="data:image/{{ $EntrepriseData->typelogo }};base64,{{ base64_encode(file_get_contents(public_path('/storage/' . $EntrepriseData->logo))) }}">
+              <img class="logo" alt="logoImayweb" height="130" width="255"
+                src="data:image/{{ $EntrepriseData->typelogo }};base64,{{ base64_encode(file_get_contents(public_path('/storage/' . $EntrepriseData->logo))) }}">
               @endif
             </div>
           </div>
         </div>
         <div class="col-xs-1 col-sm-1"></div>
         <div class="col-xs-4 col-sm-4" style="margin-left: 90px;margin-top: 50px;">
-          <h4 class="text-gra" style="margin-left: 26px;">Devis {{ $DevisData->codeDevis  }} </h4>
-          <dd style="font-size: 10px;margin-left: 66px;" class="text-gra"> Date devis : {{ $DevisData->date  }}</dd>
-          <dd style="font-size: 10px;margin-left: 60px;" class="text-gra"> Code Client : {{ $ClientData->codeClient  }}</dd>
+          <h4 class="text-gra" style="margin-left: 26px;">Devis {{ $DevisData->codeDevis }} </h4>
+          <dd style="font-size: 10px;margin-left: 66px;" class="text-gra"> Date devis : {{ $DevisData->date }}</dd>
+          <dd style="font-size: 10px;margin-left: 60px;" class="text-gra"> Code Client : {{ $ClientData->codeClient }}
+          </dd>
         </div>
       </div>
     </div>
@@ -135,18 +138,20 @@
           <div class="panel panel-default" style="height: 164px;width: 340px;margin-left:-110px;">
             <div class="panel-body" style="font-size: 13px;">
               <dl>
-                <p><strong> Nom Client : {{ $ClientData->nom  }} </strong></p>
-                <p> <strong>Type Client : </strong>{{ $ClientData->type  }} | <strong>ICE : </strong>{{ $ClientData->ice  }}</p>
-                <p><strong>Adresee : </strong>{{ $ClientData->adresse  }}</p>
-                <p><strong>Email :</strong> {{ $ClientData->email  }}</p>
-                <p><strong>Telephone :</strong> {{ $ClientData->telephone  }}</p>
+                <p><strong> Nom Client : {{ $ClientData->nom }} </strong></p>
+                <p> <strong>Type Client : </strong>{{ $ClientData->type }} | <strong>ICE : </strong>{{ $ClientData->ice
+                  }}</p>
+                <p><strong>Adresee : </strong>{{ $ClientData->adresse }}</p>
+                <p><strong>Email :</strong> {{ $ClientData->email }}</p>
+                <p><strong>Telephone :</strong> {{ $ClientData->telephone }}</p>
               </dl>
             </div>
           </div>
         </div>
       </div>
       @if($DevisData->designationDev != null)
-        <h5 style="text-align: center;margin-bottom:15px"><strong> Designation Devis : {{ $DevisData->designationDev}}.</strong></h5>
+      <h5 style="text-align: center;margin-bottom:15px"><strong> Designation Devis : {{
+          $DevisData->designationDev}}.</strong></h5>
       @endif
       <div class="panel panel-default">
         <table class="table table-bordered table-condensed" border="1px" style="font-size: 12px;">
@@ -159,39 +164,39 @@
           </thead>
           <tbody>
             @php
-                                    $totalTTC = 0;
-                                    $totalTVA = 0;
-                                    $totalHT = 0;
-                                    @endphp
+            $totalTTC = 0;
+            $totalTVA = 0;
+            $totalHT = 0;
+            @endphp
             @if($DevisData->detailDevis->isNotEmpty())
-                                    
-                                    @foreach($DevisData->detailDevis as $detail)
-                                    <tr height="50px">
-                                        <td>{{ $detail->designation }}</td>
-                                        <td style="text-align: end;">{{ $detail->tva }} % </td>
-                                        <td style="text-align: end;">{{ $detail->puht }}</td>
-                                        <td style="text-align: end;">{{ $detail->qte }}</td>
-                                        
-                                        
-                                        <td style="text-align: end;">{{ number_format($detail->puht * $detail->qte, 2, ',', '') }}</td>
-                                    </tr>
-                                    @php
-                                        $totalHT += ($detail->puht * $detail->qte);
-                                        $totalTTC += ($detail->puht * $detail->qte) * (1 + ($detail->tva / 100));
-                                        $totalTVA += (($detail->puht * $detail->qte * $detail->tva)/100);
-                                    @endphp
-                                    @endforeach
-                                </tbody>
-                                @endif
+
+            @foreach($DevisData->detailDevis as $detail)
+            <tr height="50px">
+              <td>{{ $detail->designation }}</td>
+              <td style="text-align: end;">{{ $detail->tva }} % </td>
+              <td style="text-align: end;">{{ $detail->puht }}</td>
+              <td style="text-align: end;">{{ $detail->qte }}</td>
+
+
+              <td style="text-align: end;">{{ number_format($detail->puht * $detail->qte, 2, ',', '') }}</td>
+            </tr>
+            @php
+            $totalHT += ($detail->puht * $detail->qte);
+            $totalTTC += ($detail->puht * $detail->qte) * (1 + ($detail->tva / 100));
+            $totalTVA += (($detail->puht * $detail->qte * $detail->tva)/100);
+            @endphp
+            @endforeach
+          </tbody>
+          @endif
           </tbody>
         </table>
       </div>
       <div class="row">
         <div class="col-xs-7 col-sm-7" style="font-size: 10px;">
           <dd><span style="font-weight:800;">Conditions de reglement: </span><span style="margin-left: 70px;"> <strong>A
-                l'avance </strong></span></dd><br/>
+                l'avance </strong></span></dd><br />
           <dd><span style="font-weight:800;">Reglement par virement sur le compte bancaire suivant:</span> </dd>
-          <dd><strong>Banque:  {{ $EntrepriseData->banque }}</strong></dd>
+          <dd><strong>Banque: {{ $EntrepriseData->banque }}</strong></dd>
           <dd><strong>Numero de compte: {{ $EntrepriseData->rib }} </strong></dd>
           <dd>Adresse: SAADA MARRAKECH</dd>
           <dd>Nom du proprietaire du compte: {{ $EntrepriseData->nom }}</dd>
@@ -212,9 +217,11 @@
     </div>
     <div class="invoice-footer" style="margin-top: 90px;text-align: center;font-size: 11px;">
       <hr style="margin:3px 0 5px" />
-      <strong>Siege social:{{ $EntrepriseData->nom }} - {{ $EntrepriseData->adresse }} Quartier Industriel Marrakech, Maroc
+      <strong>Siege social:{{ $EntrepriseData->nom }} - {{ $EntrepriseData->adresse }} Quartier Industriel Marrakech,
+        Maroc
       </strong>
-      <br /> <strong>Telephone : {{ $EntrepriseData->telephone }} - {{ $EntrepriseData->site }} - {{ $EntrepriseData->email }} </strong>
+      <br /> <strong>Telephone : {{ $EntrepriseData->telephone }} - {{ $EntrepriseData->site }} - {{
+        $EntrepriseData->email }} </strong>
       <br />R.C.: {{ $EntrepriseData->rc }} - Patente: {{ $EntrepriseData->patente }}
       <br />I.F.: {{ $EntrepriseData->if }} - C.N.S.S.: {{ $EntrepriseData->cnss }} - ICE: {{ $EntrepriseData->ice }}
     </div>
