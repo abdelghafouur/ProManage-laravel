@@ -115,7 +115,6 @@
           isError = true;
       } else {
         nomdivField.style.border = '';
-        alert("nn");
       }
 
       if (adresseField.value.trim() === '') {
