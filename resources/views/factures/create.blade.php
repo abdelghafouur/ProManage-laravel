@@ -24,14 +24,6 @@
                   </select>
                 </div>
                 <div class="mb-3 col-lg-6 col-md-6">
-                  <label for="defaultSelect1" class="form-label">Entreprise:</label>
-                  <select id="defaultSelect1" class="form-select" name="entreprise_id" required>
-                    @foreach($entreprises as $entreprise)
-                        <option value="{{ $entreprise->id }}" {{ $entreprise->id == $EntrepriseDevis ? 'selected' : '' }}>{{ $entreprise->nom }}</option>
-                    @endforeach
-                  </select>
-                </div>
-                <div class="mb-3 col-lg-6 col-md-6">
                   <label for="defaultSelect2" class="form-label">Code Devis:</label>
                   <!--                   <select id="defaultSelect1" class="form-select" name="devis_id" {/{ $selectedDevisId !== null ? 'disabled' : '' }}> -->
                   <select id="defaultSelect1" class="form-select" name="devis_id">
@@ -306,6 +298,10 @@
 
   // Submit the form with entered details
   function submitForm() {
+        if (!validateField('client_id')) return;
+        if (!validateField('devis')) return;
+        if (!validateField('date')) return;
+
   // Update the hidden input with the JSON representation of entered details
   document.getElementById('detail-factures').value = JSON.stringify(dataArray);
   // Submit the form using its ID
@@ -390,52 +386,87 @@
           }
   }
 
-  // Function to confirm and add a new item
   function confirmAddItem() {
-
     var newdesignation1 = document.getElementById('designation');
-      var newpuht1 = document.getElementById('puht');
-      var newqte1 = document.getElementById('qte');
-      var newtva1 = document.getElementById('tva');
-    
-      var newdesignation = document.getElementById('designation').value;
-      var newpuht = document.getElementById('puht').value;
-      var newqte = document.getElementById('qte').value;
-      var newtva = document.getElementById('tva').value;
+    var newpuht1 = document.getElementById('puht');
+    var newqte1 = document.getElementById('qte');
+    var newtva1 = document.getElementById('tva');
 
-      if (newdesignation && newpuht && newqte && newtva ) {
-        if(dataArray.length == 0 )
-          {
+    var newdesignation = newdesignation1.value;
+    var newpuht = newpuht1.value;
+    var newqte = newqte1.value;
+    var newtva = newtva1.value;
+
+    // Check if any of the input fields is empty
+    var isError = false;
+
+    if (newdesignation.trim() === '') {
+        newdesignation1.style.borderColor = 'red';
+        isError = true;
+    } else {
+        newdesignation1.style.borderColor = ''; // Reset border color
+    }
+
+    if (newpuht.trim() === '') {
+        newpuht1.style.borderColor = 'red';
+        isError = true;
+    } else {
+        newpuht1.style.borderColor = ''; // Reset border color
+    }
+
+    if (newqte.trim() === '') {
+        newqte1.style.borderColor = 'red';
+        isError = true;
+    } else {
+        newqte1.style.borderColor = ''; // Reset border color
+    }
+
+    if (newtva.trim() === '') {
+        newtva1.style.borderColor = 'red';
+        isError = true;
+    } else {
+        newtva1.style.borderColor = ''; // Reset border color
+    }
+
+    if (isError) {
+        // If there's an error, you may want to handle it accordingly (e.g., display a message)
+        return;
+    }
+
+    if (newdesignation && newpuht && newqte && newtva) {
+        if (dataArray.length == 0) {
             var valueOfI = 0;
-          }
-        else
-          {
+        } else {
             var lastElement = dataArray[dataArray.length - 1];
             var valueOfI = lastElement['id'];
-          }
-          var newItem = {
+        }
+        var newItem = {
             id: valueOfI + 1,
             designation: newdesignation,
             puht: newpuht,
             qte: newqte,
             tva: newtva,
-          };
+        };
 
-          dataArray.push(newItem);
-           
-          newdesignation1.value = '';
-          newpuht1.value = '';
-          newqte1.value = '';
-          newtva1.value = '';
+        dataArray.push(newItem);
+
+        // Reset the form
+        newdesignation1.value = '';
+        newpuht1.value = '';
+        newqte1.value = '';
+        newtva1.value = '';
+
+        // Optionally, reset the border colors after successful submission
+        newdesignation1.style.borderColor = '';
+        newpuht1.style.borderColor = '';
+        newqte1.style.borderColor = '';
+        newtva1.style.borderColor = '';
+
         renderTable();
         $('#modalCenter').modal('hide');
+    }
+}
 
-          // Reset the form and hide it
-      } else {
-          alert('Please enter All value.');
-      }
-        
-  }
 
    // Function to edit an item in the array and render the table
    function editItem(itemId) {
@@ -452,26 +483,60 @@
 
     }
 
-    // Function to update an item in the array and render the table
-function updateItem() {
+    function updateItem() {
     var itemId = document.getElementById('idHideEdit').value;
     console.log(itemId);
     var itemToUpdate = dataArray.find(item => item.id == itemId);
     console.log(itemToUpdate);
+    
     if (itemToUpdate) {
         // Get updated values from the modal form
-        var updatedDesignation = document.getElementById('designationedit').value;
-        var updatedPuht = document.getElementById('puhtedit').value;
-        var updatedQte = document.getElementById('qteedit').value;
-        var updatedTva = document.getElementById('tvaedit').value;
+        var updatedDesignation = document.getElementById('designationedit');
+        var updatedPuht = document.getElementById('puhtedit');
+        var updatedQte = document.getElementById('qteedit');
+        var updatedTva = document.getElementById('tvaedit');
 
-        console.log(updatedDesignation);
+        // Check if any of the input fields is empty
+        var isError = false;
+
+        if (updatedDesignation.value.trim() === '') {
+            updatedDesignation.style.borderColor = 'red';
+            isError = true;
+        } else {
+            updatedDesignation.style.borderColor = ''; // Reset border color
+        }
+
+        if (updatedPuht.value.trim() === '') {
+            updatedPuht.style.borderColor = 'red';
+            isError = true;
+        } else {
+            updatedPuht.style.borderColor = ''; // Reset border color
+        }
+
+        if (updatedQte.value.trim() === '') {
+            updatedQte.style.borderColor = 'red';
+            isError = true;
+        } else {
+            updatedQte.style.borderColor = ''; // Reset border color
+        }
+
+        if (updatedTva.value.trim() === '') {
+            updatedTva.style.borderColor = 'red';
+            isError = true;
+        } else {
+            updatedTva.style.borderColor = ''; // Reset border color
+        }
+
+        if (isError) {
+            // If there's an error, you may want to handle it accordingly (e.g., display a message)
+            return;
+        }
 
         // Update the item in the array
-        itemToUpdate.designation = updatedDesignation;
-        itemToUpdate.puht = updatedPuht;
-        itemToUpdate.qte = updatedQte;
-        itemToUpdate.tva = updatedTva;
+        itemToUpdate.designation = updatedDesignation.value;
+        itemToUpdate.puht = updatedPuht.value;
+        itemToUpdate.qte = updatedQte.value;
+        itemToUpdate.tva = updatedTva.value;
 
         // Optionally, you can re-render the table to reflect the changes
         renderTable();
@@ -488,6 +553,16 @@ function updateItem() {
           renderTable();
       }
   }
+  function validateField(fieldName) {
+        var fieldValue = $('[name="' + fieldName + '"]').val().trim();
+        if (fieldValue === '') {
+            $('[name="' + fieldName + '"]').css('border-color', 'red');
+            return false;
+        } else {
+            $('[name="' + fieldName + '"]').css('border-color', ''); // Remove red border
+            return true;
+        }
+    }
 
   // Initial rendering of the table
   renderTable();

@@ -144,17 +144,17 @@
                                                         <div class="row g-2" style="margin-bottom: 10px">
                                                             <div class="col mb-0">
                                                                 <label for="date" class="form-label">Date</label>
-                                                                <input type="date" name="date" id="emailWithTitle1" class="form-control" />
+                                                                <input type="date" name="date" id="dateAdd" class="form-control" />
                                                             </div>
                                                             <div class="col mb-0">
                                                                 <label for="montant" class="form-label">Montant</label>
-                                                                <input type="text" name="montant" id="dobWithTitle2" class="form-control" />
+                                                                <input type="text" name="montant" id="montantAdd" class="form-control" />
                                                             </div>
                                                         </div>
                                                         <div class="row g-2">
                                                             <div class="col mb-0">
                                                                 <label for="defaultSelect" class="form-label">Method</label>
-                                                                <select id="defaultSelect"  class="form-select" name="method" required>
+                                                                <select id="methodAdd"  class="form-select" name="method" required>
                                                                     <option value="Entreprise">Cheque</option>
                                                                     <option value="VirementBancaire">Virement Bancaire</option>
                                                                     <option value="Bspece">Bspece</option>
@@ -165,12 +165,12 @@
                                                             <div class="col mb-0">
                                                                 <label for="note" class="form-label">Note
                                                                 </label>
-                                                                <input type="text" name="note" id="dobWithTitle4" class="form-control" />
+                                                                <input type="text" name="note" id="noteAdd" class="form-control" />
                                                             </div>
                                                             <div class="col mb-0">
                                                                 <label for="numero" class="form-label">Numero
                                                                 </label>
-                                                                <input type="text" name="numero" id="dobWithTitle4" class="form-control" />
+                                                                <input type="text" name="numero" id="numeroAdd" class="form-control" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -301,7 +301,7 @@
                                 <div class="row g-2">
                                     <div class="col mb-0">
                                         <label for="method" class="form-label">Method</label>
-                                        <select id="defaultSelect"  class="form-select" name="method" required>
+                                        <select id="method"  class="form-select" name="method" required>
                                             <option value="Cheque">Cheque</option>
                                             <option value="VirementBancaire">Virement Bancaire</option>
                                             <option value="Bspece">Bspece</option>
@@ -397,7 +397,7 @@
         $('#date').val(triggerElement.data('detailpaiment-date'));
         $('#montant').val(triggerElement.data('detailpaiment-montant'));
         var selectedMethod = triggerElement.data('detailpaiment-method');
-        $('#defaultSelect option').each(function() {
+        $('#method option').each(function() {
             if ($(this).val() === selectedMethod) {
                 $(this).prop('selected', true);
             }
@@ -408,14 +408,29 @@
         // Show the modal
         $('#modalCenter2').modal('show');
     });
-
+    function validateFieldId(fieldName) {
+        var fieldValue = $('[id="' + fieldName + '"]').val().trim();
+        if (fieldValue === '') {
+            $('[id="' + fieldName + '"]').css('border-color', 'red');
+            return false;
+        } else {
+            $('[id="' + fieldName + '"]').css('border-color', ''); // Remove red border
+            return true;
+        }
+    }
     function submitInnerForm() {
         // Process the inner form
+        if (!validateFieldId('dateAdd')) return;
+        if (!validateFieldId('montantAdd')) return;
+        if (!validateFieldId('methodAdd')) return;
         $('#innerForm').submit();
     }
 
     // Add your logic to submit the form or handle the click event
     function submitInnerForm2() {
+        if (!validateFieldId('date')) return;
+        if (!validateFieldId('montant')) return;
+        if (!validateFieldId('method')) return;
         // Process the inner form
         $('#editDetailPaimentForm').submit();
     }

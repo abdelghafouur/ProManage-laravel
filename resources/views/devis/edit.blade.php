@@ -35,14 +35,6 @@
                   </select>
                 </div>
                 <div class="mb-3 col-lg-6 col-md-6">
-                  <label for="defaultSelect" class="form-label">Entreprise</label>
-                  <select id="defaultSelect" class="form-select" name="entreprise_id" required>
-                    @foreach($entreprises as $entreprise)
-                        <option value="{{ $entreprise->id }}" {{ $devis->entreprise_id == $entreprise->id ? 'selected' : '' }}>{{ $entreprise->nom }}</option>
-                    @endforeach
-                  </select>
-                </div>
-                <div class="mb-3 col-lg-6 col-md-6">
                   <label for="html5-date-input" class="col-md-2 col-form-label">Date</label>
                   <div class="col-md-12">
                     <input class="form-control" type="date" value="{{ $devis->date }}" name="date" id="html5-date-input" required/>
@@ -220,21 +212,21 @@
                         <div class="row g-2" style="margin-bottom: 10px">
                           <div class="col mb-0">
                               <label for="designation" class="form-label">Designation</label>
-                              <input type="text" class="form-control" name="designation" id="designation" required>
+                              <input type="text" class="form-control" name="designation" id="designationEdite" required>
                           </div>
                           <div class="col mb-0">
                               <label for="puht" class="form-label">PUHT</label>
-                              <input type="text" class="form-control" name="puht" id="puht" required>
+                              <input type="text" class="form-control" name="puht" id="puhtEdite" required>
                           </div>
                         </div>
                         <div class="row g-2">
                           <div class="col mb-0">
                               <label for="qte" class="form-label">QTE</label>
-                              <input type="text" class="form-control" name="qte" id="qte" required>
+                              <input type="text" class="form-control" name="qte" id="qteEdite" required>
                           </div>
                           <div class="col mb-0">
                               <label for="tva" class="form-label">TVA</label>
-                              <input type="text" class="form-control" name="tva" id="tva" required>
+                              <input type="text" class="form-control" name="tva" id="tvaEdite" required>
                           </div>
                         </div>
                       </div>
@@ -314,26 +306,64 @@
 
         // Set values in the modal form
         $('#detaildevis_id').val(triggerElement.data('detaildevis-id'));
-        $('#designation').val(triggerElement.data('detaildevis-designation'));
-        $('#puht').val(triggerElement.data('detaildevis-puht'));
-        $('#qte').val(triggerElement.data('detaildevis-qte'));
-        $('#tva').val(triggerElement.data('detaildevis-tva'));
+        $('#designationEdite').val(triggerElement.data('detaildevis-designation'));
+        $('#puhtEdite').val(triggerElement.data('detaildevis-puht'));
+        $('#qteEdite').val(triggerElement.data('detaildevis-qte'));
+        $('#tvaEdite').val(triggerElement.data('detaildevis-tva'));
 
         // Show the modal
         $('#modalCenter2').modal('show');
     });
+    function validateField(fieldName) {
+        var fieldValue = $('[name="' + fieldName + '"]').val().trim();
+        if (fieldValue === '') {
+            $('[name="' + fieldName + '"]').css('border-color', 'red');
+            return false;
+        } else {
+            $('[name="' + fieldName + '"]').css('border-color', ''); // Remove red border
+            return true;
+        }
+    }
+    function validateFieldId(fieldName) {
+        var fieldValue = $('[id="' + fieldName + '"]').val().trim();
+        if (fieldValue === '') {
+            $('[id="' + fieldName + '"]').css('border-color', 'red');
+            return false;
+        } else {
+            $('[id="' + fieldName + '"]').css('border-color', ''); // Remove red border
+            return true;
+        }
+    }
+
     function submitOuterForm() {
+        // Validation for the first input
+        if (!validateField('designationDev')) return;
+
+        // Validation for the second input
+        if (!validateField('conditionsDeReglement')) return;
+        if (!validateField('devis')) return;
+        if (!validateField('client_id')) return;
+        if (!validateField('date')) return;
+
         // Process the outer form
         $('#outerForm').submit();
     }
 
     function submitInnerForm() {
+        if (!validateField('designation')) return;
+        if (!validateField('puht')) return;
+        if (!validateField('qte')) return;
+        if (!validateField('tva')) return;
         // Process the inner form
         $('#innerForm').submit();
     }
 
     // Add your logic to submit the form or handle the click event
     function submitInnerForm2() {
+        if (!validateFieldId('designationEdite')) return;
+        if (!validateFieldId('puhtEdite')) return;
+        if (!validateFieldId('qteEdite')) return;
+        if (!validateFieldId('tvaEdite')) return;
       // Process the inner form
       $('#editDetailDevisForm').submit();
     }

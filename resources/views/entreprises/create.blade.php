@@ -11,7 +11,7 @@
     <div class="col-xxl">
       <div class="card mb-4">
         <div class="card-body">
-          <form method="post" action="{{ route('entreprises.store') }}" enctype="multipart/form-data">
+          <form method="post" onsubmit="return validateForm()" action="{{ route('entreprises.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
               <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -46,71 +46,71 @@
               <div class="mb-3 col-lg-6 col-md-6">
                 <label class="form-label" for="basic-default-fullname1">Nom Entreprise</label>
                 <input type="text" class="form-control" id="basic-default-fullname1" name="nom"
-                  required />
+                   />
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
                 <label class="form-label" for="basic-default-company2">Email</label>
-                <input type="text" class="form-control" id="basic-default-company2" name="email" required />
+                <input type="text" class="form-control" id="basic-default-company2" name="email"  />
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
                 <label for="html5-date-input3" class="col-md-2 col-form-label">Adresse</label>
                 <div class="col-md-12">
-                  <input class="form-control" type="text" name="adresse" id="html5-date-input3" required />
+                  <input class="form-control" type="text" name="adresse" id="html5-date-input3"  />
                 </div>
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
                 <label class="form-label" for="basic-default-fullname4">Telephone</label>
                 <input type="text" class="form-control" id="basic-default-fullname4" name="telephone"
-                  required />
+                   />
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
                 <label class="form-label" for="basic-default-company5">Site</label>
-                <input type="text" class="form-control" id="basic-default-company5" name="site" required />
+                <input type="text" class="form-control" id="basic-default-company5" name="site"  />
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
                 <label for="html5-date-input6" class="col-md-2 col-form-label">patente</label>
                 <div class="col-md-12">
-                  <input class="form-control" type="text" name="patente" id="html5-date-input6" required />
+                  <input class="form-control" type="text" name="patente" id="html5-date-input6"  />
                 </div>
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
                 <label class="form-label" for="basic-default-fullname7">ICE</label>
                 <input type="text" class="form-control" id="basic-default-fullname7" name="ice"
-                  required />
+                   />
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
                 <label class="form-label" for="basic-default-company8">I.F</label>
-                <input type="text" class="form-control" id="basic-default-company8" name="if" required />
+                <input type="text" class="form-control" id="basic-default-company8" name="if"  />
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
                 <label for="html5-date-input" class="col-md-2 col-form-label9">C.N.S.S</label>
                 <div class="col-md-12">
-                  <input class="form-control" type="text" name="cnss" id="html5-date-input9" required />
+                  <input class="form-control" type="text" name="cnss" id="html5-date-input9"  />
                 </div>
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
                 <label class="form-label" for="basic-default-fullname10">banque</label>
                 <input type="text" class="form-control" id="basic-default-fullname10" name="banque"
-                  required />
+                   />
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
                 <label class="form-label" for="basic-default-company11">rib</label>
-                <input type="text" class="form-control" id="basic-default-company11" name="rib" required />
+                <input type="text" class="form-control" id="basic-default-company11" name="rib"  />
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
                 <label for="html5-date-input13" class="col-md-2 col-form-label">swift</label>
                 <div class="col-md-12">
-                  <input class="form-control" type="text" name="swift" id="html5-date-input13" required />
+                  <input class="form-control" type="text" name="swift" id="html5-date-input13"  />
                 </div>
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
                 <label class="form-label" for="basic-default-company12">iban</label>
-                <input type="text" class="form-control" id="basic-default-company12" name="iban" required />
+                <input type="text" class="form-control" id="basic-default-company12" name="iban"  />
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
                 <label for="html5-date-input14" class="col-md-2 col-form-label">validite</label>
                 <div class="col-md-12">
-                  <input class="form-control" type="text" name="validite" id="html5-date-input14" required />
+                  <input class="form-control" type="text" name="validite" id="html5-date-input14"  />
                 </div>
               </div>
               <div class="row text-end">
@@ -139,6 +139,25 @@
 
           reader.readAsDataURL(input.files[0]);
       }
+  }
+  function validateForm() {
+      var formFields = document.forms[0].elements;
+      var isError = false;
+
+      for (var i = 0; i < formFields.length; i++) {
+          var field = formFields[i];
+          // Check if the field is an input element
+          if (field.tagName === 'INPUT' && field.type !== 'file') {
+              if (field.value.trim() === '') {
+                  field.style.borderColor = 'red';
+                  isError = true;
+              } else {
+                  field.style.borderColor = '';
+              }
+          }
+      }
+
+      return !isError;
   }
 </script>
 @endsection

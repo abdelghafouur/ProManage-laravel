@@ -23,7 +23,7 @@
                       ><i class="bx bx-user"></i
                     ></span>
                     <input
-                      type="text"
+                      type="text" required
                       class="form-control"
                       type="text" name="nom" value="{{ $client->nom }}"
                       aria-describedby="basic-icon-default-fullname2" />
@@ -38,7 +38,7 @@
                       ><i class="bx bx-buildings"></i
                     ></span>
                     <input
-                      type="text"
+                      type="text" required
                       class="form-control"
                       name="adresse" value="{{ $client->adresse }}"
                       aria-describedby="basic-icon-default-company2" />
@@ -52,7 +52,7 @@
                     <span class="input-group-text"><i class="bx bx-envelope"></i></span>
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control" required
                       name="email" value="{{ $client->email }}"
                       aria-describedby="basic-icon-default-email2" />
                   </div>
@@ -66,7 +66,7 @@
                       ><i class="bx bx-phone"></i
                     ></span>
                     <input
-                      type="text"
+                      type="text" required
                       class="form-control phone-mask"
                       name="telephone" value="{{ $client->telephone }}"
                       aria-describedby="basic-icon-default-phone2" />
@@ -91,7 +91,7 @@
                       ><i class="bx bx-comment"></i
                     ></span>
                       <input
-                      type="number"
+                      type="number" required
                       class="form-control"
                       name="ice" value="{{ $client->ice }}"
                       aria-describedby="basic-icon-default-message2" />

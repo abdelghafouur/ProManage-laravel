@@ -14,7 +14,7 @@
         <div class="card mb-4">
           <h5 class="card-header">Profile Details</h5>
           <!-- Account -->
-          <form method="post" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data">
+          <form method="post" onsubmit="return validateForm()" action="{{ route('users.update', $user->id) }}" enctype="multipart/form-data">
               @csrf
               @method('PATCH')
               <div class="card-body">
@@ -43,15 +43,15 @@
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Nom Complete</label>
                   <div class="col-sm-10">
-                    <div class="input-group input-group-merge">
+                    <div class="input-group input-group-merge" id='namediv'>
                       <span id="basic-icon-default-fullname2" class="input-group-text"
                         ><i class="bx bx-user"></i
                       ></span>
                       <input
                         type="text"
-                        id="basic-icon-default-fullname"
+                        id="name"
                         class="form-control"
-                        name="name" required
+                        name="name"
                         value="{{ $user->name }}"
                         aria-describedby="basic-icon-default-fullname2" />
                     </div>
@@ -60,12 +60,12 @@
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Email</label>
                   <div class="col-sm-10">
-                    <div class="input-group input-group-merge">
+                    <div class="input-group input-group-merge" id='emaildiv'>
                       <span class="input-group-text"><i class="bx bx-envelope"></i></span>
                       <input
                         type="text"
-                        id="basic-icon-default-email"
-                        name="email" required
+                        id="email"
+                        name="email" 
                         class="form-control"
                         value="{{ $user->email }}"
                         aria-describedby="basic-icon-default-email2" />
@@ -132,6 +132,30 @@
 
           reader.readAsDataURL(input.files[0]);
       }
+  }
+  function validateForm() {
+      var nameField = document.getElementById('name');
+      var emailField = document.getElementById('email');
+
+      var namedivField = document.getElementById('namediv');
+      var emaildivField = document.getElementById('emaildiv');
+
+      var isError = false;
+
+      if (nameField.value.trim() === '') {
+        namedivField.style.border = '1px red solid';
+          isError = true;
+      } else {
+        namedivField.style.border = '';
+      }
+
+      if (emailField.value.trim() === '') {
+        emaildivField.style.border = '1px red solid';
+          isError = true;
+      } else {
+        emaildivField.style.border = '';
+      }
+      return !isError;
   }
 </script>
 @endsection

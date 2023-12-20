@@ -17,11 +17,11 @@
                         <div class="row">
                             <div class="mb-3 col-lg-6 col-md-6">
                                 <label class="form-label" for="designationDev">Designation</label>
-                                <input type="text" class="form-control" id="designationDev" name="designationDev"/>
+                                <input type="text" class="form-control" id="designationDev" name="designationDev" required/>
                             </div>
                             <div class="mb-3 col-lg-6 col-md-6">
                                 <label class="form-label" for="basic-default-fullname">Conditions de Règlement</label>
-                                <input type="text" class="form-control" id="basic-default-fullname" name="conditionsDeReglement" required />
+                                <input type="text" class="form-control" required id="basic-default-fullname" name="conditionsDeReglement" />
                             </div>
                             <div class="mb-3 col-lg-6 col-md-6">
                                 <label class="form-label" for="basic-default-company">Devis</label>
@@ -32,14 +32,6 @@
                                 <select id="defaultSelect" class="form-select" name="client_id" required>
                                     @foreach($clients as $client)
                                     <option value="{{ $client->id }}">{{ $client->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3 col-lg-6 col-md-6">
-                                <label for="defaultSelect" class="form-label">Entreprise</label>
-                                <select id="defaultSelect" class="form-select" name="entreprise_id" required>
-                                    @foreach($entreprises as $entreprise)
-                                    <option value="{{ $entreprise->id }}"  {{ $entreprise->default == 1 ? 'selected' : '' }}>{{ $entreprise->nom }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -121,19 +113,33 @@
     var qtes = document.getElementsByName('qte[]');
     var tvas = document.getElementsByName('tva[]');
     var ReqInput = false;
+
+    // Check if any of the input fields is empty
     for (var i = 0; i < designations.length; i++) {
-            var etat1 = designations[i].value;
-            var etat2 = puhts[i].value;
-            var etat3 = qtes[i].value;
-            var etat4 = tvas[i].value;
-            if(etat1 != "" && etat2 != "" && etat3 != "" && etat4 != "")
-                {
-                    ReqInput = true;
-                }
+        var etat1 = designations[i].value;
+        var etat2 = puhts[i].value;
+        var etat3 = qtes[i].value;
+        var etat4 = tvas[i].value;
+        if (etat1 != "" && etat2 != "" && etat3 != "" && etat4 != "") {
+            ReqInput = true;
+        } else {
+            // Set border color to red for empty fields
+            if (etat1.trim() === '') designations[i].style.borderColor = 'red';
+            else designations[i].style.borderColor = '';
+
+            if (etat2.trim() === '') puhts[i].style.borderColor = 'red';
+            else puhts[i].style.borderColor = '';
+
+            if (etat3.trim() === '') qtes[i].style.borderColor = 'red';
+            else qtes[i].style.borderColor = '';
+
+            if (etat4.trim() === '') tvas[i].style.borderColor = 'red';
+            else tvas[i].style.borderColor = '';
         }
+    }
 
     // Loop through the detail devis fields and add values to the array
-    if (ReqInput == true) {
+    if (ReqInput) {
         for (var i = 0; i < designations.length; i++) {
             var detail = {
                 'designation': designations[i].value,
@@ -142,6 +148,14 @@
                 'tva': tvas[i].value
             };
             enteredDetails.push(detail);
+        }
+
+        // Reset border colors
+        for (var i = 0; i < designations.length; i++) {
+            designations[i].style.borderColor = '';
+            puhts[i].style.borderColor = '';
+            qtes[i].style.borderColor = '';
+            tvas[i].style.borderColor = '';
         }
 
         // Update the table with the entered details
@@ -170,9 +184,10 @@
 
             totalHT += (enteredDetails[i].puht * enteredDetails[i].qte);
             totalTTC += (enteredDetails[i].puht * enteredDetails[i].qte) * (1 + (enteredDetails[i].tva / 100));
-            totalTVA = totalTVA + ((enteredDetails[i].puht * enteredDetails[i].qte * enteredDetails[i].tva)/100);
+            totalTVA = totalTVA + ((enteredDetails[i].puht * enteredDetails[i].qte * enteredDetails[i].tva) / 100);
         }
 
+        // Add total rows
         var newRow2 = tableBody.insertRow(tableBody.rows.length);
         var cell_1 = newRow2.insertCell(0);
         var cell_2 = newRow2.insertCell(1);
@@ -200,7 +215,6 @@
         cell2_4.innerHTML = "Total TTC : ";
         cell2_5.innerHTML = totalTTC;
 
-
         // Clear input fields
         for (var i = 0; i < designations.length; i++) {
             designations[i].value = '';
@@ -211,20 +225,33 @@
 
         console.log(JSON.stringify(enteredDetails)); // Output the current details for debugging
     }
-    else
-        {
-            alert("tous les champs sont obligatoires")
-        }
 }
 
-        // Submit the form with entered details
-        function submitForm() {
-            // Update the hidden input with the JSON representation of entered details
-            document.getElementById('detail-deviss').value = JSON.stringify(enteredDetails);
 
-            // Submit the form using its ID
-            document.getElementById('devis-form').submit();
+function validateField(fieldName) {
+        var fieldValue = $('[name="' + fieldName + '"]').val().trim();
+        if (fieldValue === '') {
+            $('[name="' + fieldName + '"]').css('border-color', 'red');
+            return false;
+        } else {
+            $('[name="' + fieldName + '"]').css('border-color', ''); // Remove red border
+            return true;
         }
+    }
 
+    function submitForm() {
+        // Validation for the first input
+        if (!validateField('designationDev')) return;
+
+        // Validation for the second input
+        if (!validateField('conditionsDeReglement')) return;
+        if (!validateField('devis')) return;
+        if (!validateField('client_id')) return;
+        if (!validateField('date')) return;
+
+        // If all validations pass, update the hidden input and submit the form
+        $('#detail-deviss').val(JSON.stringify(enteredDetails));
+        $('#devis-form').submit();
+    }
 </script>
 @endsection

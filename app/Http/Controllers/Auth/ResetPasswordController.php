@@ -36,9 +36,9 @@ class ResetPasswordController extends Controller
 
         if (auth()->check()) {
             if (auth()->user()->hasRole('superadmin')) {
-                return '/clients';
+                return '/';
             } elseif (auth()->user()->hasRole('admin')) {
-                return '/clients';
+                return '/';
             } elseif (auth()->user()->hasRole('comptable')) {
                 return '/factures';
             }

@@ -8,7 +8,7 @@
         <div class="col-xxl">
           <div class="card mb-4">
             <div class="card-body">
-              <form method="post" action="{{ route('entreprises.update', $entreprise->id) }}" enctype="multipart/form-data">
+              <form method="post" onsubmit="return validateForm()" action="{{ route('entreprises.update', $entreprise->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="card-body">

@@ -38,16 +38,6 @@
                   </select>
                 </div>
                 <div class="mb-3 col-lg-6 col-md-6">
-                  <label for="entreprise_id" class="form-label">Entreprise:</label>
-                  <select name="entreprise_id" required class="form-select">
-                    @foreach($entreprises as $entreprise)
-                      <option value="{{ $entreprise->id }}" {{ $facture->entreprise_id == $entreprise->id ? 'selected' : '' }}>
-                          {{ $entreprise->nom }}
-                      </option>
-                  @endforeach
-                  </select>
-                </div>
-                <div class="mb-3 col-lg-6 col-md-6">
                   <label class="form-label" for="date">Date</label>
                   <input class="form-control" type="date" name="date" value="{{ $facture->date }}" />
                 </div>
@@ -225,21 +215,21 @@
                           <input type="hidden" name="detailfacture_id" id="detailfacture_id">
                           <div class="col mb-0">
                               <label for="designation" class="form-label">Designation</label>
-                              <input type="text" class="form-control" name="designation" id="designation">
+                              <input type="text" class="form-control" name="designation" id="designationEdite">
                           </div>
                           <div class="col mb-0">
                               <label for="puht" class="form-label">PUHT</label>
-                              <input type="text" class="form-control" name="puht" id="puht">
+                              <input type="text" class="form-control" name="puht" id="puhtEdite">
                           </div>
                         </div>
                         <div class="row g-2">
                           <div class="col mb-0">
                               <label for="qte" class="form-label">QTE</label>
-                              <input type="text" class="form-control" name="qte" id="qte">
+                              <input type="text" class="form-control" name="qte" id="qteEdite">
                           </div>
                           <div class="col mb-0">
                               <label for="tva" class="form-label">TVA</label>
-                              <input type="text" class="form-control" name="tva" id="tva">
+                              <input type="text" class="form-control" name="tva" id="tvaEdite">
                           </div>
                         </div>
                       </div>
@@ -318,26 +308,57 @@
 
       // Set values in the modal form
       $('#detailfacture_id').val(triggerElement.data('detailfacture-id'));
-      $('#designation').val(triggerElement.data('detailfacture-designation'));
-      $('#puht').val(triggerElement.data('detailfacture-puht'));
-      $('#qte').val(triggerElement.data('detailfacture-qte'));
-      $('#tva').val(triggerElement.data('detailfacture-tva'));
+      $('#designationEdite').val(triggerElement.data('detailfacture-designation'));
+      $('#puhtEdite').val(triggerElement.data('detailfacture-puht'));
+      $('#qteEdite').val(triggerElement.data('detailfacture-qte'));
+      $('#tvaEdite').val(triggerElement.data('detailfacture-tva'));
 
       // Show the modal
       $('#modalCenter2').modal('show');
   });
+  function validateField(fieldName) {
+        var fieldValue = $('[name="' + fieldName + '"]').val().trim();
+        if (fieldValue === '') {
+            $('[name="' + fieldName + '"]').css('border-color', 'red');
+            return false;
+        } else {
+            $('[name="' + fieldName + '"]').css('border-color', ''); // Remove red border
+            return true;
+        }
+    }
+    function validateFieldId(fieldName) {
+        var fieldValue = $('[id="' + fieldName + '"]').val().trim();
+        if (fieldValue === '') {
+            $('[id="' + fieldName + '"]').css('border-color', 'red');
+            return false;
+        } else {
+            $('[id="' + fieldName + '"]').css('border-color', ''); // Remove red border
+            return true;
+        }
+    }
   function submitOuterForm() {
       // Process the outer form
+      if (!validateField('client_id')) return;
+        if (!validateField('date')) return;
+        if (!validateField('devis')) return;
       $('#outerForm').submit();
   }
 
   function submitInnerForm() {
+    if (!validateField('designation')) return;
+        if (!validateField('puht')) return;
+        if (!validateField('qte')) return;
+        if (!validateField('tva')) return;
       // Process the inner form
       $('#innerForm').submit();
   }
 
   // Add your logic to submit the form or handle the click event
   function submitInnerForm2() {
+    if (!validateFieldId('designationEdite')) return;
+        if (!validateFieldId('puhtEdite')) return;
+        if (!validateFieldId('qteEdite')) return;
+        if (!validateFieldId('tvaEdite')) return;
     // Process the inner form
     $('#editDetailFactureForm').submit();
   }

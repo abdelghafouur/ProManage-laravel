@@ -38,13 +38,13 @@ class DevisController extends Controller
             'date' => 'nullable|date',
             'devis' => 'required',
             'client_id' => 'required|exists:clients,id',
-            'entreprise_id' => 'required|exists:entreprises,id',
         ]);
 
+        $entrepriseDefault = Entreprise::where('default', 1)->value('id');
         // Create a new devis
         $devis = Devis::create([
             'client_id' => $request->input('client_id'),
-            'entreprise_id' => $request->input('entreprise_id'),
+            'entreprise_id' => $entrepriseDefault,
             'designationDev' => $request->input('designationDev'),
             'conditionsDeReglement' => $request->input('conditionsDeReglement'),
             'date' => $request->input('date'),
@@ -107,9 +107,8 @@ class DevisController extends Controller
             'devis' => 'required|string',
             'designationDev' => 'nullable|string',
             'client_id' => 'required|exists:clients,id',
-            'entreprise_id' => 'required|exists:entreprises,id',
-
         ]);
+        $entrepriseDefault = Entreprise::where('default', 1)->value('id');
     
         // Find the Devis model by ID
         $devis = Devis::findOrFail($id);
@@ -120,7 +119,7 @@ class DevisController extends Controller
         $devis->date = $validatedData['date'];
         $devis->devis = $validatedData['devis'];
         $devis->client_id = $validatedData['client_id'];
-        $devis->entreprise_id = $validatedData['entreprise_id'];
+        $devis->entreprise_id = $entrepriseDefault;
 
         // Save the updated Devis model
         $devis->save();

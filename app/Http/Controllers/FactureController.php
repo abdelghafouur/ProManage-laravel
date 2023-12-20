@@ -57,14 +57,14 @@ class FactureController extends Controller
 
         $request->validate([
             'client_id' => 'required',
-            'entreprise_id' => 'required',
             'date' => 'required|date',
         ]);
+        $entrepriseDefault = Entreprise::where('default', 1)->value('id');
 
         // Create a new Facture
         $facture = Facture::create([
             'client_id' => $request->input('client_id'),
-            'entreprise_id' => $request->input('entreprise_id'),
+            'entreprise_id' => $entrepriseDefault,
             'devis_id' => $request->input('devis_id'),
             'date' => $request->input('date'),
             'devis' => $request->input('devis'),
@@ -135,9 +135,9 @@ class FactureController extends Controller
     public function update(Request $request, $id)
     {
     
+        $entrepriseDefault = Entreprise::where('default', 1)->value('id');
         $validatedData = $request->validate([
             'client_id' => 'required|exists:clients,id',
-            'entreprise_id' => 'required|exists:entreprises,id',
             'devis_id' => 'nullable|exists:devis,id',
             'date' => 'nullable|date',
             'devis' => 'nullable',
@@ -151,7 +151,7 @@ class FactureController extends Controller
         $facture = Facture::findOrFail($id);
         // Update the existing fields
         $facture->client_id = $validatedData['client_id'];
-        $facture->entreprise_id = $validatedData['entreprise_id'];
+        $facture->entreprise_id = $entrepriseDefault;
         $facture->devis_id = $validatedData['devis_id'];
         $facture->date = $validatedData['date'];
         $facture->devis = $validatedData['devis'];

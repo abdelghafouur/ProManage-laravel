@@ -10,6 +10,7 @@ use App\Http\Controllers\DetailFactureController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EntrepriseController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,19 +23,14 @@ use App\Http\Controllers\EntrepriseController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::middleware(['auth'])->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('clients', ClientController::class);
     Route::resource('devis', DevisController::class);
     Route::resource('factures', FactureController::class);

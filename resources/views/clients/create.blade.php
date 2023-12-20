@@ -28,7 +28,6 @@
                       id="basic-icon-default-fullname"
                       class="form-control"
                       name="nom" required
-
                       aria-describedby="basic-icon-default-fullname2" />
                   </div>
                 </div>
@@ -45,7 +44,7 @@
                       id="basic-icon-default-company"
                       name="adresse"
                       class="form-control"
-                     
+                      required
                       aria-describedby="basic-icon-default-company2" />
                   </div>
                 </div>

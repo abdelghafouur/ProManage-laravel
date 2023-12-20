@@ -87,9 +87,9 @@
                         <!-- Apps -->
                         
                         @unless(auth()->user()->hasRole('comptable'))
-                        <li class="menu-item {{ request()->is('dashboard*') ? 'active' : '' }}">
+                        <li class="menu-item {{ request()->is('/') ? 'active' : '' }}">
                             <a
-                            href="#"
+                            href="{{ route('dashboard') }}"
                             class="menu-link">
                             <i class='menu-icon tf-icons bx bxs-dashboard'></i>
                             <div>Dashboard</div>
@@ -249,7 +249,7 @@
                             </li>
                             <li>
                                 <a class="dropdown-item" href="#">
-                                <i class='bx bxs-lock'></i>
+                                <i class='bx bxs-lock me-2'></i>
                                 <span class="align-middle">Mot de passe</span>
                                 </a>
                             </li>
