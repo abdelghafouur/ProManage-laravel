@@ -6,21 +6,27 @@
                 style="color:#a1acb8 !important">Gestion Paiments/</a></span> Liste Paiments</h4>
     <!-- Bootstrap Table with Header - Light -->
     <div class="card">
-
         <div class="table-responsive text-nowrap">
-
-            <div class="dt-action-buttons text-end mt-4" style="margin-right: 20px;">
-                <label class="mx-3">
-                    <select id="filterSelect" style="display: inline-block;" class="form-select">
-                        <option value="parDateCroissant">Par Date Croissant</option>
-                        <option value="parDateDecroissant">Par Date Décroissant</option>
-                        <option value="parMontantCroissant">Par Montant Croissant</option>
-                        <option value="parMontantDecroissant">Par Montant Décroissant</option>
-                    </select>
-                </label>
-                <label class="mx-3">
-                    <input type="search" id="paimentSearch" placeholder="Search by Name" class="form-control " />
-                </label>
+            <div class="dt-action-buttons text-end mt-4 mb-3" style="margin-right: 20px;">
+                <div class="row">
+                    <label class="col-sm-2 mx-3">
+                      Date Debut : <input type="date" style="display: inline;width: 70%;" id="dateDebut" placeholder="Search by Date" class="form-control" />
+                    </label>
+                    <label class="col-sm-2 mx-3">
+                      Date Fin : <input type="date" style="display: inline;width: 70%;" id="dateFin" placeholder="Search by Date" class="form-control" />
+                    </label>
+                    <label class="col-sm-7 mx-3">
+                    <label class="mx-3">
+                      <input type="search" id="clientSearch"  placeholder="Search by Name" class="form-control" />
+                    </label>
+                    @unless(auth()->user()->hasRole('comptable'))
+                      <button type="button" onclick="window.location.href='{{ route('factures.create') }}'"
+                        class="btn btn-outline-primary">
+                        Ajouter Facture
+                      </button>
+                    </label>
+                    @endunless
+                </div>
             </div>
             <table class="table table-striped">
                 <thead>
@@ -64,6 +70,36 @@
 </div>
 
 <script>
+       // Handle date range search
+
+       $("#dateDebut, #dateFin").on("change", function() {
+        var startDate = $("#dateDebut").val();
+        var endDate = $("#dateFin").val();    
+        if(startDate && endDate)
+        {
+            $("tbody tr").each(function() {
+            var currentDate = $(this).find("td:eq(2)").text(); // Index 4 corresponds to the "Date" column
+            var isInRange = isDateInRange(currentDate, startDate, endDate);
+            $(this).toggle(isInRange);
+            });
+        }
+    });
+
+    function convertDateFormat(dateString) {
+        // Assuming the current date format is DD/MM/YYYY, convert it to YYYY-MM-DD
+        var parts = dateString.split('/');
+        return parts[2] + '-' + parts[1] + '-' + parts[0];
+    }
+
+    function isDateInRange(currentDate, startDate, endDate) {
+        // Convert the dates to Date objects for proper comparison
+        var currentDateTime = currentDate;
+        var startDateTime = startDate;
+        var endDateTime = endDate;
+
+        // Check if the current date is within the specified range
+        return currentDateTime >= startDateTime && currentDateTime <= endDateTime;
+    }
     $(document).ready(function() {
       // Handle paiment search by name
       $("#paimentSearch").on("input", function() {
