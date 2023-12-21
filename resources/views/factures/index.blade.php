@@ -3,7 +3,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1">
     <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('factures.index') }}" style="color:#a1acb8 !important">Gestion Factures/</a></span> Liste Factures</h4>
     <!-- Bootstrap Table with Header - Light -->
     <div class="card">
@@ -22,22 +21,20 @@
         <table class="table">
           <thead class="table-light">
             <tr>
-              <th>Code Facture</th>
-              <th>Client</th>
-              <th>Entreprise</th>
-              <th>Devis</th>
+              <th>Référence</th>
               <th>Date</th>
+              <th>Client</th>
+              <th>Montant HT</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody class="table-border-bottom-0">
             @foreach($factures as $facture)
                 <tr>
-                    <td>{{ $facture->codeFacture }}</td>
-                    <td>{{ $facture->client->nom }}</td>
-                    <td>{{ $facture->entreprise->nom }}</td>
-                    <td>{{ $facture->devis }}</td>
+                    <td><a href="{{ route('factures.show', $facture->id) }}">{{ $facture->codeFacture }}</a></td>
                     <td>{{ $facture->date }}</td>
+                    <td>{{ $facture->client->nom }}</td>
+                    <td>Montant HT</td>
                     <td>
                       <div class="dropdown">
                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -71,7 +68,7 @@
         {{ $factures->links('custom-pagination') }}
       </div>
     </div>
-</div>
+
 <!-- Vertically Centered Modal -->
 <div class="col-lg-4 col-md-6">
   <!-- Modal -->

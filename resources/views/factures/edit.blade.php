@@ -3,7 +3,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1">
   <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('factures.index') }}" style="color:#a1acb8 !important">Gestion Factures/</a></span> {{ $facture->codeFacture }}</h4>
 
     <!-- Basic Layout & Basic with Icons -->
@@ -195,7 +194,7 @@
         </div>
       </div>
     </div>
-</div>
+
 <div class="col-lg-4 col-md-6">
   <div class="mt-3">
     <div class="modal fade" id="modalCenter2" tabindex="-1" aria-hidden="true">

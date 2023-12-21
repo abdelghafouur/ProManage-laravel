@@ -3,7 +3,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1">
+
   <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('factures.index') }}" style="color:#a1acb8 !important">Gestion Factures/</a></span> Ajouter Facture</h4>
 
     <!-- Basic Layout & Basic with Icons -->
@@ -36,9 +36,14 @@
                   </select>
                 </div>
                 <div class="mb-3 col-lg-6 col-md-6">
-                  <label for="devis" class="col-md-2 col-form-label">Devis:</label>
+                  <label for="devis" class="col-md-2 col-form-label">Devise:</label>
                   <div class="col-md-12">
-                    <input class="form-control" name="devis" value="{{ $DevisByID !== [] ? $DevisByID->devis : '' }}" type="text" id="devis" />
+                    {{-- <input class="form-control" name="devis" type="text" id="devis" /> --}}
+                    <select id="defaultSelect" class="form-select" name="devis" required>
+                      <option value="DH - MAD" value="{{ $DevisByID == "DH - MAD" ? selected : '' }}" >DH - MAD</option>
+                      <option value="€ - EURO" value="{{ $DevisByID == "€ - EURO" ? selected : '' }}">€ - EURO</option>
+                      <option value="$ - USD" value="{{ $DevisByID == "$ - USD" ? selected : '' }}">$ - USD</option>
+                  </select>
                   </div>
                 </div>
                 <div class="mb-3 col-lg-6 col-md-6">
@@ -73,7 +78,7 @@
                               <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title" id="modalCenterTitle">Ajouter Detail Factutre</h5>
+                                    <h5 class="modal-title" id="modalCenterTitle">Détail de la facture</h5>
                                     <button
                                       type="button"
                                       class="btn-close"
@@ -83,7 +88,7 @@
                                   <div class="modal-body">
                                     <div class="row g-2" style="margin-bottom: 10px">
                                       <div class="col mb-0">
-                                        <label for="designation" class="form-label">DESIGNATION</label>
+                                        <label for="designation" class="form-label">DESCRIPTION</label>
                                         <input
                                           type="text"
                                           name="designation"
@@ -93,15 +98,15 @@
                                           />
                                       </div>
                                       <div class="col mb-0">
-                                        <label for="puht" class="form-label">PUHT</label>
-                                        <input type="text" name="puht" id="puht" class="form-control" required />
+                                        <label for="puht" class="form-label">PU HT</label>
+                                        <input type="number" name="puht" id="puht" class="form-control" required />
                                       </div>
                                     </div>
                                     <div class="row g-2">
                                       <div class="col mb-0">
                                         <label for="qte" class="form-label">QTE</label>
                                         <input
-                                          type="text"
+                                          type="number"
                                           name="qte"
                                           id="qte"
                                           class="form-control"
@@ -109,9 +114,13 @@
                                           />
                                       </div>
                                       <div class="col mb-0">
-                                        <label for="tva" class="form-label">TVA
-                                        </label>
-                                        <input type="text" name="tva" id="tva" class="form-control" required/>
+                                        <label class="form-label" for="tva[]">TVA:</label>
+                                          <select id="defaultSelect" class="form-select" name="tva[]" id="tva" required>
+                                              <option value="7">7%</option>
+                                              <option value="10">10%</option>
+                                              <option value="14">14%</option>
+                                              <option value="20">20%</option>
+                                          </select>
                                       </div>
                                     </div>
                                   </div>
@@ -156,14 +165,14 @@
                                       </div>
                                       <div class="col mb-0">
                                         <label for="puht" class="form-label">PUHT</label>
-                                        <input type="text" name="puht" id="puhtedit" class="form-control" required/>
+                                        <input type="number" name="puht" id="puhtedit" class="form-control" required/>
                                       </div>
                                     </div>
                                     <div class="row g-2">
                                       <div class="col mb-0">
                                         <label for="qte" class="form-label">QTE</label>
                                         <input
-                                          type="text"
+                                          type="number"
                                           name="qte"
                                           id="qteedit"
                                           class="form-control"
@@ -189,13 +198,13 @@
                           
                           </div>
                         </div>
-                        <h5 class="card-header">Liste Details Facture</h5>
+                        
                         <div class="table-responsive text-nowrap">
                           <table class="table" id="dataArray">
                             <thead class="table-light">
                               <tr>
-                                <th>Designation</th>
-                                <th>PUHT</th>
+                                <th>Description</th>
+                                <th>Prix Unitaire HT</th>
                                 <th>Qte</th>
                                 <th>TVA</th>
                                 <th>Total HT</th>
@@ -251,7 +260,7 @@
       </div>
     </div>
   </div>
-</div>
+
 <script>
     // Sample array
     var dataArray = [];

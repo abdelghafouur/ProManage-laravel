@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1">
+<div class="flex-grow-1">
     <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('paiments.index') }}" style="color:#a1acb8 !important">Gestion Paiments/</a></span> Liste Paiments</h4>
     <!-- Bootstrap Table with Header - Light -->
     <div class="card">
@@ -24,18 +24,18 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Nom Client</th>
-                        <th>Code Facture</th>
-                        <th>date</th>
+                        <th>Réf Client</th>
+                        <th>Réf Facture</th>
+                        <th>Date</th>
                         <th>Montant</th>
-                        <th>Method</th>
+                        <th>Methode de paiement</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
                     @foreach ($paiments as $paiment)
                     <tr>
-                        <td>{{ $paiment->facture->client->nom }}</td>
+                        <td><a href="{{ route('factures.show', $paiment->facture_id ) }}">{{ $paiment->facture->client->nom }}</a></td>
                         <td>{{ $paiment->facture->codeFacture }}</td>
                         <td>{{ $paiment->date }}</td>
                         <td>{{ $paiment->montant }}</td>

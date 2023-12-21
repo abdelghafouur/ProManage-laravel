@@ -3,7 +3,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1">
+
     <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('devis.index') }}" style="color:#a1acb8 !important">Gestion Devis/</a></span> Liste Devis</h4>
     <!-- Bootstrap Table with Header - Light -->
     <div class="card">
@@ -19,33 +19,26 @@
         <table class="table">
           <thead class="table-light">
             <tr>
-                <th>Code Devis</th>
-                <th>Client</th>
-                <th>Entreprise</th>
-                <th>Conditions de Règlement</th>
+                <th>Référence</th>
                 <th>Date</th>
-                <th>Devis</th>
+                <th>Client</th>
+                <th>Montant HT</th>
                 <th>Actions</th>
             </tr>
           </thead>
           <tbody class="table-border-bottom-0">
             @foreach ($devisList as $devis)
               <tr>
-                      <td>{{ $devis->codeDevis }}</td>
-                      <td>{{ $devis->client->nom }}</td>
-                      <td>{{ $devis->entreprise->nom }}</td>
-                      <td>{{ $devis->conditionsDeReglement }}</td>
+                      <td><a href="{{ route('devis.show', $devis->id) }}">{{ $devis->codeDevis }}</a></td>
                       <td>{{ $devis->date }}</td>
-                      <td>{{ $devis->devis }}</td>
+                      <td>{{ $devis->client->nom }}</td>
+                      <td>Montant HT</td>
                       <td>
                         <div class="dropdown">
                           <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                             <i class="bx bx-dots-vertical-rounded"></i>
                           </button>
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{ route('devis.show', $devis->id) }}"
-                              ><i class='bx bx-show-alt me-1'></i> Show</a
-                            >
                             <a class="dropdown-item" href="{{ route('devis.edit', $devis->id) }}"
                               ><i class="bx bx-edit-alt me-1"></i> Edit</a
                             >
@@ -69,7 +62,7 @@
         {{ $devisList->links('custom-pagination') }}
       </div>
     </div>
-</div>
+
 <!-- Vertically Centered Modal -->
 <div class="col-lg-4 col-md-6">
   <!-- Modal -->
