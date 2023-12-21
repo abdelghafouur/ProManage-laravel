@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1">
   <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('devis.index') }}"
         style="color:#a1acb8 !important">Gestion Devis/</a></span> {{ $devis->codeDevis }}</h4>
 
@@ -22,13 +21,19 @@
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
                 <label class="form-label" for="basic-default-fullname">Conditions de Règlement</label>
-                <input type="text" class="form-control" id="basic-default-fullname" name="conditionsDeReglement"
-                  value="{{ $devis->conditionsDeReglement }}" required />
+                <select id="defaultSelect" class="form-select" id="basic-default-fullname" name="conditionsDeReglement" required>
+                    <option value="A l'avance" {{ $devis->conditionsDeReglement == "A l'avance" ? 'selected' : '' }}>A l'avance</option>
+                    <option value="A réception" {{ $devis->conditionsDeReglement == "A réception" ? 'selected' : '' }}>A réception</option>
+                    <option value="50/50" {{ $devis->conditionsDeReglement == "50/50" ? 'selected' : '' }}>50/50</option>
+                </select>
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
                 <label class="form-label" for="basic-default-company">Devis</label>
-                <input type="text" class="form-control" value="{{ $devis->devis }}" id="basic-default-company"
-                  name="devis" required />
+                <select id="defaultSelect" class="form-select" name="devis" required>
+                    <option value="DH - MAD" {{ $devis->devis == "DH - MAD" ? 'selected' : '' }}>DH - MAD</option>
+                    <option value="€ - EURO" {{ $devis->devis == "€ - EURO" ? 'selected' : '' }}>€ - EURO</option>
+                    <option value="$ - USD" {{ $devis->devis == "$ - USD" ? 'selected' : '' }}>$ - USD</option>
+                </select>
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
                 <label for="defaultSelect" class="form-label">Client</label>
@@ -236,8 +241,8 @@
         </div>
       </div>
     </form>
-
   </div>
+ 
 </div>
 <div class="col-lg-4 col-md-6">
   <!-- Modal -->
@@ -327,7 +332,6 @@
 
     function submitOuterForm() {
         // Validation for the first input
-        if (!validateField('designationDev')) return;
 
         // Validation for the second input
         if (!validateField('conditionsDeReglement')) return;

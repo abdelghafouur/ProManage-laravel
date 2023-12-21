@@ -53,9 +53,6 @@
                           <i class="bx bx-dots-vertical-rounded"></i>
                         </button>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="{{ route('factures.show', $facture->id) }}"
-                            ><i class='bx bx-show-alt me-1'></i> Show</a
-                          >
                           @unless(auth()->user()->hasRole('comptable'))
                           <a class="dropdown-item" href="{{ route('factures.edit', $facture->id) }}"
                             ><i class="bx bx-edit-alt me-1"></i> Edit</a
@@ -117,7 +114,7 @@
         if(startDate && endDate)
         {
             $("tbody tr").each(function() {
-            var currentDate = $(this).find("td:eq(4)").text(); // Index 4 corresponds to the "Date" column
+            var currentDate = $(this).find("td:eq(1)").text(); // Index 4 corresponds to the "Date" column
             var isInRange = isDateInRange(currentDate, startDate, endDate);
             $(this).toggle(isInRange);
             });
@@ -167,7 +164,7 @@
           var searchValue = $(this).val().toLowerCase();
 
           $("tbody tr").filter(function() {
-              var clientName = $(this).find("td:eq(1)").text().toLowerCase(); // Index 1 corresponds to the "Nom" column
+              var clientName = $(this).find("td:eq(2)").text().toLowerCase(); // Index 1 corresponds to the "Nom" column
               $(this).toggle(clientName.indexOf(searchValue) > -1);
           });
       });

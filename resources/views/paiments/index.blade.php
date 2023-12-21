@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1">
     <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('paiments.index') }}" style="color:#a1acb8 !important">Gestion Paiments/</a></span> Liste Paiments</h4>
     <!-- Bootstrap Table with Header - Light -->
     <div class="card">
@@ -66,7 +65,6 @@
             {{ $paiments->links('custom-pagination') }}
         </div>
     </div>
-</div>
 
 <script>
        // Handle date range search

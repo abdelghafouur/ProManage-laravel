@@ -25,8 +25,8 @@
                                 {{-- <input type="text" class="form-control" required id="basic-default-fullname" name="conditionsDeReglement" /> --}}
                                 <select id="defaultSelect" class="form-select" name="conditionsDeReglement" required>
                                     <option value="A l'avance">A l'avance</option>
-                                    <option value="A l'avance">A réception</option>
-                                    <option value="A l'avance">50/50</option>
+                                    <option value="A réception">A réception</option>
+                                    <option value="50/50">50/50</option>
                                 </select>
                             </div>
                             <div class="mb-3 col-lg-6 col-md-6">
@@ -121,7 +121,7 @@
             </div>
         </div>
     </div>
-
+</div>
 <script>
     // Initialize an array to store details
     var enteredDetails = [];
@@ -260,8 +260,6 @@ function validateField(fieldName) {
     }
 
     function submitForm() {
-        // Validation for the first input
-        if (!validateField('designationDev')) return;
 
         // Validation for the second input
         if (!validateField('conditionsDeReglement')) return;

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1">
     <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('entreprises.index') }}"
                 style="color:#a1acb8 !important">Gestion Entreprises/</a></span> Liste Entreprises</h4>
     <!-- Bootstrap Table with Header - Light -->
@@ -116,7 +115,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 <script>
     $(document).on('click', '.delete-entreprise', function(event) {

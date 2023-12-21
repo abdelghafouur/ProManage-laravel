@@ -87,7 +87,7 @@
         </form>
       </div>
     </div>
-  </div>
+  
 </div>
 <script>
   function displayImage(input) {

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1">
+
     <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('users.index') }}" style="color:#a1acb8 !important">Gestion Comptes/</a></span> Liste Comptes</h4>
     <!-- Bootstrap Table with Header - Light -->
     <div class="card">
@@ -79,7 +79,6 @@
             {{ $users->links('custom-pagination') }}
         </div>
     </div>
-</div>
 <!-- Vertically Centered Modal -->
 <div class="col-lg-4 col-md-6">
     <!-- Modal -->

@@ -119,7 +119,7 @@
           var searchValue = $(this).val().toLowerCase();
 
           $("tbody tr").filter(function() {
-              var clientName = $(this).find("td:eq(1)").text().toLowerCase(); // Index 1 corresponds to the "Nom" column
+              var clientName = $(this).find("td:eq(2)").text().toLowerCase(); // Index 1 corresponds to the "Nom" column
               $(this).toggle(clientName.indexOf(searchValue) > -1);
           });
       });

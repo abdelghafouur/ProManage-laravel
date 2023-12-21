@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1">
+
   <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('entreprises.index') }}"
         style="color:#a1acb8 !important">Gestion Entreprises/</a></span> Modifier Entreprise</h4>
   <!-- Basic Layout & Basic with Icons -->
@@ -122,7 +122,6 @@
       </div>
     </div>
   </div>
-</div>
 <script>
   function displayImage(input) {
       var uploadedAvatar = document.getElementById('uploadedAvatar');

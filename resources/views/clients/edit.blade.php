@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1">
   <h4 class="py-3 mb-4"><span class="text-muted fw-light"> <a href="{{ route('clients.index') }}"
         style="color:#a1acb8 !important">Gestion Clients/</a></span> Modifier Client</h4>
 
@@ -92,7 +91,7 @@
       </div>
     </div>
   </div>
-</div>
+
 <script>
   function validateForm() {
     var nomField = document.getElementById('nom');

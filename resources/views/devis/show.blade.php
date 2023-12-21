@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1">
+
   <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('devis.index') }}"
         style="color:#a1acb8 !important">Gestion Devis/</a></span>{{ $devis->codeDevis }}</h4>
   <div class="row">
@@ -117,5 +117,4 @@
       </div>
     </div>
   </div>
-</div>
 @endsection

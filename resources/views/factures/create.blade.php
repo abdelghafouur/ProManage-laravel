@@ -38,9 +38,9 @@
                   <div class="col-md-12">
                     {{-- <input class="form-control" name="devis" type="text" id="devis" /> --}}
                     <select id="defaultSelect" class="form-select" name="devis" required>
-                      <option value="DH - MAD" value="{{ $DevisByID == "DH - MAD" ? selected : '' }}" >DH - MAD</option>
-                      <option value="€ - EURO" value="{{ $DevisByID == "€ - EURO" ? selected : '' }}">€ - EURO</option>
-                      <option value="$ - USD" value="{{ $DevisByID == "$ - USD" ? selected : '' }}">$ - USD</option>
+                      <option value="DH - MAD" {{ $DevisByID && $DevisByID->devis == "DH - MAD" ? "selected" : '' }} >DH - MAD</option>
+                      <option value="€ - EURO" {{ $DevisByID && $DevisByID->devis == "€ - EURO" ? "selected" : '' }}>€ - EURO</option>
+                      <option value="$ - USD" {{ $DevisByID && $DevisByID->devis == "$ - USD" ? "selected" : '' }}>$ - USD</option>
                   </select>
                   </div>
                 </div>
@@ -112,7 +112,7 @@
                                       </div>
                                       <div class="col mb-0">
                                         <label class="form-label" for="tva[]">TVA:</label>
-                                          <select id="defaultSelect" class="form-select" name="tva[]" id="tva" required>
+                                          <select id="tva" class="form-select" name="tva[]" id="tva" required>
                                               <option value="7">7%</option>
                                               <option value="10">10%</option>
                                               <option value="14">14%</option>
@@ -179,7 +179,12 @@
                                       <div class="col mb-0">
                                         <label for="tva" class="form-label">TVA
                                         </label>
-                                        <input type="text" name="tva" id="tvaedit" class="form-control" required />
+                                        <select class="form-select" name="tva" id="tvaedit" required>
+                                          <option value="7">7%</option>
+                                          <option value="10">10%</option>
+                                          <option value="14">14%</option>
+                                          <option value="20">20%</option>
+                                      </select>
                                       </div>
                                     </div>
                                   </div>
@@ -257,7 +262,7 @@
       </div>
     </div>
   </div>
-
+</div>
 <script>
     // Sample array
     var dataArray = [];
@@ -444,7 +449,7 @@
         renderTable();
         $('#modalCenter').modal('hide');
     }
-}
+  }
    // Function to edit an item in the array and render the table
    function editItem(itemId) {
         var itemToEdit = dataArray.find(item => item.id === itemId);
@@ -453,7 +458,16 @@
             document.getElementById('designationedit').value = itemToEdit.designation;
             document.getElementById('puhtedit').value = itemToEdit.puht;
             document.getElementById('qteedit').value = itemToEdit.qte;
-            document.getElementById('tvaedit').value = itemToEdit.tva;
+            // Set selected option for the 'tvaedit' select element
+        var tvaSelect = document.getElementById('tvaedit');
+        var selectedTva = itemToEdit.tva;
+
+        for (var i = 0; i < tvaSelect.options.length; i++) {
+            if (tvaSelect.options[i].value === selectedTva) {
+                tvaSelect.selectedIndex = i;
+                break;
+            }
+        }
             document.getElementById('idHideEdit').value = itemId;
         }
         
@@ -509,7 +523,7 @@
         renderTable();
         $('#modalCenter2').modal('hide');
     }
-}
+  }
   // Function to delete an item from the array and render the table
   function deleteItem(itemId) {
       var confirmDelete = confirm('Are you sure you want to delete this Details?');
