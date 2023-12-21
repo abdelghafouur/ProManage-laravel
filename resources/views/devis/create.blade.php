@@ -11,12 +11,14 @@
         <div class="col-xxl">
             <div class="card mb-4">
                 <div class="card-body">
-                    <form method="post" action="{{ route('devis.store') }}" enctype="multipart/form-data" id="devis-form">
+                    <form method="post" action="{{ route('devis.store') }}" enctype="multipart/form-data"
+                        id="devis-form">
                         @csrf
                         <div class="row">
                             <div class="mb-3 col-lg-6 col-md-6">
                                 <label class="form-label" for="designationDev">Designation</label>
-                                <input type="text" class="form-control" id="designationDev" name="designationDev" required/>
+                                <input type="text" class="form-control" id="designationDev" name="designationDev"
+                                    required />
                             </div>
                             <div class="mb-3 col-lg-6 col-md-6">
                                 <label class="form-label" for="basic-default-fullname">Conditions de Règlement</label>
@@ -46,9 +48,10 @@
                                 </select>
                             </div>
                             <div class="mb-3 col-lg-6 col-md-6">
-                                <label for="html5-date-input" class="col-md-2 col-form-label" >Date</label>
+                                <label for="html5-date-input" class="col-md-2 col-form-label">Date</label>
                                 <div class="col-md-12">
-                                    <input class="form-control" type="date" name="date" id="html5-date-input" required />
+                                    <input class="form-control" type="date" name="date" id="html5-date-input"
+                                        required />
                                 </div>
                             </div>
                             <!-- Basic Layout -->
@@ -84,7 +87,8 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <button type="button" class="btn btn-outline-primary" onclick="insertData()">Ajouter</button>
+                                            <button type="button" class="btn btn-outline-primary"
+                                                onclick="insertData()">Ajouter</button>
                                             <h5 class="card-header">Liste Details Devis : </h5>
                                             <div class="table-responsive text-nowrap">
                                                 <table class="table" id="entered-details-table">
@@ -108,7 +112,8 @@
                             </div>
                             <div class="row text-end">
                                 <div class="col-sm-12">
-                                    <button type="button" class="btn btn-primary text-end mx-4" onclick="submitForm()">Create Devis</button>
+                                    <button type="button" class="btn btn-primary text-end mx-4"
+                                        onclick="submitForm()">Create Devis</button>
                                 </div>
                             </div>
                     </form>

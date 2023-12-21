@@ -67,8 +67,57 @@
         </table>
         {{ $factures->links('custom-pagination') }}
       </div>
+      <table class="table">
+        <thead class="table-light">
+          <tr>
+            <th>Code Facture</th>
+            <th>Client</th>
+            <th>Entreprise</th>
+            <th>Devis</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+          @foreach($factures as $facture)
+          <tr>
+            <td>{{ $facture->codeFacture }}</td>
+            <td>{{ $facture->client->nom }}</td>
+            <td>{{ $facture->entreprise->nom }}</td>
+            <td>{{ $facture->devis }}</td>
+            <td>{{ $facture->date }}</td>
+            <td>
+              <div class="dropdown">
+                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                  <i class="bx bx-dots-vertical-rounded"></i>
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{{ route('factures.show', $facture->id) }}"><i
+                      class='bx bx-show-alt me-1'></i> Show</a>
+                  @unless(auth()->user()->hasRole('comptable'))
+                  <a class="dropdown-item" href="{{ route('factures.edit', $facture->id) }}"><i
+                      class="bx bx-edit-alt me-1"></i> Edit</a>
+                  @unless(auth()->user()->hasRole('admin'))
+                  <form id="deleteForm{{ $facture->id }}" action="{{ route('factures.destroy', $facture->id) }}"
+                    method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <a href="javascript:void(0);" class="dropdown-item delete-facture"
+                      data-facture-id="{{ $facture->id }}">
+                      <i class="bx bx-trash me-1"></i> Delete
+                    </a>
+                  </form>
+                  @endunless
+                  @endunless
+                </div>
+              </div>
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+      {{ $factures->links('custom-pagination') }}
     </div>
-
 <!-- Vertically Centered Modal -->
 <div class="col-lg-4 col-md-6">
   <!-- Modal -->
@@ -76,19 +125,16 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content" style="text-align: center">
         <div class="modal-header">
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body modal-confirm">
-            <div class="icon-box">
-                <i class='material-icons bx bx-x'></i>
-            </div>
-            <br/>
-            <h4 style="text-align: center">Are you sure you want to delete this facture? </h4>
-            <p style="color: #999;"> Do you really want to delete these records? This <br/> process cannot be undone. </p>
+          <div class="icon-box">
+            <i class='material-icons bx bx-x'></i>
+          </div>
+          <br />
+          <h4 style="text-align: center">Are you sure you want to delete this facture? </h4>
+          <p style="color: #999;"> Do you really want to delete these records? This <br /> process cannot be undone.
+          </p>
         </div>
         <div class="modal-footer1">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -101,7 +147,7 @@
   </div>
 </div>
 <script>
-        $(document).on('click', '.delete-facture', function(event) {
+  $(document).on('click', '.delete-facture', function(event) {
         var triggerElement = $(this); // Element that triggered the modal
         var factureId = triggerElement.data('facture-id');
         var deleteForm = $('#deleteForm' + factureId);

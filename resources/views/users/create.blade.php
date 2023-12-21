@@ -41,82 +41,51 @@
                 </div>
               </div>
             </div>
-            <hr class="my-0" />
-            <div class="card-body">
-                <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Nom Complete</label>
-                  <div class="col-sm-10">
-                    <div class="input-group input-group-merge" id="namediv">
-                      <span id="basic-icon-default-fullname2" class="input-group-text"
-                        ><i class="bx bx-user"></i
-                      ></span>
-                      <input
-                        type="text"
-                        id="name"
-                        class="form-control"
-                        name="name" 
-
-                        aria-describedby="basic-icon-default-fullname2" />
-                    </div>
-                  </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Email</label>
+              <div class="col-sm-10">
+                <div class="input-group input-group-merge" id="emaildiv">
+                  <span class="input-group-text"><i class="bx bx-envelope"></i></span>
+                  <input type="text" id="email" name="email" class="form-control"
+                    aria-describedby="basic-icon-default-email2" />
+                  <span id="basic-icon-default-email2" class="input-group-text">@example.com</span>
                 </div>
-                <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Email</label>
-                  <div class="col-sm-10">
-                    <div class="input-group input-group-merge" id="emaildiv">
-                      <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                      <input
-                        type="text"
-                        id="email"
-                        name="email" 
-                        class="form-control"
-                        
-                        aria-describedby="basic-icon-default-email2" />
-                      <span id="basic-icon-default-email2" class="input-group-text">@example.com</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="defaultSelect" class="col-sm-2 form-label">Role</label>
-                  <div class="col-sm-10">
-                    <div class="input-group input-group-merge" id="rolediv">
-                      <span id="basic-icon-default-message2" class="input-group-text"
-                      ><i class='bx bx-spreadsheet' ></i></span>
-                    <select id="role"  class="form-select" name="roles" >
-                      <option value="superadmin">Super Admin</option>
-                      <option value="admin">Admin</option>
-                      <option value="comptable">Comptable</option>
-                    </select>
-                  </div>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label class="col-sm-2 form-label" for="basic-icon-default-message">Password</label>
-                  <div class="col-sm-10">
-                    <div class="input-group input-group-merge" id="passworddiv">
-                      <span id="basic-icon-default-message2" class="input-group-text"
-                        ><i class="bx bx-comment"></i
-                      ></span>
-                        <input
-                        type="password"
-                        class="form-control"
-                        id="password"
-                        name="password"
-                        
-                        aria-describedby="basic-icon-default-message2" />
-                    </div>
-                  </div>
-                </div>
-                <div class="row justify-content-end">
-                  <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Ajouter Compte</button>
-                  </div>
-                </div>
+              </div>
             </div>
-          </form>
-        </div>
+            <div class="row mb-3">
+              <label for="defaultSelect" class="col-sm-2 form-label">Role</label>
+              <div class="col-sm-10">
+                <div class="input-group input-group-merge" id="rolediv">
+                  <span id="basic-icon-default-message2" class="input-group-text"><i
+                      class='bx bx-spreadsheet'></i></span>
+                  <select id="role" class="form-select" name="roles">
+                    <option value="superadmin">Super Admin</option>
+                    <option value="admin">Admin</option>
+                    <option value="comptable">Comptable</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 form-label" for="basic-icon-default-message">Password</label>
+              <div class="col-sm-10">
+                <div class="input-group input-group-merge" id="passworddiv">
+                  <span id="basic-icon-default-message2" class="input-group-text"><i class="bx bx-comment"></i></span>
+                  <input type="password" class="form-control" id="password" name="password"
+                    aria-describedby="basic-icon-default-message2" />
+                </div>
+              </div>
+            </div>
+            <div class="row justify-content-end">
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Ajouter Compte</button>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
+  </div>
 </div>
 <script>
   function displayImage(input) {
