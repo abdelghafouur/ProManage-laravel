@@ -7,6 +7,8 @@
   <h4 class="py-3 mb-4"><span class="text-muted fw-light"> <a href="{{ route('clients.index') }}"
         style="color:#a1acb8 !important">Gestion Clients/</a></span> Ajouter Client</h4>
 
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light"> <a href="{{ route('clients.index') }}" style="color:#a1acb8 !important">Gestion Clients/</a></span> Ajouter Client</h4>
+
   <!-- Basic Layout & Basic with Icons -->
   <div class="row">
     <!-- Basic with Icons -->

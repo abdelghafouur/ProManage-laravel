@@ -4,9 +4,7 @@
 
 @section('content')
 
-<div class="container-xxl flex-grow-1">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('devis.index') }}"
-                style="color:#a1acb8 !important">Gestion Devis/</a></span> Ajouter Devis</h4>
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('devis.index') }}" style="color:#a1acb8 !important">Gestion Devis/</a></span> Ajouter Devis</h4>
 
     <!-- Basic Layout & Basic with Icons -->
     <div class="row">
@@ -24,13 +22,22 @@
                             </div>
                             <div class="mb-3 col-lg-6 col-md-6">
                                 <label class="form-label" for="basic-default-fullname">Conditions de Règlement</label>
-                                <input type="text" class="form-control" required id="basic-default-fullname"
-                                    name="conditionsDeReglement" />
+                                {{-- <input type="text" class="form-control" required id="basic-default-fullname" name="conditionsDeReglement" /> --}}
+                                <select id="defaultSelect" class="form-select" name="conditionsDeReglement" required>
+                                    <option value="A l'avance">A l'avance</option>
+                                    <option value="A l'avance">A réception</option>
+                                    <option value="A l'avance">50/50</option>
+                                </select>
                             </div>
                             <div class="mb-3 col-lg-6 col-md-6">
-                                <label class="form-label" for="basic-default-company">Devis</label>
-                                <input type="text" class="form-control" id="basic-default-company" name="devis"
-                                    required />
+                                <label class="form-label" for="basic-default-company">Devise</label>
+                                {{-- <input type="text" class="form-control" id="basic-default-company" name="devis" required /> --}}
+                                <select id="defaultSelect" class="form-select" name="devis" required>
+                                    <option value="DH - MAD">DH - MAD</option>
+                                    <option value="€ - EURO">€ - EURO</option>
+                                    <option value="$ - USD">$ - USD</option>
+                                </select>
+                                
                             </div>
                             <div class="mb-3 col-lg-6 col-md-6">
                                 <label for="defaultSelect" class="form-label">Client</label>
@@ -59,21 +66,25 @@
                                                 <!-- Add this hidden input inside the form -->
                                                 <input type="hidden" name="detail_deviss[]" id="detail-deviss">
                                                 <div class="mb-3 col-lg-3 col-md-4">
-                                                    <label class="form-label" for="designation[]">Designation:</label>
-                                                    <input type="text" class="form-control" name="designation[]"
-                                                        required />
+                                                    <label class="form-label" for="designation[]">Description:</label>
+                                                    <input type="text" class="form-control" name="designation[]" required/>
                                                 </div>
                                                 <div class="mb-3 col-lg-3 col-md-4">
-                                                    <label class="form-label" for="puht[]">PUHT:</label>
-                                                    <input type="text" class="form-control" name="puht[]" required />
+                                                    <label class="form-label" for="puht[]">Prix HT:</label>
+                                                    <input type="number" class="form-control" name="puht[]" required/>
                                                 </div>
                                                 <div class="mb-3 col-lg-3 col-md-4">
                                                     <label class="form-label" for="qte[]">Qte:</label>
-                                                    <input type="text" class="form-control" name="qte[]" required />
+                                                    <input type="number" class="form-control" name="qte[]" required />
                                                 </div>
                                                 <div class="mb-3 col-lg-3 col-md-4">
                                                     <label class="form-label" for="tva[]">TVA:</label>
-                                                    <input type="text" class="form-control" name="tva[]" required />
+                                                    <select id="defaultSelect" class="form-select" name="tva[]" required>
+                                                        <option value="7">7%</option>
+                                                        <option value="10">10%</option>
+                                                        <option value="14">14%</option>
+                                                        <option value="20">20%</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <button type="button" class="btn btn-outline-primary"
@@ -83,9 +94,9 @@
                                                 <table class="table" id="entered-details-table">
                                                     <thead class="table-light">
                                                         <tr>
-                                                            <th>Designation</th>
-                                                            <th>PUHT</th>
-                                                            <th>Qte</th>
+                                                            <th>Description</th>
+                                                            <th>Prix Unitaire HT</th>
+                                                            <th>Quantité</th>
                                                             <th>TVA</th>
                                                             <th>Total HT</th>
                                                         </tr>
@@ -110,7 +121,7 @@
             </div>
         </div>
     </div>
-</div>
+
 <script>
     // Initialize an array to store details
     var enteredDetails = [];

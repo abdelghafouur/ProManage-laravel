@@ -3,20 +3,63 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1">
-  <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('devis.index') }}"
-        style="color:#a1acb8 !important">Gestion Devis/</a></span> Liste Devis</h4>
-  <!-- Bootstrap Table with Header - Light -->
-  <div class="card">
-    <div class="table-responsive text-nowrap">
-      <div class="dt-action-buttons text-end mt-4" style="margin-right: 20px;">
-        <label class="mx-3">
-          <input type="search" id="clientSearch" placeholder="Search by Name" class="form-control" />
-        </label>
-        <button type="button" onclick="window.location.href='{{ route('devis.create') }}'"
-          class="btn btn-outline-primary">
-          Ajouter devis
-        </button>
+
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('devis.index') }}" style="color:#a1acb8 !important">Gestion Devis/</a></span> Liste Devis</h4>
+    <!-- Bootstrap Table with Header - Light -->
+    <div class="card">
+      <div class="table-responsive text-nowrap">
+        <div class="dt-action-buttons text-end mt-4" style="margin-right: 20px;">
+          <label class="mx-3">
+            <input type="search" id="clientSearch" placeholder="Search by Name" class="form-control"/>
+          </label>
+          <button type="button" onclick="window.location.href='{{ route('devis.create') }}'" class="btn btn-outline-primary">
+            Ajouter devis
+          </button>
+        </div>
+        <table class="table">
+          <thead class="table-light">
+            <tr>
+                <th>Référence</th>
+                <th>Date</th>
+                <th>Client</th>
+                <th>Montant HT</th>
+                <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody class="table-border-bottom-0">
+            @foreach ($devisList as $devis)
+              <tr>
+                      <td><a href="{{ route('devis.show', $devis->id) }}">{{ $devis->codeDevis }}</a></td>
+                      <td>{{ $devis->date }}</td>
+                      <td>{{ $devis->client->nom }}</td>
+                      <td>Montant HT</td>
+                      <td>
+                        <div class="dropdown">
+                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                            <i class="bx bx-dots-vertical-rounded"></i>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ route('devis.edit', $devis->id) }}"
+                              ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                            >
+                            @unless(auth()->user()->hasRole('admin'))
+                              <form id="deleteForm{{ $devis->id }}" action="{{ route('devis.destroy', $devis->id) }}" method="POST">
+                                  @csrf
+                                  @method('DELETE')
+                                  <a href="javascript:void(0);" class="dropdown-item delete-devis" data-devis-id="{{ $devis->id }}">
+                                    <i class="bx bx-trash me-1"></i> Delete
+                                </a>
+                              </form>
+                          @endunless
+
+                          </div>
+                        </div>
+                      </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+        {{ $devisList->links('custom-pagination') }}
       </div>
       <table class="table">
         <thead class="table-light">
@@ -68,8 +111,6 @@
       </table>
       {{ $devisList->links('custom-pagination') }}
     </div>
-  </div>
-</div>
 <!-- Vertically Centered Modal -->
 <div class="col-lg-4 col-md-6">
   <!-- Modal -->

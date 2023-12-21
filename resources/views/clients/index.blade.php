@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1">
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('clients.index') }}"
-                style="color:#a1acb8 !important">Gestion Clients/</a></span> Liste Clients</h4>
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('clients.index') }}" style="color:#a1acb8 !important">Gestion Clients/</a></span> Liste Clients</h4>
     <!-- Bootstrap Table with Header - Light -->
     <div class="card">
 
@@ -32,7 +30,7 @@
                 <tbody class="table-border-bottom-0">
                     @foreach ($clients as $client)
                     <tr>
-                        <td>{{ $client->codeClient }}</td>
+                        <td><a href="{{ route('clients.show', $client->id) }}">{{ $client->codeClient }}</a></td>
                         <td>{{ $client->nom }}</td>
                         <td>{{ $client->type }}</td>
                         <td>{{ $client->telephone }}</td>
@@ -44,10 +42,8 @@
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('clients.show', $client->id) }}"><i
-                                            class='bx bx-show-alt me-1'></i> Show</a>
-                                    <a class="dropdown-item" href="{{ route('clients.edit', $client->id) }}"><i
-                                            class="bx bx-edit-alt me-1"></i> Edit</a>
+                                    
+                                    <a class="dropdown-item" href="{{ route('clients.edit', $client->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
                                     @unless(auth()->user()->hasRole('admin'))
                                     <form id="deleteForm{{ $client->id }}"
                                         action="{{ route('clients.destroy', $client->id) }}" method="POST">
@@ -70,8 +66,8 @@
             {{ $clients->links('custom-pagination') }}
         </div>
     </div>
+    
 
-</div>
 <!-- Vertically Centered Modal -->
 <div class="col-lg-4 col-md-6">
     <!-- Modal -->

@@ -3,45 +3,54 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-xxl flex-grow-1">
-  <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('factures.index') }}"
-        style="color:#a1acb8 !important">Gestion Factures/</a></span> Ajouter Facture</h4>
 
-  <!-- Basic Layout & Basic with Icons -->
-  <div class="row">
-    <div class="col-xxl">
-      <div class="card mb-4">
-        <div class="card-body">
-          <form method="post" action="{{ route('factures.store') }}" enctype="multipart/form-data" id="factures-form">
-            @csrf
-            <input type="hidden" name="detail_factures[]" id="detail-factures">
-            <div class="row">
-              <div class="mb-3 col-lg-6 col-md-6">
-                <label for="defaultSelect" class="form-label">Client:</label>
-                <select id="defaultSelect" class="form-select" name="client_id" required>
-                  @foreach($clients as $client)
-                  <option value="{{ $client->id }}" {{ $client->id == $ClientDevis ? 'selected' : '' }}>{{ $client->nom
-                    }}</option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="mb-3 col-lg-6 col-md-6">
-                <label for="defaultSelect2" class="form-label">Code Devis:</label>
-                <!--                   <select id="defaultSelect1" class="form-select" name="devis_id" {/{ $selectedDevisId !== null ? 'disabled' : '' }}> -->
-                <select id="defaultSelect1" class="form-select" name="devis_id">
-                  <option value="">No Devis</option>
-                  @foreach($devisList as $devis)
-                  <option value="{{ $devis->id }}" {{ $devis->id == $selectedDevisId ? 'selected' : '' }}>
-                    {{ $devis->codeDevis }}
-                  </option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="mb-3 col-lg-6 col-md-6">
-                <label for="devis" class="col-md-2 col-form-label">Devis:</label>
-                <div class="col-md-12">
-                  <input class="form-control" name="devis" value="{{ $DevisByID !== [] ? $DevisByID->devis : '' }}"
-                    type="text" id="devis" />
+  <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('factures.index') }}" style="color:#a1acb8 !important">Gestion Factures/</a></span> Ajouter Facture</h4>
+
+    <!-- Basic Layout & Basic with Icons -->
+    <div class="row">
+      <div class="col-xxl">
+        <div class="card mb-4">
+          <div class="card-body">
+            <form method="post" action="{{ route('factures.store') }}" enctype="multipart/form-data" id="factures-form">
+              @csrf
+              <input type="hidden" name="detail_factures[]" id="detail-factures">
+              <div class="row"> 
+                <div class="mb-3 col-lg-6 col-md-6">
+                  <label for="defaultSelect" class="form-label">Client:</label>
+                  <select id="defaultSelect" class="form-select" name="client_id" required>
+                    @foreach($clients as $client)
+                        <option value="{{ $client->id }}" {{ $client->id == $ClientDevis ? 'selected' : '' }}>{{ $client->nom }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="mb-3 col-lg-6 col-md-6">
+                  <label for="defaultSelect2" class="form-label">Code Devis:</label>
+                  <!--                   <select id="defaultSelect1" class="form-select" name="devis_id" {/{ $selectedDevisId !== null ? 'disabled' : '' }}> -->
+                  <select id="defaultSelect1" class="form-select" name="devis_id">
+                    <option value="">No Devis</option>
+                    @foreach($devisList as $devis)
+                        <option value="{{ $devis->id }}" {{ $devis->id == $selectedDevisId ? 'selected' : '' }}>
+                            {{ $devis->codeDevis }}
+                        </option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="mb-3 col-lg-6 col-md-6">
+                  <label for="devis" class="col-md-2 col-form-label">Devise:</label>
+                  <div class="col-md-12">
+                    {{-- <input class="form-control" name="devis" type="text" id="devis" /> --}}
+                    <select id="defaultSelect" class="form-select" name="devis" required>
+                      <option value="DH - MAD" value="{{ $DevisByID == "DH - MAD" ? selected : '' }}" >DH - MAD</option>
+                      <option value="€ - EURO" value="{{ $DevisByID == "€ - EURO" ? selected : '' }}">€ - EURO</option>
+                      <option value="$ - USD" value="{{ $DevisByID == "$ - USD" ? selected : '' }}">$ - USD</option>
+                  </select>
+                  </div>
+                </div>
+                <div class="mb-3 col-lg-6 col-md-6">
+                  <label for="html5-date-input" class="col-md-2 col-form-label">Date: </label>
+                  <div class="col-md-12">
+                    <input class="form-control" name="date" type="date" id="html5-date-input" required />
+                  </div>
                 </div>
               </div>
               <div class="mb-3 col-lg-6 col-md-6">
@@ -68,25 +77,62 @@
                           Ajouter Detail Facture
                         </button>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="modalCenterTitle">Ajouter Detail Factutre</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                  aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                <div class="row g-2" style="margin-bottom: 10px">
-                                  <div class="col mb-0">
-                                    <label for="designation" class="form-label">DESIGNATION</label>
-                                    <input type="text" name="designation" id="designation" class="form-control"
-                                      required />
+                            <!-- Modal -->
+                            <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="modalCenterTitle">Détail de la facture</h5>
+                                    <button
+                                      type="button"
+                                      class="btn-close"
+                                      data-bs-dismiss="modal"
+                                      aria-label="Close"></button>
                                   </div>
-                                  <div class="col mb-0">
-                                    <label for="puht" class="form-label">PUHT</label>
-                                    <input type="text" name="puht" id="puht" class="form-control" required />
+                                  <div class="modal-body">
+                                    <div class="row g-2" style="margin-bottom: 10px">
+                                      <div class="col mb-0">
+                                        <label for="designation" class="form-label">DESCRIPTION</label>
+                                        <input
+                                          type="text"
+                                          name="designation"
+                                          id="designation"
+                                          class="form-control"
+                                          required
+                                          />
+                                      </div>
+                                      <div class="col mb-0">
+                                        <label for="puht" class="form-label">PU HT</label>
+                                        <input type="number" name="puht" id="puht" class="form-control" required />
+                                      </div>
+                                    </div>
+                                    <div class="row g-2">
+                                      <div class="col mb-0">
+                                        <label for="qte" class="form-label">QTE</label>
+                                        <input
+                                          type="number"
+                                          name="qte"
+                                          id="qte"
+                                          class="form-control"
+                                          required
+                                          />
+                                      </div>
+                                      <div class="col mb-0">
+                                        <label class="form-label" for="tva[]">TVA:</label>
+                                          <select id="defaultSelect" class="form-select" name="tva[]" id="tva" required>
+                                              <option value="7">7%</option>
+                                              <option value="10">10%</option>
+                                              <option value="14">14%</option>
+                                              <option value="20">20%</option>
+                                          </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                      Close
+                                    </button>
+                                    <button type="button" onclick="confirmAddItem()" class="btn btn-primary">Save changes</button>
                                   </div>
                                 </div>
                                 <div class="row g-2">
@@ -133,9 +179,41 @@
                                     <input type="text" name="designation" id="designationedit" class="form-control"
                                       required />
                                   </div>
-                                  <div class="col mb-0">
-                                    <label for="puht" class="form-label">PUHT</label>
-                                    <input type="text" name="puht" id="puhtedit" class="form-control" required />
+                                  <div class="modal-body">
+                                  <input type="hidden" name="idHideEdit" id="idHideEdit">
+                                    <div class="row g-2" style="margin-bottom: 10px">
+                                      <div class="col mb-0">
+                                        <label for="designation" class="form-label">DESIGNATION</label>
+                                        <input
+                                          type="text"
+                                          name="designation"
+                                          id="designationedit"
+                                          class="form-control"
+                                          required
+                                          />
+                                      </div>
+                                      <div class="col mb-0">
+                                        <label for="puht" class="form-label">PUHT</label>
+                                        <input type="number" name="puht" id="puhtedit" class="form-control" required/>
+                                      </div>
+                                    </div>
+                                    <div class="row g-2">
+                                      <div class="col mb-0">
+                                        <label for="qte" class="form-label">QTE</label>
+                                        <input
+                                          type="number"
+                                          name="qte"
+                                          id="qteedit"
+                                          class="form-control"
+                                          required
+                                          />
+                                      </div>
+                                      <div class="col mb-0">
+                                        <label for="tva" class="form-label">TVA
+                                        </label>
+                                        <input type="text" name="tva" id="tvaedit" class="form-control" required />
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                                 <div class="row g-2">
@@ -160,8 +238,24 @@
                             </div>
                           </div>
                         </div>
-
-                      </div>
+                        
+                        <div class="table-responsive text-nowrap">
+                          <table class="table" id="dataArray">
+                            <thead class="table-light">
+                              <tr>
+                                <th>Description</th>
+                                <th>Prix Unitaire HT</th>
+                                <th>Qte</th>
+                                <th>TVA</th>
+                                <th>Total HT</th>
+                                <th>Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                            </tbody>
+                          </table>
+                        </div>           
+                          <!--/ Striped Rows -->
                     </div>
                     <h5 class="card-header">Liste Details Facture</h5>
                     <div class="table-responsive text-nowrap">
@@ -195,35 +289,8 @@
       </div>
     </div>
   </div>
-  <!-- Vertically Centered Modal -->
-  <div class="col-lg-4 col-md-6">
-    <!-- Modal -->
-    <div class="modal fade" id="modalCenter01" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" style="text-align: center">
-          <div class="modal-header">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body modal-confirm">
-            <div class="icon-box">
-              <i class='material-icons bx bx-x'></i>
-            </div>
-            <br />
-            <h4 style="text-align: center">Are you sure you want to delete this detail? </h4>
-            <p style="color: #999;"> Do you really want to delete these records? This <br /> process cannot be undone.
-            </p>
-          </div>
-          <div class="modal-footer1">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-              Cancel
-            </button>
-            <button id="deleteButton" class="btn btn-danger">Delete</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <script>
+
+<script>
     // Sample array
     var dataArray = [];
     
