@@ -61,55 +61,6 @@
         </table>
         {{ $devisList->links('custom-pagination') }}
       </div>
-      <table class="table">
-        <thead class="table-light">
-          <tr>
-            <th>Code Devis</th>
-            <th>Client</th>
-            <th>Entreprise</th>
-            <th>Conditions de Règlement</th>
-            <th>Date</th>
-            <th>Devis</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody class="table-border-bottom-0">
-          @foreach ($devisList as $devis)
-          <tr>
-            <td>{{ $devis->codeDevis }}</td>
-            <td>{{ $devis->client->nom }}</td>
-            <td>{{ $devis->entreprise->nom }}</td>
-            <td>{{ $devis->conditionsDeReglement }}</td>
-            <td>{{ $devis->date }}</td>
-            <td>{{ $devis->devis }}</td>
-            <td>
-              <div class="dropdown">
-                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                  <i class="bx bx-dots-vertical-rounded"></i>
-                </button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{{ route('devis.show', $devis->id) }}"><i
-                      class='bx bx-show-alt me-1'></i> Show</a>
-                  <a class="dropdown-item" href="{{ route('devis.edit', $devis->id) }}"><i
-                      class="bx bx-edit-alt me-1"></i> Edit</a>
-                  @unless(auth()->user()->hasRole('admin'))
-                  <form id="deleteForm{{ $devis->id }}" action="{{ route('devis.destroy', $devis->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <a href="javascript:void(0);" class="dropdown-item delete-devis" data-devis-id="{{ $devis->id }}">
-                      <i class="bx bx-trash me-1"></i> Delete
-                    </a>
-                  </form>
-                  @endunless
-
-                </div>
-              </div>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
-      {{ $devisList->links('custom-pagination') }}
     </div>
 <!-- Vertically Centered Modal -->
 <div class="col-lg-4 col-md-6">

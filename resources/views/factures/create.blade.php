@@ -257,24 +257,6 @@
                         </div>           
                           <!--/ Striped Rows -->
                     </div>
-                    <h5 class="card-header">Liste Details Facture</h5>
-                    <div class="table-responsive text-nowrap">
-                      <table class="table" id="dataArray">
-                        <thead class="table-light">
-                          <tr>
-                            <th>Designation</th>
-                            <th>PUHT</th>
-                            <th>Qte</th>
-                            <th>TVA</th>
-                            <th>Total HT</th>
-                            <th>Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody class="table-border-bottom-0">
-                        </tbody>
-                      </table>
-                    </div>
-                    <!--/ Striped Rows -->
                   </div>
                 </div>
               </div>
