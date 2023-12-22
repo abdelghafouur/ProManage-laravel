@@ -3,7 +3,8 @@
 @extends('layouts.app')
 
 @section('content')
-<h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('factures.index') }}" style="color:#a1acb8 !important">Gestion Factures/</a></span> {{ $facture->codeFacture }}</h4>
+<h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('factures.index') }}"
+            style="color:#a1acb8 !important">Gestion Factures/</a></span> {{ $facture->codeFacture }}</h4>
 
 <!-- Basic Layout & Basic with Icons -->
 <div class="row">
@@ -19,7 +20,8 @@
                             <label for="client_id" class="form-label">Client:</label>
                             <select name="client_id" class="form-select">
                                 @foreach($clients as $client)
-                                <option value="{{ $client->id }}" {{ $facture->client_id == $client->id ? 'selected' : '' }}>
+                                <option value="{{ $client->id }}" {{ $facture->client_id == $client->id ? 'selected' :
+                                    '' }}>
                                     {{ $client->nom }}
                                 </option>
                                 @endforeach
@@ -30,7 +32,8 @@
                             <select name="devis_id" class="form-select">
                                 <option value="" {{ $facture->devis_id == null ? 'selected' : '' }}>No Devis</option>
                                 @foreach($devisList as $devis)
-                                <option value="{{ $devis->id }}" {{ $facture->devis_id == $devis->id ? 'selected' : '' }}>
+                                <option value="{{ $devis->id }}" {{ $facture->devis_id == $devis->id ? 'selected' : ''
+                                    }}>
                                     {{ $devis->codeDevis }}
                                 </option>
                                 @endforeach
@@ -44,9 +47,12 @@
                             <label for="devis" class="col-md-2 col-form-label">Devis:</label>
                             <div class="col-md-12">
                                 <select id="defaultSelect" class="form-select" name="devis" required>
-                                    <option value="DH - MAD" {{ $facture->devis == "DH - MAD" ? "selected" : '' }}>DH - MAD</option>
-                                    <option value="€ - EURO" {{ $facture->devis == "€ - EURO" ? "selected" : '' }}>€ - EURO</option>
-                                    <option value="$ - USD" {{ $facture->devis == "$ - USD" ? "selected" : '' }}>$ - USD</option>
+                                    <option value="DH - MAD" {{ $facture->devis == "DH - MAD" ? "selected" : '' }}>DH -
+                                        MAD</option>
+                                    <option value="€ - EURO" {{ $facture->devis == "€ - EURO" ? "selected" : '' }}>€ -
+                                        EURO</option>
+                                    <option value="$ - USD" {{ $facture->devis == "$ - USD" ? "selected" : '' }}>$ - USD
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -63,7 +69,8 @@
                             <div class="col-lg-4 col-md-6">
                                 <div class="mt-3">
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalCenter">
+                                    <button type="button" class="btn btn-outline-primary mb-3" data-bs-toggle="modal"
+                                        data-bs-target="#modalCenter">
                                         Ajouter Detail Facture
                                     </button>
 
@@ -76,36 +83,49 @@
                                                     <input type="hidden" name="facture_id" value="{{ $facture->id }}" />
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="row g-2" style="margin-bottom: 10px">
                                                             <div class="col mb-0">
-                                                                <label for="designation" class="form-label">DESIGNATION</label>
-                                                                <input type="text" name="designation" id="emailWithTitle1" class="form-control" />
+                                                                <label for="designation"
+                                                                    class="form-label">Description:</label>
+                                                                <input type="text" name="designation"
+                                                                    id="emailWithTitle1" class="form-control" />
                                                             </div>
                                                             <div class="col mb-0">
-                                                                <label for="puht" class="form-label">PUHT</label>
-                                                                <input type="text" name="puht" id="dobWithTitle2" class="form-control" />
+                                                                <label for="puht" class="form-label">Prix HT:</label>
+                                                                <input type="number" name="puht" id="dobWithTitle2"
+                                                                    class="form-control" />
                                                             </div>
                                                         </div>
                                                         <div class="row g-2">
                                                             <div class="col mb-0">
-                                                                <label for="qte" class="form-label">QTE</label>
-                                                                <input type="text" name="qte" id="emailWithTitle3" class="form-control" />
+                                                                <label for="qte" class="form-label">Qte:</label>
+                                                                <input type="number" name="qte" id="emailWithTitle3"
+                                                                    class="form-control" />
                                                             </div>
                                                             <div class="col mb-0">
-                                                                <label for="tva" class="form-label">TVA
+                                                                <label for="tva" class="form-label">TVA:
                                                                 </label>
-                                                                <input type="text" name="tva" id="dobWithTitle4" class="form-control" />
+                                                                <select class="form-select" name="tva" id="tva"
+                                                                    required>
+                                                                    <option value="7">7%</option>
+                                                                    <option value="10">10%</option>
+                                                                    <option value="14">14%</option>
+                                                                    <option value="20">20%</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                        <button type="button" class="btn btn-outline-secondary"
+                                                            data-bs-dismiss="modal">
                                                             Close
                                                         </button>
-                                                        <button type="button" onclick="submitInnerForm()" class="btn btn-primary">Save
+                                                        <button type="button" onclick="submitInnerForm()"
+                                                            class="btn btn-primary">Save
                                                             changes</button>
                                                     </div>
                                                 </div>
@@ -135,19 +155,30 @@
                                             <td>{{ $detail->tva }}</td>
                                             <td>
                                                 <div class="dropdown">
-                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                        data-bs-toggle="dropdown">
                                                         <i class="bx bx-dots-vertical-rounded"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
 
-                                                        <a class="dropdown-item edit-detailfacture" href="#" data-bs-toggle="modal" data-bs-target="#modalCenter2" data-detailfacture-id="{{ $detail->id }}" data-detailfacture-designation="{{ $detail->designation }}" data-detailfacture-puht="{{ $detail->puht }}" data-detailfacture-qte="{{ $detail->qte }}" data-detailfacture-tva="{{ $detail->tva }}">
+                                                        <a class="dropdown-item edit-detailfacture" href="#"
+                                                            data-bs-toggle="modal" data-bs-target="#modalCenter2"
+                                                            data-detailfacture-id="{{ $detail->id }}"
+                                                            data-detailfacture-designation="{{ $detail->designation }}"
+                                                            data-detailfacture-puht="{{ $detail->puht }}"
+                                                            data-detailfacture-qte="{{ $detail->qte }}"
+                                                            data-detailfacture-tva="{{ $detail->tva }}">
                                                             <i class="bx bx-edit-alt me-1"></i> Edit
                                                         </a>
                                                         @unless(auth()->user()->hasRole('admin'))
-                                                        <form id="deleteForm{{ $detail->id }}" action="{{ route('detailsFac.destroy', $detail->id,$facture->id) }}" method="POST">
+                                                        <form id="deleteForm{{ $detail->id }}"
+                                                            action="{{ route('detailsFac.destroy', $detail->id,$facture->id) }}"
+                                                            method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <a href="javascript:void(0);" class="dropdown-item delete-detail" data-detail-id="{{ $detail->id }}">
+                                                            <a href="javascript:void(0);"
+                                                                class="dropdown-item delete-detail"
+                                                                data-detail-id="{{ $detail->id }}">
                                                                 <i class="bx bx-trash me-1"></i> Delete
                                                             </a>
                                                         </form>
@@ -170,7 +201,8 @@
                 </div>
                 <div class="row justify-content-end">
                     <div class="col-sm-2">
-                        <button type="button" onclick="submitOuterForm()" class="btn btn-primary mt-4">Edite Facture</button>
+                        <button type="button" onclick="submitOuterForm()" class="btn btn-primary mt-4">Edite
+                            Facture</button>
                     </div>
                 </div>
             </div>
@@ -184,7 +216,8 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
 
-                    <form id="editDetailFactureForm" method="post" action="{{ route('detailsFac.update', ['detailsFac' => $facture->id]) }}">
+                    <form id="editDetailFactureForm" method="post"
+                        action="{{ route('detailsFac.update', ['detailsFac' => $facture->id]) }}">
 
                         @csrf
                         @method('PUT')
@@ -196,22 +229,27 @@
                             <div class="row g-2" style="margin-bottom: 10px">
                                 <input type="hidden" name="detailfacture_id" id="detailfacture_id">
                                 <div class="col mb-0">
-                                    <label for="designation" class="form-label">Designation</label>
+                                    <label for="designation" class="form-label">Description:</label>
                                     <input type="text" class="form-control" name="designation" id="designationEdite">
                                 </div>
                                 <div class="col mb-0">
-                                    <label for="puht" class="form-label">PUHT</label>
-                                    <input type="text" class="form-control" name="puht" id="puhtEdite">
+                                    <label for="puht" class="form-label">Prix HT:</label>
+                                    <input type="number" class="form-control" name="puht" id="puhtEdite">
                                 </div>
                             </div>
                             <div class="row g-2">
                                 <div class="col mb-0">
-                                    <label for="qte" class="form-label">QTE</label>
-                                    <input type="text" class="form-control" name="qte" id="qteEdite">
+                                    <label for="qte" class="form-label">Qte:</label>
+                                    <input type="number" class="form-control" name="qte" id="qteEdite">
                                 </div>
                                 <div class="col mb-0">
-                                    <label for="tva" class="form-label">TVA</label>
-                                    <input type="text" class="form-control" name="tva" id="tvaEdite">
+                                    <label for="tva" class="form-label">TVA:</label>
+                                    <select class="form-select" name="tva" id="tvaEdite" required>
+                                        <option value="7">7%</option>
+                                        <option value="10">10%</option>
+                                        <option value="14">14%</option>
+                                        <option value="20">20%</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -219,7 +257,8 @@
                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                 Close
                             </button>
-                            <button type="button" onclick="submitInnerForm2()" class="btn btn-primary">Save changes</button>
+                            <button type="button" onclick="submitInnerForm2()" class="btn btn-primary">Save
+                                changes</button>
                         </div>
 
                     </form>
@@ -245,7 +284,8 @@
                     </div>
                     <br />
                     <h4 style="text-align: center">Are you sure you want to delete this detail facture? </h4>
-                    <p style="color: #999;"> Do you really want to delete these records? This <br /> process cannot be undone.
+                    <p style="color: #999;"> Do you really want to delete these records? This <br /> process cannot be
+                        undone.
                     </p>
                 </div>
                 <div class="modal-footer1">
@@ -290,8 +330,15 @@
         $('#designationEdite').val(triggerElement.data('detailfacture-designation'));
         $('#puhtEdite').val(triggerElement.data('detailfacture-puht'));
         $('#qteEdite').val(triggerElement.data('detailfacture-qte'));
-        $('#tvaEdite').val(triggerElement.data('detailfacture-tva'));
-
+        // Set selected option for the 'tvaedit' select element
+        var tvaSelect = document.getElementById('tvaEdite');
+        var selectedTva = triggerElement.data('detailfacture-tva');
+        for (var i = 0; i < tvaSelect.options.length; i++) {
+            if (tvaSelect.options[i].value == selectedTva) {
+                tvaSelect.selectedIndex = i;
+                break;
+            }
+        }
         // Show the modal
         $('#modalCenter2').modal('show');
     });

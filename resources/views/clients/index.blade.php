@@ -1,72 +1,73 @@
 @extends('layouts.app')
 
 @section('content')
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('clients.index') }}" style="color:#a1acb8 !important">Gestion Clients/</a></span> Liste Clients</h4>
-    <!-- Bootstrap Table with Header - Light -->
-    <div class="card">
+<h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('clients.index') }}"
+            style="color:#a1acb8 !important">Gestion Clients/</a></span> Liste Clients</h4>
+<!-- Bootstrap Table with Header - Light -->
+<div class="card">
 
-        <div class="table-responsive text-nowrap">
+    <div class="table-responsive text-nowrap">
 
-            <div class="dt-action-buttons text-end mt-4" style="margin-right: 20px;">
-                <label class="mx-3">
-                    <input type="search" id="clientSearch" placeholder="Search by Name" class="form-control " />
-                </label>
-                <button type="button" onclick="window.location.href='{{ route('clients.create') }}'"
-                    class="btn btn-outline-primary">
-                    Ajouter Client
-                </button>
-            </div>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Nom Complete</th>
-                        <th>Type</th>
-                        <th>Téléphone</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="table-border-bottom-0">
-                    @foreach ($clients as $client)
-                    <tr>
-                        <td><a href="{{ route('clients.show', $client->id) }}">{{ $client->codeClient }}</a></td>
-                        <td>{{ $client->nom }}</td>
-                        <td>{{ $client->type }}</td>
-                        <td>{{ $client->telephone }}</td>
-                        <td>{{ $client->email }}</td>
-                        <td>
-                            <div class="dropdown">
-                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                    data-bs-toggle="dropdown">
-                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                    
-                                    <a class="dropdown-item" href="{{ route('clients.edit', $client->id) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                    @unless(auth()->user()->hasRole('admin'))
-                                    <form id="deleteForm{{ $client->id }}"
-                                        action="{{ route('clients.destroy', $client->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <a href="javascript:void(0);" class="dropdown-item delete-client"
-                                            data-client-id="{{ $client->id }}">
-                                            <i class="bx bx-trash me-1"></i> Delete
-                                        </a>
-                                    </form>
-                                    @endunless
-
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            {{ $clients->links('custom-pagination') }}
+        <div class="dt-action-buttons text-end mt-4" style="margin-right: 20px;">
+            <label class="mx-3">
+                <input type="search" id="clientSearch" placeholder="Search by Name" class="form-control " />
+            </label>
+            <button type="button" onclick="window.location.href='{{ route('clients.create') }}'"
+                class="btn btn-outline-primary">
+                Ajouter Client
+            </button>
         </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Nom Complete</th>
+                    <th>Type</th>
+                    <th>Téléphone</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @foreach ($clients as $client)
+                <tr>
+                    <td><a href="{{ route('clients.show', $client->id) }}">{{ $client->codeClient }}</a></td>
+                    <td>{{ $client->nom }}</td>
+                    <td>{{ $client->type }}</td>
+                    <td>{{ $client->telephone }}</td>
+                    <td>{{ $client->email }}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+
+                                <a class="dropdown-item" href="{{ route('clients.edit', $client->id) }}"><i
+                                        class="bx bx-edit-alt me-1"></i> Edit</a>
+                                @unless(auth()->user()->hasRole('admin'))
+                                <form id="deleteForm{{ $client->id }}"
+                                    action="{{ route('clients.destroy', $client->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="javascript:void(0);" class="dropdown-item delete-client"
+                                        data-client-id="{{ $client->id }}">
+                                        <i class="bx bx-trash me-1"></i> Delete
+                                    </a>
+                                </form>
+                                @endunless
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        {{ $clients->links('custom-pagination') }}
     </div>
-    
+</div>
+
 
 <!-- Vertically Centered Modal -->
 <div class="col-lg-4 col-md-6">

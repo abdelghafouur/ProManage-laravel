@@ -4,123 +4,124 @@
 
 @section('content')
 
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('devis.index') }}" style="color:#a1acb8 !important">Gestion Devis/</a></span> Ajouter Devis</h4>
+<h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('devis.index') }}"
+            style="color:#a1acb8 !important">Gestion Devis/</a></span> Ajouter Devis</h4>
 
-    <!-- Basic Layout & Basic with Icons -->
-    <div class="row">
-        <div class="col-xxl">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <form method="post" action="{{ route('devis.store') }}" enctype="multipart/form-data"
-                        id="devis-form">
-                        @csrf
+<!-- Basic Layout & Basic with Icons -->
+<div class="row">
+    <div class="col-xxl">
+        <div class="card mb-4">
+            <div class="card-body">
+                <form method="post" action="{{ route('devis.store') }}" enctype="multipart/form-data" id="devis-form">
+                    @csrf
+                    <div class="row">
+                        <div class="mb-3 col-lg-6 col-md-6">
+                            <label class="form-label" for="designationDev">Designation</label>
+                            <input type="text" class="form-control" id="designationDev" name="designationDev"
+                                required />
+                        </div>
+                        <div class="mb-3 col-lg-6 col-md-6">
+                            <label class="form-label" for="basic-default-fullname">Conditions de Règlement</label>
+                            {{-- <input type="text" class="form-control" required id="basic-default-fullname"
+                                name="conditionsDeReglement" /> --}}
+                            <select id="defaultSelect" class="form-select" name="conditionsDeReglement" required>
+                                <option value="A l'avance">A l'avance</option>
+                                <option value="A réception">A réception</option>
+                                <option value="50/50">50/50</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-lg-6 col-md-6">
+                            <label class="form-label" for="basic-default-company">Devise</label>
+                            {{-- <input type="text" class="form-control" id="basic-default-company" name="devis"
+                                required /> --}}
+                            <select id="defaultSelect" class="form-select" name="devis" required>
+                                <option value="DH - MAD">DH - MAD</option>
+                                <option value="€ - EURO">€ - EURO</option>
+                                <option value="$ - USD">$ - USD</option>
+                            </select>
+
+                        </div>
+                        <div class="mb-3 col-lg-6 col-md-6">
+                            <label for="defaultSelect" class="form-label">Client</label>
+                            <select id="defaultSelect" class="form-select" name="client_id" required>
+                                @foreach($clients as $client)
+                                <option value="{{ $client->id }}">{{ $client->nom }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3 col-lg-6 col-md-6">
+                            <label for="html5-date-input" class="col-md-2 col-form-label">Date</label>
+                            <div class="col-md-12">
+                                <input class="form-control" type="date" name="date" id="html5-date-input" required />
+                            </div>
+                        </div>
+                        <!-- Basic Layout -->
                         <div class="row">
-                            <div class="mb-3 col-lg-6 col-md-6">
-                                <label class="form-label" for="designationDev">Designation</label>
-                                <input type="text" class="form-control" id="designationDev" name="designationDev"
-                                    required />
-                            </div>
-                            <div class="mb-3 col-lg-6 col-md-6">
-                                <label class="form-label" for="basic-default-fullname">Conditions de Règlement</label>
-                                {{-- <input type="text" class="form-control" required id="basic-default-fullname" name="conditionsDeReglement" /> --}}
-                                <select id="defaultSelect" class="form-select" name="conditionsDeReglement" required>
-                                    <option value="A l'avance">A l'avance</option>
-                                    <option value="A réception">A réception</option>
-                                    <option value="50/50">50/50</option>
-                                </select>
-                            </div>
-                            <div class="mb-3 col-lg-6 col-md-6">
-                                <label class="form-label" for="basic-default-company">Devise</label>
-                                {{-- <input type="text" class="form-control" id="basic-default-company" name="devis" required /> --}}
-                                <select id="defaultSelect" class="form-select" name="devis" required>
-                                    <option value="DH - MAD">DH - MAD</option>
-                                    <option value="€ - EURO">€ - EURO</option>
-                                    <option value="$ - USD">$ - USD</option>
-                                </select>
-                                
-                            </div>
-                            <div class="mb-3 col-lg-6 col-md-6">
-                                <label for="defaultSelect" class="form-label">Client</label>
-                                <select id="defaultSelect" class="form-select" name="client_id" required>
-                                    @foreach($clients as $client)
-                                    <option value="{{ $client->id }}">{{ $client->nom }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3 col-lg-6 col-md-6">
-                                <label for="html5-date-input" class="col-md-2 col-form-label">Date</label>
-                                <div class="col-md-12">
-                                    <input class="form-control" type="date" name="date" id="html5-date-input"
-                                        required />
-                                </div>
-                            </div>
-                            <!-- Basic Layout -->
-                            <div class="row">
-                                <div class="col-xl">
-                                    <div class="card mb-4">
-                                        <div class="card-header d-flex justify-content-between align-items-center">
-                                            <h5 class="mb-0">Ajouter Detail Devis : </h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <!-- Add this hidden input inside the form -->
-                                                <input type="hidden" name="detail_deviss[]" id="detail-deviss">
-                                                <div class="mb-3 col-lg-3 col-md-4">
-                                                    <label class="form-label" for="designation[]">Description:</label>
-                                                    <input type="text" class="form-control" name="designation[]" required/>
-                                                </div>
-                                                <div class="mb-3 col-lg-3 col-md-4">
-                                                    <label class="form-label" for="puht[]">Prix HT:</label>
-                                                    <input type="number" class="form-control" name="puht[]" required/>
-                                                </div>
-                                                <div class="mb-3 col-lg-3 col-md-4">
-                                                    <label class="form-label" for="qte[]">Qte:</label>
-                                                    <input type="number" class="form-control" name="qte[]" required />
-                                                </div>
-                                                <div class="mb-3 col-lg-3 col-md-4">
-                                                    <label class="form-label" for="tva[]">TVA:</label>
-                                                    <select id="defaultSelect" class="form-select" name="tva[]" required>
-                                                        <option value="7">7%</option>
-                                                        <option value="10">10%</option>
-                                                        <option value="14">14%</option>
-                                                        <option value="20">20%</option>
-                                                    </select>
-                                                </div>
+                            <div class="col-xl">
+                                <div class="card mb-4">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5 class="mb-0">Ajouter Detail Devis : </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <!-- Add this hidden input inside the form -->
+                                            <input type="hidden" name="detail_deviss[]" id="detail-deviss">
+                                            <div class="mb-3 col-lg-3 col-md-4">
+                                                <label class="form-label" for="designation[]">Description:</label>
+                                                <input type="text" class="form-control" name="designation[]" required />
                                             </div>
-                                            <button type="button" class="btn btn-outline-primary"
-                                                onclick="insertData()">Ajouter</button>
-                                            <h5 class="card-header">Liste Details Devis : </h5>
-                                            <div class="table-responsive text-nowrap">
-                                                <table class="table" id="entered-details-table">
-                                                    <thead class="table-light">
-                                                        <tr>
-                                                            <th>Description</th>
-                                                            <th>Prix Unitaire HT</th>
-                                                            <th>Quantité</th>
-                                                            <th>TVA</th>
-                                                            <th>Total HT</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="table-border-bottom-0">
-                                                    </tbody>
-                                                </table>
+                                            <div class="mb-3 col-lg-3 col-md-4">
+                                                <label class="form-label" for="puht[]">Prix HT:</label>
+                                                <input type="number" class="form-control" name="puht[]" required />
                                             </div>
-                                            <!--/ Striped Rows -->
+                                            <div class="mb-3 col-lg-3 col-md-4">
+                                                <label class="form-label" for="qte[]">Qte:</label>
+                                                <input type="number" class="form-control" name="qte[]" required />
+                                            </div>
+                                            <div class="mb-3 col-lg-3 col-md-4">
+                                                <label class="form-label" for="tva[]">TVA:</label>
+                                                <select id="defaultSelect" class="form-select" name="tva[]" required>
+                                                    <option value="7">7%</option>
+                                                    <option value="10">10%</option>
+                                                    <option value="14">14%</option>
+                                                    <option value="20">20%</option>
+                                                </select>
+                                            </div>
                                         </div>
+                                        <button type="button" class="btn btn-outline-primary"
+                                            onclick="insertData()">Ajouter</button>
+                                        <h5 class="card-header">Liste Details Devis : </h5>
+                                        <div class="table-responsive text-nowrap">
+                                            <table class="table" id="entered-details-table">
+                                                <thead class="table-light">
+                                                    <tr>
+                                                        <th>Description</th>
+                                                        <th>Prix Unitaire HT</th>
+                                                        <th>Quantité</th>
+                                                        <th>TVA</th>
+                                                        <th>Total HT</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-border-bottom-0">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!--/ Striped Rows -->
                                     </div>
                                 </div>
                             </div>
-                            <div class="row text-end">
-                                <div class="col-sm-12">
-                                    <button type="button" class="btn btn-primary text-end mx-4"
-                                        onclick="submitForm()">Create Devis</button>
-                                </div>
+                        </div>
+                        <div class="row text-end">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-primary text-end mx-4"
+                                    onclick="submitForm()">Create Devis</button>
                             </div>
-                    </form>
-                </div>
+                        </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>
 <script>
     // Initialize an array to store details

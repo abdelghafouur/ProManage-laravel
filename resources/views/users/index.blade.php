@@ -2,83 +2,83 @@
 
 @section('content')
 
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('users.index') }}" style="color:#a1acb8 !important">Gestion Comptes/</a></span> Liste Comptes</h4>
-    <!-- Bootstrap Table with Header - Light -->
-    <div class="card">
+<h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('users.index') }}"
+            style="color:#a1acb8 !important">Gestion Comptes/</a></span> Liste Comptes</h4>
+<!-- Bootstrap Table with Header - Light -->
+<div class="card">
 
-        <div class="table-responsive text-nowrap">
+    <div class="table-responsive text-nowrap">
 
-            <div class="dt-action-buttons text-end mt-4" style="margin-right: 20px;">
-                <label class="mx-3">
-                    <input type="search" id="userSearch" placeholder="Search by Name" class="form-control " />
-                </label>
-                <button type="button" onclick="window.location.href='{{ route('users.create') }}'"
-                    class="btn btn-outline-primary">
-                    Ajouter Compte
-                </button>
-            </div>
-
-
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Nom Complete</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                    </tr>
-                </thead>
-                <tbody class="table-border-bottom-0">
-                    @foreach ($users as $user)
-                    <tr>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>
-                            @foreach ($user->getRoleNames() as $role)
-                            <div class="demo-inline-spacing">
-                                @if ( $role == 'superadmin')
-
-                                <span class="badge rounded-pill bg-primary">{{ $role }}</span>
-
-                                @elseif($role == 'admin')
-                                <span class="badge rounded-pill bg-secondary">{{ $role }}</span>
-
-                                @elseif( $role == 'comptable')
-                                <span class="badge rounded-pill bg-info">{{ $role }}</span>
-                                @endif
-                            </div>
-                            @endforeach
-                        </td>
-                        <td>
-                            <div class="dropdown">
-                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                    data-bs-toggle="dropdown">
-                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{ route('users.edit', $user->id) }}"><i
-                                            class="bx bx-edit-alt me-1"></i> Edit</a>
-                                    @unless(auth()->user()->hasRole('admin'))
-                                    <form id="deleteForm{{ $user->id }}"
-                                        action="{{ route('users.destroy', $user->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <a href="javascript:void(0);" class="dropdown-item delete-user"
-                                            data-user-id="{{ $user->id }}">
-                                            <i class="bx bx-trash me-1"></i> Delete
-                                        </a>
-                                    </form>
-                                    @endunless
-
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            {{ $users->links('custom-pagination') }}
+        <div class="dt-action-buttons text-end mt-4" style="margin-right: 20px;">
+            <label class="mx-3">
+                <input type="search" id="userSearch" placeholder="Search by Name" class="form-control " />
+            </label>
+            <button type="button" onclick="window.location.href='{{ route('users.create') }}'"
+                class="btn btn-outline-primary">
+                Ajouter Compte
+            </button>
         </div>
+
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nom Complete</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @foreach ($users as $user)
+                <tr>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>
+                        @foreach ($user->getRoleNames() as $role)
+                        <div class="demo-inline-spacing">
+                            @if ( $role == 'superadmin')
+
+                            <span class="badge rounded-pill bg-primary">{{ $role }}</span>
+
+                            @elseif($role == 'admin')
+                            <span class="badge rounded-pill bg-secondary">{{ $role }}</span>
+
+                            @elseif( $role == 'comptable')
+                            <span class="badge rounded-pill bg-info">{{ $role }}</span>
+                            @endif
+                        </div>
+                        @endforeach
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{ route('users.edit', $user->id) }}"><i
+                                        class="bx bx-edit-alt me-1"></i> Edit</a>
+                                @unless(auth()->user()->hasRole('admin'))
+                                <form id="deleteForm{{ $user->id }}" action="{{ route('users.destroy', $user->id) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="javascript:void(0);" class="dropdown-item delete-user"
+                                        data-user-id="{{ $user->id }}">
+                                        <i class="bx bx-trash me-1"></i> Delete
+                                    </a>
+                                </form>
+                                @endunless
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        {{ $users->links('custom-pagination') }}
     </div>
+</div>
 <!-- Vertically Centered Modal -->
 <div class="col-lg-4 col-md-6">
     <!-- Modal -->

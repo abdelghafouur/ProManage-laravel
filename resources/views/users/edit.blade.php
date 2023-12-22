@@ -99,7 +99,7 @@
   </div>
 </div>
 <script>
-    function displayImage(input) {
+  function displayImage(input) {
       var uploadedAvatar = document.getElementById('uploadedAvatar');
       
       // Check if a file is selected

@@ -4,91 +4,95 @@
 
 @section('content')
 
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('factures.index') }}" style="color:#a1acb8 !important">Gestion Factures/</a></span> Liste Factures</h4>
-    <!-- Bootstrap Table with Header - Light -->
-    <div class="card">
-      <div class="table-responsive text-nowrap">
-        <div class="dt-action-buttons text-end mt-4 mb-3" style="margin-right: 20px;">
-          <div class="row">
-            <label class="col-sm-2 mx-3">
-              Date Debut : <input type="date" style="display: inline;width: 70%;" id="dateDebut" placeholder="Search by Date" class="form-control" />
-            </label>
-            <label class="col-sm-2 mx-3">
-              Date Fin : <input type="date" style="display: inline;width: 70%;" id="dateFin" placeholder="Search by Date" class="form-control" />
-            </label>
-            <label class="col-sm-7 mx-3">
-            <label class="mx-3">
-              <input type="search" id="clientSearch"  placeholder="Search by Name" class="form-control" />
-            </label>
-            @unless(auth()->user()->hasRole('comptable'))
-              <button type="button" onclick="window.location.href='{{ route('factures.create') }}'"
-                class="btn btn-outline-primary">
-                Ajouter Facture
-              </button>
-            </label>
-            @endunless
-          </div>
-          
-        </div>
-        <table class="table">
-          <thead class="table-light">
-            <tr>
-              <th>Référence</th>
-              <th>Date</th>
-              <th>Client</th>
-              <th>Montant HT</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody class="table-border-bottom-0">
-            @foreach($factures as $facture)
-                <tr>
-                    <td><a href="{{ route('factures.show', $facture->id) }}">{{ $facture->codeFacture }}</a></td>
-                    <td>{{ $facture->date }}</td>
-                    <td>{{ $facture->client->nom }}</td>
-                    <td>
-                      @php
-                        $totalTTC = 0;
-                      @endphp
-                      @if($facture->detailFacture->isNotEmpty())
-                        @foreach($facture->detailFacture as $detail)
-                          @php
-                            $totalTTC += ($detail->puht * $detail->qte) * (1 + ($detail->tva / 100));
-                          @endphp
-                        @endforeach
-                      @endif
-                      {{ number_format($totalTTC, 2, ',', '') }}
-                    </td>
-                    <td>
-                      <div class="dropdown">
-                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                          <i class="bx bx-dots-vertical-rounded"></i>
-                        </button>
-                        <div class="dropdown-menu">
-                          @unless(auth()->user()->hasRole('comptable'))
-                          <a class="dropdown-item" href="{{ route('factures.edit', $facture->id) }}"
-                            ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                          >
-                            @unless(auth()->user()->hasRole('admin'))
-                              <form id="deleteForm{{ $facture->id }}" action="{{ route('factures.destroy', $facture->id) }}" method="POST">
-                                  @csrf
-                                  @method('DELETE')
-                                  <a href="javascript:void(0);" class="dropdown-item delete-facture" data-facture-id="{{ $facture->id }}">
-                                    <i class="bx bx-trash me-1"></i> Delete
-                                </a>
-                              </form>
-                            @endunless
-                          @endunless
-                        </div>
-                      </div>
-                    </td>
-                </tr>
-            @endforeach
-          </tbody>
-        </table>
-        {{ $factures->links('custom-pagination') }}
+<h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('factures.index') }}"
+      style="color:#a1acb8 !important">Gestion Factures/</a></span> Liste Factures</h4>
+<!-- Bootstrap Table with Header - Light -->
+<div class="card">
+  <div class="table-responsive text-nowrap">
+    <div class="dt-action-buttons text-end mt-4 mb-3" style="margin-right: 20px;">
+      <div class="row">
+        <label class="col-sm-2 mx-3">
+          Date Debut : <input type="date" style="display: inline;width: 70%;" id="dateDebut"
+            placeholder="Search by Date" class="form-control" />
+        </label>
+        <label class="col-sm-2 mx-3">
+          Date Fin : <input type="date" style="display: inline;width: 70%;" id="dateFin" placeholder="Search by Date"
+            class="form-control" />
+        </label>
+        <label class="col-sm-7 mx-3">
+          <label class="mx-3">
+            <input type="search" id="clientSearch" placeholder="Search by Name" class="form-control" />
+          </label>
+          @unless(auth()->user()->hasRole('comptable'))
+          <button type="button" onclick="window.location.href='{{ route('factures.create') }}'"
+            class="btn btn-outline-primary">
+            Ajouter Facture
+          </button>
+        </label>
+        @endunless
       </div>
+
     </div>
+    <table class="table">
+      <thead class="table-light">
+        <tr>
+          <th>Référence</th>
+          <th>Date</th>
+          <th>Client</th>
+          <th>Montant HT</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody class="table-border-bottom-0">
+        @foreach($factures as $facture)
+        <tr>
+          <td><a href="{{ route('factures.show', $facture->id) }}">{{ $facture->codeFacture }}</a></td>
+          <td>{{ $facture->date }}</td>
+          <td>{{ $facture->client->nom }}</td>
+          <td>
+            @php
+            $totalTTC = 0;
+            @endphp
+            @if($facture->detailFacture->isNotEmpty())
+            @foreach($facture->detailFacture as $detail)
+            @php
+            $totalTTC += ($detail->puht * $detail->qte) * (1 + ($detail->tva / 100));
+            @endphp
+            @endforeach
+            @endif
+            {{ number_format($totalTTC, 2, ',', '') }}
+          </td>
+          <td>
+            <div class="dropdown">
+              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </button>
+              <div class="dropdown-menu">
+                @unless(auth()->user()->hasRole('comptable'))
+                <a class="dropdown-item" href="{{ route('factures.edit', $facture->id) }}"><i
+                    class="bx bx-edit-alt me-1"></i> Edit</a>
+                @unless(auth()->user()->hasRole('admin'))
+                <form id="deleteForm{{ $facture->id }}" action="{{ route('factures.destroy', $facture->id) }}"
+                  method="POST">
+                  @csrf
+                  @method('DELETE')
+                  <a href="javascript:void(0);" class="dropdown-item delete-facture"
+                    data-facture-id="{{ $facture->id }}">
+                    <i class="bx bx-trash me-1"></i> Delete
+                  </a>
+                </form>
+                @endunless
+                @endunless
+              </div>
+            </div>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+    {{ $factures->links('custom-pagination') }}
+  </div>
+</div>
 <!-- Vertically Centered Modal -->
 <div class="col-lg-4 col-md-6">
   <!-- Modal -->
@@ -118,7 +122,7 @@
   </div>
 </div>
 <script>
-   // Handle date range search
+  // Handle date range search
 
     $("#dateDebut, #dateFin").on("change", function() {
         var startDate = $("#dateDebut").val();
