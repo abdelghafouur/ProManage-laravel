@@ -14,16 +14,16 @@
                       Date Fin : <input type="date" style="display: inline;width: 70%;" id="dateFin" placeholder="Search by Date" class="form-control" />
                     </label>
                     <label class="col-sm-7 mx-3">
-                    <label class="mx-3">
-                      <input type="search" id="clientSearch"  placeholder="Search by Name" class="form-control" />
+                        <label class="mx-3">
+                            <select id="filterSelect" style="display: inline-block;" class="form-select">
+                                <option value="parDateCroissant">Par Date Croissant</option>
+                                <option value="parDateDecroissant">Par Date Décroissant</option>
+                            </select>
+                        </label>
+                        <label class="mx-3">
+                            <input type="search" id="paimentSearch" placeholder="Search by Name" class="form-control " />
+                        </label>
                     </label>
-                    @unless(auth()->user()->hasRole('comptable'))
-                      <button type="button" onclick="window.location.href='{{ route('factures.create') }}'"
-                        class="btn btn-outline-primary">
-                        Ajouter Facture
-                      </button>
-                    </label>
-                    @endunless
                 </div>
             </div>
             <table class="table table-striped">
@@ -126,20 +126,6 @@
                     var dateA = new Date($(a).find("td:eq(2)").text());
                     var dateB = new Date($(b).find("td:eq(2)").text());
                     return dateB - dateA;
-                });
-                break;
-            case "parMontantCroissant":
-                $rows.sort(function(a, b) {
-                    var montantA = parseFloat($(a).find("td:eq(3)").text()); // Assuming index 2 is the montant column
-                    var montantB = parseFloat($(b).find("td:eq(3)").text());
-                    return montantA - montantB;
-                });
-                break;
-            case "parMontantDecroissant":
-                $rows.sort(function(a, b) {
-                    var montantA = parseFloat($(a).find("td:eq(3)").text());
-                    var montantB = parseFloat($(b).find("td:eq(3)").text());
-                    return montantB - montantA;
                 });
                 break;
         }

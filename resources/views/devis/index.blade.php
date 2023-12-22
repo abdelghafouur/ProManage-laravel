@@ -32,7 +32,19 @@
                       <td><a href="{{ route('devis.show', $devis->id) }}">{{ $devis->codeDevis }}</a></td>
                       <td>{{ $devis->date }}</td>
                       <td>{{ $devis->client->nom }}</td>
-                      <td>Montant HT</td>
+                      <td>
+                        @php
+                          $totalTTC = 0;
+                        @endphp
+                        @if($devis->detailDevis->isNotEmpty())
+                          @foreach($devis->detailDevis as $detail)
+                            @php
+                              $totalTTC += ($detail->puht * $detail->qte) * (1 + ($detail->tva / 100));
+                            @endphp
+                          @endforeach
+                        @endif
+                        {{ number_format($totalTTC, 2, ',', '') }}
+                      </td>
                       <td>
                         <div class="dropdown">
                           <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

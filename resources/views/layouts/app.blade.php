@@ -216,7 +216,7 @@
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                     data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}"
+                                        <img src="{{ (Auth::user()->profile_photo_path) ? asset('storage/' . Auth::user()->profile_photo_path) : asset('/assets/img/image/admin1.png') }}"
                                             alt="Admin Image" class="w-px-40 h-auto rounded-circle">
 
                                     </div>
@@ -227,7 +227,7 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}"
+                                                        <img src="{{ (Auth::user()->profile_photo_path) ? asset('storage/' . Auth::user()->profile_photo_path) : asset('/assets/img/image/admin1.png') }}"
                                                             alt="Admin Image" class="w-px-40 h-auto rounded-circle">
                                                     </div>
                                                 </div>

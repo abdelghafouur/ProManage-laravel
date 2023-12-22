@@ -20,7 +20,7 @@ class FactureController extends Controller
     // Display a listing of the factures.
     public function index()
     {
-        $factures = Facture::paginate(10);
+        $factures = Facture::with('detailFacture')->paginate(10);
         return view('factures.index', compact('factures'));
     }
 

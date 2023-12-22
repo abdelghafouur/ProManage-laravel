@@ -16,7 +16,7 @@ class CreateEntreprisesTable extends Migration
         Schema::create('entreprises', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('logo')->nullable()->default('profile_photos/defaultEntreprise.jpg');
+            $table->string('logo')->nullable();
             $table->string('typelogo')->nullable()->default('jpg');
             $table->string('ice')->nullable();
             $table->integer('patente')->nullable();
