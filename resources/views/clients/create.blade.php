@@ -29,6 +29,29 @@
             </div>
           </div>
           <div class="row mb-3">
+            <label for="defaultSelect" class="col-sm-2 form-label">Type</label>
+            <div class="col-sm-10">
+              <div class="input-group input-group-merge" id="typediv">
+                <span id="basic-icon-default-message2" class="input-group-text"><i class='bx bx-spreadsheet'></i></span>
+                <select id="type" class="form-select" name="type">
+                  <option value="Entreprise">Entreprise</option>
+                  <option value="Particulier">Particulier</option>
+                  <option value="Autre">Autre</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 form-label" for="basic-icon-default-message">ICE</label>
+            <div class="col-sm-10">
+              <div class="input-group input-group-merge" id="icediv">
+                <span id="basic-icon-default-message2" class="input-group-text"><i class="bx bx-comment"></i></span>
+                <input type="number" class="form-control" id="ice" name="ice"
+                  aria-describedby="basic-icon-default-message2" />
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
             <label class="col-sm-2 col-form-label" for="basic-icon-default-company">Adresse</label>
             <div class="col-sm-10">
               <div class="input-group input-group-merge" id="adressediv">
@@ -59,29 +82,6 @@
               </div>
             </div>
           </div>
-          <div class="row mb-3">
-            <label for="defaultSelect" class="col-sm-2 form-label">Type</label>
-            <div class="col-sm-10">
-              <div class="input-group input-group-merge" id="typediv">
-                <span id="basic-icon-default-message2" class="input-group-text"><i class='bx bx-spreadsheet'></i></span>
-                <select id="type" class="form-select" name="type">
-                  <option value="Entreprise">Entreprise</option>
-                  <option value="Particulier">Particulier</option>
-                  <option value="Autre">Autre</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="row mb-3">
-            <label class="col-sm-2 form-label" for="basic-icon-default-message">ICE</label>
-            <div class="col-sm-10">
-              <div class="input-group input-group-merge" id="icediv">
-                <span id="basic-icon-default-message2" class="input-group-text"><i class="bx bx-comment"></i></span>
-                <input type="number" class="form-control" id="ice" name="ice"
-                  aria-describedby="basic-icon-default-message2" />
-              </div>
-            </div>
-          </div>
           <div class="row justify-content-end">
             <div class="col-sm-10">
               <button type="submit" class="btn btn-primary">Ajouter Client</button>
@@ -95,16 +95,10 @@
 <script>
   function validateForm() {
       var nomField = document.getElementById('nom');
-      var adresseField = document.getElementById('adresse');
-      var emailField = document.getElementById('email');
-      var telephoneField = document.getElementById('telephone');
       var typeField = document.getElementById('type');
       var iceField = document.getElementById('ice');
 
       var nomdivField = document.getElementById('nomdiv');
-      var adressedivField = document.getElementById('adressediv');
-      var emaildivField = document.getElementById('emaildiv');
-      var telephonedivField = document.getElementById('telephonediv');
       var typedivField = document.getElementById('typediv');
       var icedivField = document.getElementById('icediv');
 
@@ -114,27 +108,6 @@
           isError = true;
       } else {
         nomdivField.style.border = '';
-      }
-
-      if (adresseField.value.trim() === '') {
-        adressedivField.style.border = '1px red solid';
-          isError = true;
-      } else {
-        adressedivField.style.border = '';
-      }
-
-      if (emailField.value.trim() === '') {
-        emaildivField.style.border = '1px red solid';
-          isError = true;
-      } else {
-        emaildivField.style.border = '';
-      }
-
-      if (telephoneField.value.trim() === '') {
-        telephonedivField.style.border = '1px red solid';
-          isError = true;
-      } else {
-        telephonedivField.style.border = '';
       }
       if (typeField.value.trim() === '') {
         typedivField.style.border = '1px red solid';

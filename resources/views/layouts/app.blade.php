@@ -102,18 +102,18 @@
                     </li>
 
                     <li class="menu-header small text-uppercase"><span class="menu-header-text">Clients</span></li>
-                    <li class="menu-item {{ request()->is('clients*') ? 'active' : '' }}" style="">
+                    <li class="menu-item {{ request()->is('clients*') ? 'active open' : '' }}" style="">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-user"></i>
                             <div>Clients</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item">
+                            <li class="menu-item {{ Route::currentRouteName() == 'clients.index' ? 'active' : '' }}">
                                 <a href="{{ route('clients.index') }}" class="menu-link">
                                     <div>Tous les clients</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
+                            <li class="menu-item {{ Route::currentRouteName() == 'clients.create' ? 'active' : '' }}">
                                 <a href="{{ route('clients.create') }}" class="menu-link">
                                     <div>Ajouter client</div>
                                 </a>
@@ -125,18 +125,18 @@
                     <li class="menu-header small text-uppercase"><span class="menu-header-text">Facturation</span></li>
                     @unless(auth()->user()->hasRole('comptable'))
 
-                    <li class="menu-item {{ request()->is('devis*') ? 'active' : '' }}" style="">
+                    <li class="menu-item {{ request()->is('devis*') ? 'active open' : '' }}" style="">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-notepad"></i>
                             <div>Devis</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item">
+                            <li class="menu-item {{ Route::currentRouteName() == 'devis.index' ? 'active' : '' }}">
                                 <a href="{{ route('devis.index') }}" class="menu-link">
                                     <div>Tous les Devis</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
+                            <li class="menu-item {{ Route::currentRouteName() == 'devis.create' ? 'active' : '' }}">
                                 <a href="{{ route('devis.create') }}" class="menu-link">
                                     <div>Ajouter Devis</div>
                                 </a>
@@ -144,19 +144,19 @@
                         </ul>
                     </li>
                     @endunless
-                    <li class="menu-item {{ request()->is('factures*') ? 'active' : '' }}" style="">
+                    <li class="menu-item {{ request()->is('factures*') ? 'active open' : '' }}" style="">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-book-bookmark"></i>
                             <div>Factures</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item">
+                            <li class="menu-item {{ Route::currentRouteName() == 'factures.index' ? 'active' : '' }}">
                                 <a href="{{ route('factures.index') }}" class="menu-link">
                                     <div>Toutes les factures</div>
                                 </a>
                             </li>
                             @unless(auth()->user()->hasRole('comptable'))
-                            <li class="menu-item">
+                            <li class="menu-item {{ Route::currentRouteName() == 'factures.create' ? 'active' : '' }}">
                                 <a href="{{ route('factures.create') }}" class="menu-link">
                                     <div>Ajouter Facture</div>
                                 </a>

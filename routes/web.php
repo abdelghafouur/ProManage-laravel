@@ -41,8 +41,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('detailsFac', DetailFactureController::class);
     Route::get('/generate-Dev/{DevisId}', [PdfController::class, 'generateDev'])->name('Dev.generate');
     Route::get('/generate-Fac/{FactureId}', [PdfController::class, 'generateFac'])->name('Fac.generate');
-    Route::get('/download-Dev/{DevisId}', [PdfController::class, 'downloadDev'])->name('Dev.download');
-    Route::get('/download-Fac/{FactureId}', [PdfController::class, 'downloadFac'])->name('Fac.download');
     Route::post('/update-entreprise', [EntrepriseController::class, 'updateEntrepriseDefault'])->name('updateDEf.entreprise');
     
 });

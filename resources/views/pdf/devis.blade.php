@@ -110,6 +110,8 @@
         <div class="col-xs-4 col-sm-4" style="margin-left: 90px;margin-top: 50px;">
           <h4 class="text-gra" style="margin-left: 26px;">Devis {{ $DevisData->codeDevis }} </h4>
           <dd style="font-size: 10px;margin-left: 66px;" class="text-gra"> Date devis : {{ $DevisData->date }}</dd>
+          <dd style="font-size: 10px;margin-left: 46px;" class="text-gra"> Date echeance : {{ (new
+            DateTime($DevisData->date))->modify('+' . $EntrepriseData->validite . ' days')->format('Y-m-d') }}</dd>
           <dd style="font-size: 10px;margin-left: 60px;" class="text-gra"> Code Client : {{ $ClientData->codeClient }}
           </dd>
         </div>

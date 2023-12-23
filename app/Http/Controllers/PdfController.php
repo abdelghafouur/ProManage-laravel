@@ -42,37 +42,7 @@ class PdfController extends Controller
         $pdf->setPaper('A4');
         
          // Output the PDF
-        return $pdf->stream('Devis.pdf');
-    }
-    public function DownloadDev(Request $request, $DevisId)
-    {
-         // Retrieve Facture data from the database
-        $DevisData = Devis::find($DevisId);
-        $ClientData = Client::find($DevisData->client_id);
-        $default = 1;
-        $EntrepriseData = Entreprise::where('default', $default)->first();
-
-        if (!$DevisData) {
-            // Facture not found
-            return response()->json(['error' => 'devis not found'], 404);
-        }
-
-        // Render the view to HTML
-        $html = View::make('pdf.devis', compact('DevisData','EntrepriseData','ClientData'))->render();
-
-        // Generate PDF using Snappy
-        $pdf = PDF::loadHtml($html);
-        $pdf->setOption('margin-bottom', 0); // Adjust margin as needed
-        $pdf->setPaper('A4');
-        
-        // Set the appropriate headers for the response
-        $headers = [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename=Devis.pdf',
-        ];
-
-        // Return the PDF as a response
-        return response($pdf->output(), 200, $headers);
+        return $pdf->stream('Devis_'.$DevisData->codeDevis.'.pdf');
     }
         public function generateFac(Request $request, $FactureId)
     {
@@ -96,35 +66,6 @@ class PdfController extends Controller
         $pdf->setPaper('A4');
         
          // Output the PDF
-        return $pdf->stream('Facture.pdf');
-    }
-    public function DownloadFac(Request $request, $FactureId)
-    {
-        // Retrieve Facture data from the database
-        $FactureData = Facture::find($FactureId);
-        $ClientData = Client::find($FactureData->client_id);
-        $default = 1;
-        $EntrepriseData = Entreprise::where('default', $default)->first();
-        if (!$FactureData) {
-            // Facture not found
-            return response()->json(['error' => 'Facture not found'], 404);
-        }
-
-        // Render the view to HTML
-        $html = View::make('pdf.facture', compact('FactureData','EntrepriseData','ClientData'))->render();
-
-        // Generate PDF using Snappy
-        $pdf = PDF::loadHtml($html);
-        $pdf->setOption('margin-bottom', 0); // Adjust margin as needed
-        $pdf->setPaper('A4');
-        
-        // Set the appropriate headers for the response
-        $headers = [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename=Facture.pdf',
-        ];
-
-        // Return the PDF as a response
-        return response($pdf->output(), 200, $headers);
+        return $pdf->stream('Facture_'.$FactureData->codeFacture.'.pdf');
     }
 }

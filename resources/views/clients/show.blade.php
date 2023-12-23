@@ -5,7 +5,7 @@
 @section('content')
 
 <h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('clients.index') }}"
-            style="color:#a1acb8 !important">Gestion Clients/</a></span> Show Client</h4>
+            style="color:#a1acb8 !important">Gestion Clients/</a></span> {{ $client->codeClient }}</h4>
 <div class="row">
     <div class="col-lg">
         <div class="card">

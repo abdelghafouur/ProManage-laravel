@@ -97,17 +97,9 @@
       <div class="row text-end">
         <div class="col-sm-11 mt-3 mb-3">
           <div class="btn-group dropup">
-            <button type="button"
-              class="btn btn-primary dropdown-toggle overflow-hidden d-sm-inline-flex d-block text-truncate"
-              data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn btn-primary text-end" onclick="window.open('{{ route('Dev.generate', ['DevisId' => $devis->id]) }}', '_blank')">
               <i class="bx bx-export me-1"></i> Export Devis
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" type="button" href="{{ route('Dev.download', ['DevisId' => $devis->id]) }}"
-                  target="_blank">Download Devis</a></li>
-              <li><a class="dropdown-item" type="button" href="{{ route('Dev.generate', ['DevisId' => $devis->id]) }}"
-                  target="_blank">Generate Devis</a></li>
-            </ul>
+          </button>
           </div>
           <button type="button" class="btn btn-primary text-end"
             onclick="window.location.href='{{ route('factures.create', ['devis_id' => $devis->id]) }}'">Create

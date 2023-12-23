@@ -111,8 +111,6 @@
           <h4 class="text-gra">Facture {{ $FactureData->codeFacture }} </h4>
           <dd style="font-size: 10px;margin-left: 46px;" class="text-gra"> Date facturation : {{ $FactureData->date }}
           </dd>
-          <dd style="font-size: 10px;margin-left: 50px;" class="text-gra"> Date echeance : {{ (new
-            DateTime($FactureData->date))->modify('+' . $EntrepriseData->validite . ' days')->format('Y-m-d') }}</dd>
           <dd style="font-size: 10px;margin-left: 63px;" class="text-gra"> Code Client : {{ $ClientData->codeClient }}
           </dd>
         </div>

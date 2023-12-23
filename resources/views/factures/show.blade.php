@@ -161,7 +161,7 @@
                                                             <label for="defaultSelect" class="form-label">Method</label>
                                                             <select id="methodAdd" class="form-select" name="method"
                                                                 required>
-                                                                <option value="Entreprise">Cheque</option>
+                                                                <option value="Cheque">Cheque</option>
                                                                 <option value="VirementBancaire">Virement Bancaire
                                                                 </option>
                                                                 <option value="Bspece">Bspece</option>
@@ -269,19 +269,9 @@
             <div class="row text-end">
                 <div class="col-sm-11 mt-3 mb-3">
                     <div class="btn-group dropup">
-                        <button type="button"
-                            class="btn btn-primary dropdown-toggle overflow-hidden d-sm-inline-flex d-block text-truncate"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-primary text-end" onclick="window.open('{{ route('Fac.generate', ['FactureId' => $facture->id]) }}', '_blank')">
                             <i class="bx bx-export me-1"></i> Export Facture
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" type="button"
-                                    href="{{ route('Fac.download', ['FactureId' => $facture->id]) }}"
-                                    target="_blank">Download Facture</a></li>
-                            <li><a class="dropdown-item" type="button"
-                                    href="{{ route('Fac.generate', ['FactureId' => $facture->id]) }}"
-                                    target="_blank">Generate Facture</a></li>
-                        </ul>
                     </div>
                 </div>
             </div>

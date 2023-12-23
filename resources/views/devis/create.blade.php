@@ -63,33 +63,63 @@
                                         <h5 class="mb-0">Ajouter Detail Devis : </h5>
                                     </div>
                                     <div class="card-body">
-                                        <div class="row">
-                                            <!-- Add this hidden input inside the form -->
-                                            <input type="hidden" name="detail_deviss[]" id="detail-deviss">
-                                            <div class="mb-3 col-lg-3 col-md-4">
-                                                <label class="form-label" for="designation[]">Description:</label>
-                                                <input type="text" class="form-control" name="designation[]" required />
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="mt-3">
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                                data-bs-target="#modalCenter">
+                                                Ajouter Detail Facture
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalCenterTitle">Détail de la facture</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <input type="hidden" name="detail_deviss[]" id="detail-deviss">
+                                                    <div class="row g-2" style="margin-bottom: 10px">
+                                                        <div class="col mb-0">
+                                                        <label for="designation" class="form-label">Description:</label>
+                                                        <input type="text" name="designation[]" id="designation" class="form-control"
+                                                            required />
+                                                        </div>
+                                                        <div class="col mb-0">
+                                                        <label for="puht" class="form-label">Prix HT:</label>
+                                                        <input type="number" name="puht[]"  id="puht" class="form-control" required />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row g-2">
+                                                        <div class="col mb-0">
+                                                        <label for="qte" class="form-label">Qte:</label>
+                                                        <input type="number" name="qte[]" id="qte" class="form-control" required />
+                                                        </div>
+                                                        <div class="col mb-0">
+                                                        <label class="form-label" for="tva[]">TVA:</label>
+                                                        <select id="defaultSelect" class="form-select" name="tva[]" id="tva" required>
+                                                            <option value="7">7%</option>
+                                                            <option value="10">10%</option>
+                                                            <option value="14">14%</option>
+                                                            <option value="20">20%</option>
+                                                        </select>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                    <button type="button" onclick="insertData()" class="btn btn-primary">Save
+                                                        changes</button>
+                                                    </div>
+                                                </div>
+                                                </div>
                                             </div>
-                                            <div class="mb-3 col-lg-3 col-md-4">
-                                                <label class="form-label" for="puht[]">Prix HT:</label>
-                                                <input type="number" class="form-control" name="puht[]" required />
-                                            </div>
-                                            <div class="mb-3 col-lg-3 col-md-4">
-                                                <label class="form-label" for="qte[]">Qte:</label>
-                                                <input type="number" class="form-control" name="qte[]" required />
-                                            </div>
-                                            <div class="mb-3 col-lg-3 col-md-4">
-                                                <label class="form-label" for="tva[]">TVA:</label>
-                                                <select id="defaultSelect" class="form-select" name="tva[]" required>
-                                                    <option value="7">7%</option>
-                                                    <option value="10">10%</option>
-                                                    <option value="14">14%</option>
-                                                    <option value="20">20%</option>
-                                                </select>
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-outline-primary"
-                                            onclick="insertData()">Ajouter</button>
                                         <h5 class="card-header">Liste Details Devis : </h5>
                                         <div class="table-responsive text-nowrap">
                                             <table class="table" id="entered-details-table">
@@ -106,7 +136,6 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <!--/ Striped Rows -->
                                     </div>
                                 </div>
                             </div>
@@ -245,6 +274,7 @@
         }
 
         console.log(JSON.stringify(enteredDetails)); // Output the current details for debugging
+        $('#modalCenter').modal('hide');
     }
 }
 
