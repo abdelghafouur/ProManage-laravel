@@ -17602,6 +17602,8 @@ html:not(.layout-footer-fixed) .content-wrapper {
   width: 2.375rem;
   height: 2.375rem;
   cursor: pointer;
+  color: #6610f2;
+  background-color: #6610f224;
 }
 .avatar img {
   width: 100%;

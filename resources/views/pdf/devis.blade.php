@@ -10,15 +10,15 @@
     ?>
   </style>
   <style>
+    body{
+      height: 100%;
+    }
     .logo {
-      margin-top: -26px;
       border-radius: 37px;
     }
-
     .dl-horizontal {
       margin: 0;
     }
-
     .mono {
       font-family: monospace;
     }
@@ -34,10 +34,12 @@
     table {
       /* Set the minimum height of the table */
       border-collapse: collapse;
-      height: 590px !important;
+  
       /* Optional: To collapse table borders */
     }
-
+    tr{
+      height: 40px;
+    }
     /* Media Queries */
     @media (max-width: 768px) {
       .invoice {
@@ -90,78 +92,75 @@
 
 <body>
   <div class="container invoice">
-    <div class="invoice-header" style="margin-top: 50px; margin-right: 20px;">
+    <div class="invoice-header" >
       <div class="row">
-        <div class="col-xs-7 col-sm-7" style="margin-left: 40px;margin-top: 50px;">
+        <div class="col-xs-6 col-sm-6">
           <div class="media">
             <div class="media-left">
-
               @if($EntrepriseData->typelogo == 'svg')
-              <img class="logo" alt="logoImayweb" height="130" width="255"
+              <img class="logo" alt="logoImayweb" height="70%" width="70%"
                 src="data:image/{{ $EntrepriseData->typelogo }}+xml;base64,{{ base64_encode(file_get_contents(public_path('/storage/' . $EntrepriseData->logo))) }}">
               @else
-              <img class="logo" alt="logoImayweb" height="130" width="255"
+              <img class="logo" alt="logoImayweb" height="70%" width="70%"
                 src="data:image/{{ $EntrepriseData->typelogo }};base64,{{ base64_encode(file_get_contents(public_path('/storage/' . $EntrepriseData->logo))) }}">
               @endif
             </div>
           </div>
         </div>
-        <div class="col-xs-1 col-sm-1"></div>
-        <div class="col-xs-4 col-sm-4" style="margin-left: 90px;margin-top: 50px;">
-          <h4 class="text-gra" style="margin-left: 26px;">Devis {{ $DevisData->codeDevis }} </h4>
+       
+        <div class="col-xs-6 col-sm-6 text-right mt-50">
+          <h4 class="text-gra" style="margin-left: 26px;">Devis N° {{ $DevisData->codeDevis }} </h4>
           <dd style="font-size: 10px;margin-left: 66px;" class="text-gra"> Date devis : {{ $DevisData->date }}</dd>
+<<<<<<< HEAD
           <dd style="font-size: 10px;margin-left: 46px;" class="text-gra"> Date echeance : {{ (new
+=======
+          <dd style="font-size: 10px;margin-left: 66px;" class="text-gra"> Date d'écheance : {{ (new
+>>>>>>> 71f6f6b (pdfand dashboard changes)
             DateTime($DevisData->date))->modify('+' . $EntrepriseData->validite . ' days')->format('Y-m-d') }}</dd>
           <dd style="font-size: 10px;margin-left: 60px;" class="text-gra"> Code Client : {{ $ClientData->codeClient }}
           </dd>
         </div>
       </div>
     </div>
-    <div class="invoice-body" style="margin-left: 34px; margin-right: 35px;">
+    <div class="invoice-body">
       <div class="row">
-        <div class="col-xs-12 col-sm-5">
-          <h6 style="margin-left: 10px;"><strong>Emetteur</strong></h6>
-          <div class="panel panel-default" style="height: 164px;width: 300px;background-color: #fbc838;">
-            <div class="panel-body" style="font-size: 12px;">
+        <div class="col-xs-12 col-sm-6">
+          <div class="panel ">
+            <div class="panel-body" style="font-size: 15px;">
               <dt>{{ $EntrepriseData->nom }}</dt>
               <dd>{{ $EntrepriseData->adresse }}</dd>
-              <dd>Quartier Industriel</dd>
-              <dd>Marrakech</dd>
               <br />
-              <dd><strong>Tel.:</strong> {{ $EntrepriseData->telephone }}</dd>
+              <dd><strong><i class='bx bx-line-chart'></i>Tel.:</strong> {{ $EntrepriseData->telephone }}</dd>
               <dd><strong>Email: </strong> {{ $EntrepriseData->email }} </dd>
               <dd><strong>Siteweb:</strong> {{ $EntrepriseData->site }} </dd>
             </div>
           </div>
         </div>
-        <div class="col-xs-12 col-sm-1"></div>
-        <div class="col-xs-12 col-sm-6">
-          <h6><strong style="margin-left: -100px;">Adresse a</strong> </h6>
-          <div class="panel panel-default" style="height: 164px;width: 340px;margin-left:-110px;">
-            <div class="panel-body" style="font-size: 13px;">
+     
+        <div class="col-xs-12 col-sm-6 text-right" style="margin-top: 25px">
+          <div class=" panel-default">
+            <div class="panel-body" style="font-size: 15px;">
               <dl>
-                <p><strong> Nom Client : {{ $ClientData->nom }} </strong></p>
-                <p> <strong>Type Client : </strong>{{ $ClientData->type }} | <strong>ICE : </strong>{{ $ClientData->ice
-                  }}</p>
-                <p><strong>Adresee : </strong>{{ $ClientData->adresse }}</p>
-                <p><strong>Email :</strong> {{ $ClientData->email }}</p>
-                <p><strong>Telephone :</strong> {{ $ClientData->telephone }}</p>
+                <p><strong>{{ $ClientData->nom }} </strong></p>
+                <p>{{ $ClientData->adresse }}</p>
+                <p><strong>ICE : </strong>{{ $ClientData->ice }}</p>
+                <p>{{ $ClientData->telephone }}</p>
               </dl>
             </div>
           </div>
         </div>
       </div>
       @if($DevisData->designationDev != null)
-      <h5 style="text-align: center;margin-bottom:15px"><strong> Designation Devis : {{
-          $DevisData->designationDev}}.</strong></h5>
+      <h2 style="text-align: center;margin:25px 0;"><strong>{{
+          $DevisData->designationDev}}.</strong></h2>
       @endif
       <div class="panel panel-default">
-        <table class="table table-bordered table-condensed" border="1px" style="font-size: 12px;">
+        <table class="table table-bordered table-condensed" style="border-collapse: collapse; table-layout: auto; width: 100%;font-size: 14px; border:1px solid #ddd">
           <thead>
-            <th>Designation</th>
-            <th style="text-align: center;">TVA</th>
+            <th style="width:60% ;">Designation</th>
             <th style="text-align: center;">P.U. HT</th>
             <th style="text-align: center;">Qte</th>
+            <th style="text-align: center;">TVA</th>
             <th style="text-align: center;">Total HT</th>
           </thead>
           <tbody>
@@ -173,14 +172,12 @@
             @if($DevisData->detailDevis->isNotEmpty())
 
             @foreach($DevisData->detailDevis as $detail)
-            <tr height="50px">
+            <tr style="border-bottom:1px dashed #ddd)">
               <td>{{ $detail->designation }}</td>
-              <td style="text-align: end;">{{ $detail->tva }} % </td>
-              <td style="text-align: end;">{{ $detail->puht }}</td>
-              <td style="text-align: end;">{{ $detail->qte }}</td>
-
-
-              <td style="text-align: end;">{{ number_format($detail->puht * $detail->qte, 2, ',', '') }}</td>
+              <td style="text-align: center;border-bottom:1px dashed gray">{{ $detail->puht }}</td>
+              <td style="text-align: center;">{{ $detail->qte }}</td>
+              <td style="text-align: center;">{{ $detail->tva }} % </td>
+              <td style="text-align: center;">{{ number_format($detail->puht * $detail->qte, 2, ',', '') }}</td>
             </tr>
             @php
             $totalHT += ($detail->puht * $detail->qte);
@@ -195,6 +192,7 @@
       </div>
       <div class="row">
         <div class="col-xs-7 col-sm-7" style="font-size: 10px;">
+          <dd><h4>Arrêté le présent devis à la somme de : {{ number_format($totalTTC, 2, ',', '') }}</h4></dd>
           <dd><span style="font-weight:800;">Conditions de reglement: </span><span style="margin-left: 70px;"> <strong>A
                 l'avance </strong></span></dd><br />
           <dd><span style="font-weight:800;">Reglement par virement sur le compte bancaire suivant:</span> </dd>
@@ -217,7 +215,8 @@
         </div>
       </div>
     </div>
-    <div class="invoice-footer" style="margin-top: 90px;text-align: center;font-size: 11px;">
+    
+    <div class="invoice-footer" style="position:absolute;bottom:2%;left:0;right:0;text-align: center;font-size: 12px;">
       <hr style="margin:3px 0 5px" />
       <strong>Siege social:{{ $EntrepriseData->nom }} - {{ $EntrepriseData->adresse }} Quartier Industriel Marrakech,
         Maroc
