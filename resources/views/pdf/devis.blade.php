@@ -111,11 +111,7 @@
         <div class="col-xs-6 col-sm-6 text-right mt-50">
           <h4 class="text-gra" style="margin-left: 26px;">Devis N° {{ $DevisData->codeDevis }} </h4>
           <dd style="font-size: 10px;margin-left: 66px;" class="text-gra"> Date devis : {{ $DevisData->date }}</dd>
-<<<<<<< HEAD
-          <dd style="font-size: 10px;margin-left: 46px;" class="text-gra"> Date echeance : {{ (new
-=======
           <dd style="font-size: 10px;margin-left: 66px;" class="text-gra"> Date d'écheance : {{ (new
->>>>>>> 71f6f6b (pdfand dashboard changes)
             DateTime($DevisData->date))->modify('+' . $EntrepriseData->validite . ' days')->format('Y-m-d') }}</dd>
           <dd style="font-size: 10px;margin-left: 60px;" class="text-gra"> Code Client : {{ $ClientData->codeClient }}
           </dd>
