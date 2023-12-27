@@ -18,16 +18,23 @@ class DevisController extends Controller
     public function index()
     {
         $devisList = Devis::paginate(10);
-        return view('devis.index', compact('devisList'));
+        $entreprises = Entreprise::all();
+        return view('devis.index', compact('devisList','entreprises'));
     }
 
     
     // Show the form for creating a new devis.
-    public function create()
+    public function create(Request $request)
     {
         $clients = Client::all();
         $entreprises = Entreprise::all();
-        return view('devis.create', compact('clients', 'entreprises'));
+        $devis = null;
+        if($request->input('devis_id'))
+            {
+                $selectedDevisId = $request->input('devis_id');
+                $devis = Devis::findOrFail($selectedDevisId);
+            }
+        return view('devis.create', compact('clients', 'entreprises','devis'));
     }
 
     // Store a newly created devis in the database.

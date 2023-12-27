@@ -36,17 +36,17 @@ return [
     
     'pdf' => [
         'enabled' => true,
-        //"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
-        'binary'  => '"/usr/local/bin/wkhtmltopdf"',
+        // "C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"
+        // "/usr/local/bin/wkhtmltopdf"
+        'binary'  => base_path('bin/wkhtmltopdf.exe'),
         'timeout' => false,
         'options' => [],
         'env'     => [],
     ],
     
-    
     'image' => [
         'enabled' => true,
-        'binary'  => env('WKHTML_IMG_BINARY', 'C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage.exe'),
+        'binary'  => env('WKHTML_IMG_BINARY', base_path('bin/wkhtmltoimage.exe')),
         'timeout' => false,
         'options' => [],
         'env'     => [],

@@ -161,6 +161,7 @@ return [
     
         // Package Service Providers...
         // ... Other package providers ...
+        Barryvdh\DomPDF\ServiceProvider::class,
     
         // Application Service Providers...
         App\Providers\AppServiceProvider::class,
@@ -170,7 +171,6 @@ return [
         App\Providers\RouteServiceProvider::class,
     
         // Additional Package Service Providers...
-        Barryvdh\Snappy\ServiceProvider::class,
     
         // ... Any other custom providers you have ...
     ],
@@ -228,7 +228,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
     ],
 
 ];

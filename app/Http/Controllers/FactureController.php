@@ -21,7 +21,8 @@ class FactureController extends Controller
     public function index()
     {
         $factures = Facture::with('detailFacture')->paginate(10);
-        return view('factures.index', compact('factures'));
+        $entreprises = Entreprise::all();
+        return view('factures.index', compact('factures','entreprises'));
     }
 
     // Show the form for creating a new facture.

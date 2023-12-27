@@ -50,8 +50,26 @@ class ClientController extends Controller
     // Display the specified client by ID.
     public function show($id)
     {
-        $client = Client::findOrFail($id);
-        return view('clients.show', compact('client'));
+        $client = Client::with(['factures' => function ($query) {
+            $query->with(['detailFacture', 'paiments']);
+        }])->findOrFail($id);
+        
+        // Initialize total TTC and total paiments variables
+        $totalTTC = 0;
+        $totalPaiments = 0;
+        $restPayee = 0;
+        
+        foreach ($client->factures as $facture) {
+            foreach ($facture->detailFacture as $detail) {
+                // Calculate total TTC for each detail
+                $totalTTC += $detail->puht * $detail->qte * (1 + $detail->tva / 100);
+            }
+        
+            // Calculate total paiments for each facture
+            $totalPaiments += $facture->paiments->sum('montant');
+        }
+        $restPayee = $totalTTC - $totalPaiments ;         
+        return view('clients.show', compact('client','restPayee','totalTTC','totalPaiments'));        
     }
 
     // Show the form for editing the specified client by ID.

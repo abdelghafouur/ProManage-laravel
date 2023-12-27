@@ -3,8 +3,7 @@
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="row">
-                
+            <div class="row">              
                 <div class="order-1">
                   <div class="row">
                     <div class="col-lg-3 col-md-3 col-6 mb-4">
@@ -30,7 +29,8 @@
                                 ><i class='bx bx-user'></i></span>
                             </div>
                           </div>
-                          <h3 class="card-title mb-2">500</h3>
+                          <h3 class="card-title mb-2"><p>{{ str_pad($totalClients, 2, '0', STR_PAD_LEFT) }}</p>
+                          </h3>
                           <span class="fw-medium d-block mb-1">Total clients</span>
                         </div>
                       </div>
@@ -70,14 +70,12 @@
                 <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
                   <div class="card">
                     <div class="row row-bordered g-0">
-                      <div class="col-md-8">
+                      <div class="col-md-12">
                         <h5 class="card-header m-0 me-2 pb-3">Rapport Mensuel</h5>
                         <div id="totalRevenueChart" class="px-2"></div>
                       </div>
-                      
                     </div>
                   </div>
-                  
                 </div>
                 <!--/ Total Revenue -->
                 <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
@@ -86,71 +84,30 @@
                     <div class="card-header d-flex align-items-center justify-content-between pb-0">
                       <div class="card-title mb-0">
                         <h5 class="m-0 me-2">Derniers Clients</h5>
-                        <small class="text-muted">234 Total Clients</small>
+                        <small class="text-muted">{{ str_pad($totalClients, 2, '0', STR_PAD_LEFT) }} Total Clients</small>
                       </div>
                     </div>
                     <div class="card-body">
                       <ul class="p-0 m-0 mt-3">
+                        @foreach ($latestClients as $latestClient)
                         <li class="d-flex mb-4 pb-1">
                           <div class="avatar flex-shrink-0 rounded me-3">
+                            <a href="{{ route('clients.show', $latestClient->id) }}">
                             <span class="avatar-initial rounded bg-label-primary"
                               ><i class='bx bx-user'></i></span>
+                            </a>
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
-                              <h6 class="mb-0 text-uppercase">BMS Design</h6>
-                              <small class="text-muted">087654345678</small>
+                              <h6 class="mb-0 text-uppercase"><a href="{{ route('clients.show', $latestClient->id) }}">{{ $latestClient->nom }}</a></h6>
+                              <small class="text-muted">{{ $latestClient->codeClient }}</small>
                             </div>
                             <div class="user-progress">
-                              <small class="fw-medium">2900$</small>
+                              <small class="fw-medium">{{ $latestClient->created_at->format('Y-m-d') }}</small>
                             </div>
                           </div>
                         </li>
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 rounded me-3">
-                            <span class="avatar-initial rounded bg-label-primary"
-                              ><i class='bx bx-user'></i></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0 text-uppercase">BMS Design</h6>
-                              <small class="text-muted">087654345678</small>
-                            </div>
-                            <div class="user-progress">
-                              <small class="fw-medium">2900$</small>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 me-3 rounded">
-                            <span class="avatar-initial rounded bg-label-primary"
-                              ><i class='bx bx-user'></i></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0 text-uppercase">BMS Design</h6>
-                              <small class="text-muted">087654345678</small>
-                            </div>
-                            <div class="user-progress">
-                              <small class="fw-medium">2900$</small>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 me-3 rounded">
-                            <span class="avatar-initial rounded bg-label-primary"
-                              ><i class='bx bx-user'></i></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0 text-uppercase">BMS Design</h6>
-                              <small class="text-muted">087654345678</small>
-                            </div>
-                            <div class="user-progress">
-                              <small class="fw-medium">2900$</small>
-                            </div>
-                          </div>
-                        </li>
+                        @endforeach
                       </ul>
                     </div>
                   </div>
@@ -182,71 +139,25 @@
                     </div>
                     <div class="card-body">
                       <ul class="p-0 m-0">
+                        @foreach ($latestFactures as $latestFacture)
                         <li class="d-flex mb-4 pb-1">
                           <div class="avatar flex-shrink-0 rounded me-3">
+                            <a href="{{ route('factures.show', $latestFacture->id) }}">
                             <span class="avatar-initial rounded bg-label-primary"
                               ><i class='bx bx-book book-mark'></i></span>
+                            </a>
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
-                              <small class="text-muted d-block mb-1">Référence Facture</small>
-                              <h6 class="mb-0">Nom Client</h6>
+                              <small class="text-muted d-block mb-1"> {{ $latestFacture->codeFacture }}</small>
+                              <h6 class="mb-0 text-uppercase"><a href="{{ route('factures.show', $latestFacture->id) }}">{{ $latestFacture->client->nom }} </a></h6>
                             </div>
-                            <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">+82.6</h6>
-                              <span class="text-muted">USD</span>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 me-3 rounded">
-                            <span class="avatar-initial rounded bg-label-primary"
-                              ><i class='bx bx-book book-mark'></i></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <small class="text-muted d-block mb-1">Référence Facture</small>
-                              <h6 class="mb-0">Nom Client</h6>
-                            </div>
-                            <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">+82.6</h6>
-                              <span class="text-muted">USD</span>
+                            <div class="user-progress">
+                              <small class="fw-medium">{{ $latestFacture->date }}</small>
                             </div>
                           </div>
                         </li>
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 me-3 rounded">
-                            <span class="avatar-initial rounded bg-label-primary"
-                              ><i class='bx bx-book book-mark'></i></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <small class="text-muted d-block mb-1">Référence Facture</small>
-                              <h6 class="mb-0">Nom Client</h6>
-                            </div>
-                            <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">+82.6</h6>
-                              <span class="text-muted">USD</span>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 me-3 rounded">
-                            <span class="avatar-initial rounded bg-label-primary"
-                              ><i class='bx bx-book book-mark'></i></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <small class="text-muted d-block mb-1">Référence Facture</small>
-                              <h6 class="mb-0">Nom Client</h6>
-                            </div>
-                            <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">+82.6</h6>
-                              <span class="text-muted">USD</span>
-                            </div>
-                          </div>
-                        </li>
-                        
+                        @endforeach
                       </ul>
                     </div>
                   </div>
@@ -254,7 +165,7 @@
                 <div class="col-md-6 col-lg-6 order-2 mb-4">
                   <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="card-title m-0 me-2">Derniers Devis</h5>
+                      <h5 class="card-title m-0 me-2">Dernières Devis</h5>
                       <div class="dropdown">
                         <button
                           class="btn p-0"
@@ -274,71 +185,25 @@
                     </div>
                     <div class="card-body">
                       <ul class="p-0 m-0">
+                        @foreach ($latestDevis as $latestDevise)
                         <li class="d-flex mb-4 pb-1">
                           <div class="avatar flex-shrink-0 me-3 rounded">
+                            <a href="{{ route('devis.show', $latestDevise->id) }}">
                             <span class="avatar-initial rounded bg-label-primary"
                               ><i class='bx bx-notepad'></i></span>
+                            </a>
                           </div>
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
-                              <small class="text-muted d-block mb-1">Référence Devis</small>
-                              <h6 class="mb-0">Nom Client</h6>
+                              <small class="text-muted d-block mb-1">{{ $latestDevise->codeDevis }}</small>
+                              <h6 class="mb-0 text-uppercase"><a href="{{ route('devis.show', $latestDevise->id) }}">{{ $latestDevise->client->nom }} </a></h6>
                             </div>
-                            <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">+82.6</h6>
-                              <span class="text-muted">USD</span>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 me-3 rounded">
-                            <span class="avatar-initial rounded bg-label-primary"
-                              ><i class='bx bx-notepad'></i></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <small class="text-muted d-block mb-1">Référence Facture</small>
-                              <h6 class="mb-0">Nom Client</h6>
-                            </div>
-                            <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">+82.6</h6>
-                              <span class="text-muted">USD</span>
+                            <div class="user-progress">
+                              <small class="fw-medium">{{ $latestDevise->date }}</small>
                             </div>
                           </div>
                         </li>
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 me-3 rounded">
-                            <span class="avatar-initial rounded bg-label-primary"
-                              ><i class='bx bx-notepad'></i></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <small class="text-muted d-block mb-1">Référence Facture</small>
-                              <h6 class="mb-0">Nom Client</h6>
-                            </div>
-                            <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">+82.6</h6>
-                              <span class="text-muted">USD</span>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex mb-4 pb-1">
-                          <div class="avatar flex-shrink-0 me-3 rounded">
-                            <span class="avatar-initial rounded bg-label-primary"
-                              ><i class='bx bx-notepad'></i></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <small class="text-muted d-block mb-1">Référence Facture</small>
-                              <h6 class="mb-0">Nom Client</h6>
-                            </div>
-                            <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">+82.6</h6>
-                              <span class="text-muted">USD</span>
-                            </div>
-                          </div>
-                        </li>
-                        
+                        @endforeach
                       </ul>
                     </div>
                   </div>
@@ -347,4 +212,9 @@
               </div>
         </div>
     </div>
+    <script>
+      // Call the initializeTotalRevenueChart function with the data passed from the controller
+      initializeTotalRevenueChart(@json($chartData));
+   </script>
+   
 @endsection
