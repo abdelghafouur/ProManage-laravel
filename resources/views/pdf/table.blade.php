@@ -207,16 +207,21 @@
         </div>
         <div class="row">
             <div class="col-xs-7 col-sm-7" style="font-size: 10px;">
-              <dd><h4>Arrêté le présent devis à la somme de : {{ number_format($totalTTC, 2, ',', '') }}</h4></dd>
+              @php
+                  $integerPart = (int)$totalTTC;
+                  $f = new NumberFormatter("fr", NumberFormatter::SPELLOUT);
+                  $spelledOut = $f->format($integerPart);
+              @endphp
+              <dd><h4>Arrêté le présent devis à la somme de : {{ $spelledOut }}</h4></dd>
               <dd><span style="font-weight:800;">Conditions de reglement: </span><span style="margin-left: 70px;"> <strong>A
                     l'avance </strong></span></dd><br />
               <dd><span style="font-weight:800;">Reglement par virement sur le compte bancaire suivant:</span> </dd>
-              <dd><strong>Banque: {{ $EntrepriseData->banque }}</strong></dd>
-              <dd><strong>Numero de compte: {{ $EntrepriseData->rib }} </strong></dd>
+              <dd><strong>Banque: {{ $BanqueData->nom }}</strong></dd>
+              <dd><strong>Numero de compte: {{ $BanqueData->rib }} </strong></dd>
               <dd>Adresse: SAADA MARRAKECH</dd>
               <dd>Nom du proprietaire du compte: {{ $EntrepriseData->nom }}</dd>
-              <dd><span style="font-weight:800;">Code IBAN: {{ $EntrepriseData->iban }} </span> </dd>
-              <dd><span style="font-weight:800;">Code BIC/SWIFT: {{ $EntrepriseData->swift }} </span></dd>
+              <dd><span style="font-weight:800;">Code IBAN: {{ $BanqueData->iban }} </span> </dd>
+              <dd><span style="font-weight:800;">Code BIC/SWIFT: {{ $BanqueData->swift }} </span></dd>
             </div>
             <div class="col-xs-3 col-sm-3" style="font-size: 11px;margin-left: 61px;">
               <p> <strong>Total HT</strong></p>

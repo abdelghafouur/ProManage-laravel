@@ -9,6 +9,7 @@ use App\Models\DetailFacture;
 use App\Models\Entreprise;
 use App\Models\Devis;
 use App\Models\Paiment;
+use App\Models\Banque;
 
 class FactureController extends Controller
 {
@@ -33,12 +34,14 @@ class FactureController extends Controller
         $clients = Client::all();
         $entreprises = Entreprise::all();
         $devisList = Devis::all();
+        $banqueList = Banque::all();
         $selectedDevisId = $selectedDevisId ?? null;
         if($selectedDevisId !== null)
             {
                 $DevisByID = Devis::findOrFail($selectedDevisId);
                 $detaildevis = $DevisByID->detailDevis;
                 $ClientDevis = $DevisByID->client->id;
+                $banqueDevis = $DevisByID->banque->id;
                 $EntrepriseDevis = $DevisByID->entreprise->id;
             }
         else
@@ -46,10 +49,11 @@ class FactureController extends Controller
                 $detaildevis = [];
                 $DevisByID = [];
                 $ClientDevis = [];
+                $banqueDevis = [];
                 $EntrepriseDevis = [];
             }
 
-        return view('factures.create', compact('clients', 'entreprises', 'devisList','selectedDevisId','detaildevis','DevisByID','ClientDevis','EntrepriseDevis'));
+        return view('factures.create', compact('clients', 'entreprises', 'devisList','selectedDevisId','detaildevis','DevisByID','ClientDevis','EntrepriseDevis','banqueList','banqueDevis'));
     }
 
     // Store a newly created facture in the database.
@@ -59,6 +63,7 @@ class FactureController extends Controller
         $request->validate([
             'client_id' => 'required',
             'date' => 'required|date',
+            'banque_id' => 'nullable|exists:banques,id',
         ]);
         $entrepriseDefault = Entreprise::where('default', 1)->value('id');
 
@@ -67,6 +72,7 @@ class FactureController extends Controller
             'client_id' => $request->input('client_id'),
             'entreprise_id' => $entrepriseDefault,
             'devis_id' => $request->input('devis_id'),
+            'banque_id' => $request->input('banque_id'),
             'date' => $request->input('date'),
             'devis' => $request->input('devis'),
             // Add other facture fields as needed
@@ -98,7 +104,7 @@ class FactureController extends Controller
     public function show($id)
 {
     // Find the facture by ID with the associated client, entreprise, and detailFactures
-    $facture = Facture::with(['client', 'entreprise', 'detailFacture','paiments'])->findOrFail($id);
+    $facture = Facture::with(['client', 'entreprise', 'detailFacture','paiments','banque'])->findOrFail($id);
     $totalMontant = 0;
 
     // Check if the facture has associated payments
@@ -128,8 +134,9 @@ class FactureController extends Controller
         $clients = Client::all();
         $entreprises = Entreprise::all();
         $devisList = Devis::all();
+        $banqueList = Banque::all();
 
-        return view('factures.edit', compact('facture', 'clients', 'entreprises', 'devisList','detailFacture'));
+        return view('factures.edit', compact('facture', 'clients', 'entreprises', 'devisList','detailFacture','banqueList'));
     }
 
     // Update the specified facture in the database.
@@ -141,6 +148,7 @@ class FactureController extends Controller
             'client_id' => 'required|exists:clients,id',
             'devis_id' => 'nullable|exists:devis,id',
             'date' => 'nullable|date',
+            'banque_id' => 'nullable|exists:banques,id',
             'devis' => 'nullable',
             // Add validation for other fields as needed
             'designation.*' => 'nullable|string',
@@ -154,13 +162,14 @@ class FactureController extends Controller
         $facture->client_id = $validatedData['client_id'];
         $facture->entreprise_id = $entrepriseDefault;
         $facture->devis_id = $validatedData['devis_id'];
+        $facture->banque_id = $validatedData['banque_id'];
         $facture->date = $validatedData['date'];
         $facture->devis = $validatedData['devis'];
 
         // Save the updated Devis model
         $facture->save();
 
-                // Update existing details if the required fields are present
+        // Update existing details if the required fields are present
         if (
             isset($validatedData['designation']) &&
             isset($validatedData['puht']) &&

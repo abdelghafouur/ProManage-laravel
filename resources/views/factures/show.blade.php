@@ -16,6 +16,8 @@
                         <dd class="col-sm-9">{{ $facture->client->nom }}</dd>
                         <dt class="col-sm-3"><strong>Entreprise: </strong> </dt>
                         <dd class="col-sm-9">{{ $facture->entreprise->nom }}</dd>
+                        <dt class="col-sm-3"><strong>Banque: </strong> </dt>
+                        <dd class="col-sm-9">{{ $facture->banque->nom }}</dd>
                         @if($facture->devis_id != null)
                         <dt class="col-sm-3"><strong>Code Devis: </strong> </dt>
                         <dd class="col-sm-9">{{ $codeDevisFC }}</dd>

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d5736db11b01b841c271bda3e6ea4d5",
+    "content-hash": "6fee736586bc35ac25c9e470e180ad71",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3691,6 +3691,66 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "rmunate/spell-number",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rmunate/SpellNumber.git",
+                "reference": "0ab65d614df2044a3ce5aba82aff19d2ce3670ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rmunate/SpellNumber/zipball/0ab65d614df2044a3ce5aba82aff19d2ce3670ff",
+                "reference": "0ab65d614df2044a3ce5aba82aff19d2ce3670ff",
+                "shasum": ""
+            },
+            "require": {
+                "ext-intl": "*",
+                "illuminate/support": "^8.0|^9.0|^10.0",
+                "php": "^7.4|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rmunate\\Utilities\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raul Mauricio Uñate Castro",
+                    "email": "raulmauriciounate@gmail.com",
+                    "homepage": "https://github.com/rmunate",
+                    "role": "owner"
+                }
+            ],
+            "description": "Easily convert numbers to letters, this library supports the native PHP INTL extension with which we can easily convert numbers to letters. This library provides us with the possibility of converting only to numbers or to currency formats depending on the language to be used, this package has support in the languages in: English, es: Spanish, pt: Portuguese, fr: French, it: Italian. ro: Romanian.",
+            "homepage": "https://github.com/rmunate/SpellNumber",
+            "keywords": [
+                "altum",
+                "letras",
+                "numbers",
+                "numeros",
+                "rmunate",
+                "spell",
+                "toletters",
+                "towords"
+            ],
+            "support": {
+                "issues": "https://github.com/rmunate/SpellNumber/issues",
+                "source": "https://github.com/rmunate/SpellNumber/tree/v2.0.0"
+            },
+            "time": "2023-07-31T18:47:25+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",

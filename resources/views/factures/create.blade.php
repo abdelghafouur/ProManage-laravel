@@ -50,6 +50,16 @@
               </div>
             </div>
             <div class="mb-3 col-lg-6 col-md-6">
+              <label for="defaultSelect2" class="form-label">Banque :</label>
+              <select id="defaultSelect1" class="form-select" name="banque_id">
+                @foreach($banqueList as $banque)
+                <option value="{{ $banque->id }}" {{ $banque->id == $banqueDevis ? 'selected' : '' }}>
+                  {{ $banque->nom }}
+                </option>
+                @endforeach
+              </select>
+            </div>
+            <div class="mb-3 col-lg-6 col-md-6">
               <label for="html5-date-input" class="col-md-2 col-form-label">Date: </label>
               <div class="col-md-12">
                 <input class="form-control" name="date" type="date" id="html5-date-input" required />
@@ -124,7 +134,6 @@
                   <div class="col-lg-4 col-md-6">
                     <div class="mt-3">
                       <!-- Button trigger modal -->
-
                       <div class="modal fade" id="modalCenter2" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                           <div class="modal-content">
@@ -172,10 +181,8 @@
                           </div>
                         </div>
                       </div>
-
                     </div>
                   </div>
-
                   <div class="table-responsive text-nowrap">
                     <table class="table" id="dataArray">
                       <thead class="table-light">

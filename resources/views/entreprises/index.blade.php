@@ -30,7 +30,7 @@
             <tbody class="table-border-bottom-0">
                 @foreach ($entreprises as $entreprise)
                 <tr>
-                    <td>{{ $entreprise->nom }}</td>
+                    <td><a href="{{ route('entreprises.show', $entreprise->id) }}">{{ $entreprise->nom }}</a></td>
                     <td>{{ $entreprise->email }}</td>
                     <td>{{ $entreprise->adresse }}</td>
                     <td>{{ $entreprise->telephone }}</td>
@@ -60,8 +60,6 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{ route('entreprises.show', $entreprise->id) }}"><i
-                                        class='bx bx-show-alt me-1'></i> Show</a>
                                 <a class="dropdown-item" href="{{ route('entreprises.edit', $entreprise->id) }}"><i
                                         class="bx bx-edit-alt me-1"></i> Edit</a>
                                 @unless(auth()->user()->hasRole('admin'))
@@ -75,7 +73,6 @@
                                     </a>
                                 </form>
                                 @endunless
-
                             </div>
                         </div>
                     </td>

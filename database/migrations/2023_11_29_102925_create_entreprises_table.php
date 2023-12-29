@@ -27,10 +27,6 @@ class CreateEntreprisesTable extends Migration
             $table->text('adresse')->nullable();
             $table->string('telephone')->nullable();
             $table->string('email')->nullable();
-            $table->string('rib')->nullable();
-            $table->string('banque')->nullable();
-            $table->string('swift')->nullable();
-            $table->string('iban')->nullable();
             $table->string('site')->nullable();
             $table->integer('default')->default(0)->nullable();
             $table->integer('validite')->nullable();

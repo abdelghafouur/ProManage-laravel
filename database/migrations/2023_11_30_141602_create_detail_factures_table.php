@@ -12,7 +12,7 @@ class CreateDetailFacturesTable extends Migration
             $table->id();
             $table->foreignId('facture_id')->constrained()->onDelete('cascade')
             ->onUpdate('cascade');; // Assuming you have a 'factures' table
-            $table->string('designation');
+            $table->text('designation');
             $table->decimal('puht', 10, 2);
             $table->integer('qte');
             $table->integer('tva');

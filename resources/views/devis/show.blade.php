@@ -22,6 +22,8 @@
                     <dd class="col-sm-9">{{ $devis->date }}</dd>
                     <dt class="col-sm-3"><strong>Devis:</strong> </dt>
                     <dd class="col-sm-9">{{ $devis->devis }}</dd>
+                    <dt class="col-sm-3"><strong>Banque: </strong> </dt>
+                    <dd class="col-sm-9">{{ $devis->banque->nom }}</dd>
                     <dt class="col-sm-3"><strong>Client:</strong> </dt>
                     <dd class="col-sm-9">{{ $devis->client->nom }}</dd>
                     <dt class="col-sm-3"><strong>Entreprise: </strong> </dt>

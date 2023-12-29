@@ -4,7 +4,8 @@
 
 @section('content')
 
-<h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('devis.index') }}" style="color:#a1acb8 !important">Gestion Devis/</a></span> Ajouter Devis</h4>
+<h4 class="py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('devis.index') }}"
+            style="color:#a1acb8 !important">Gestion Devis/</a></span> Ajouter Devis</h4>
 
 <!-- Basic Layout & Basic with Icons -->
 <div class="row">
@@ -16,7 +17,8 @@
                     <div class="row">
                         <div class="mb-3 col-lg-6 col-md-6">
                             <label class="form-label" for="designationDev">Designation</label>
-                            <input type="text" class="form-control" id="designationDev" name="designationDev" value="{{ $devis !== null ? $devis->designationDev : '' }}" />
+                            <input type="text" class="form-control" id="designationDev" name="designationDev"
+                                value="{{ $devis !== null ? $devis->designationDev : '' }}" />
                         </div>
                         <div class="mb-3 col-lg-6 col-md-6">
                             <label class="form-label" for="basic-default-fullname">Conditions de Règlement</label>
@@ -54,9 +56,21 @@
                             </select>
                         </div>
                         <div class="mb-3 col-lg-6 col-md-6">
+                            <label for="defaultSelect2" class="form-label">Banque :</label>
+                            <select id="defaultSelect1" class="form-select" name="banque_id">
+                              @foreach($banqueList as $banque)
+                              <option value="{{ $banque->id }}" {{ $devis !==null && $devis->banque_id == $banque->id
+                                ? 'selected' : '' }}>
+                                {{ $banque->nom }}
+                              </option>
+                              @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3 col-lg-6 col-md-6">
                             <label for="html5-date-input" class="col-md-2 col-form-label">Date</label>
                             <div class="col-md-12">
-                                <input class="form-control" value="{{ $devis !== null ? $devis->date : '' }}" type="date" name="date" id="html5-date-input" />
+                                <input class="form-control" value="{{ $devis !== null ? $devis->date : '' }}"
+                                    type="date" name="date" id="html5-date-input" />
                             </div>
                         </div>
                         <!-- Basic Layout -->
@@ -70,39 +84,50 @@
                                         <div class="col-lg-4 col-md-6">
                                             <div class="mt-3">
                                                 <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalCenter">
+                                                <button type="button" class="btn btn-outline-primary"
+                                                    data-bs-toggle="modal" data-bs-target="#modalCenter">
                                                     Ajouter Detail Facture
                                                 </button>
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+                                                <div class="modal fade" id="modalCenter" tabindex="-1"
+                                                    aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="modalCenterTitle">Détail de
                                                                     la facture</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <input type="hidden" name="detail_deviss[]" id="detail-deviss">
+                                                                <input type="hidden" name="detail_deviss[]"
+                                                                    id="detail-deviss">
                                                                 <div class="row g-2" style="margin-bottom: 10px">
                                                                     <div class="col mb-0">
-                                                                        <label for="designation" class="form-label">Description:</label>
-                                                                        <input type="text" name="designation[]" id="designation" class="form-control" required />
+                                                                        <label for="designation"
+                                                                            class="form-label">Description:</label>
+                                                                        <input type="text" name="designation[]"
+                                                                            id="designation" class="form-control"
+                                                                            required />
                                                                     </div>
                                                                     <div class="col mb-0">
                                                                         <label for="puht" class="form-label">Prix
                                                                             HT:</label>
-                                                                        <input type="number" name="puht[]" id="puht" class="form-control" required />
+                                                                        <input type="number" name="puht[]" id="puht"
+                                                                            class="form-control" required />
                                                                     </div>
                                                                 </div>
                                                                 <div class="row g-2">
                                                                     <div class="col mb-0">
                                                                         <label for="qte" class="form-label">Qte:</label>
-                                                                        <input type="number" name="qte[]" id="qte" class="form-control" required />
+                                                                        <input type="number" name="qte[]" id="qte"
+                                                                            class="form-control" required />
                                                                     </div>
                                                                     <div class="col mb-0">
-                                                                        <label class="form-label" for="tva[]">TVA:</label>
-                                                                        <select id="defaultSelect" class="form-select" name="tva[]" id="tva" required>
+                                                                        <label class="form-label"
+                                                                            for="tva[]">TVA:</label>
+                                                                        <select id="defaultSelect" class="form-select"
+                                                                            name="tva[]" id="tva" required>
                                                                             <option value="7">7%</option>
                                                                             <option value="10">10%</option>
                                                                             <option value="14">14%</option>
@@ -112,10 +137,12 @@
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                                <button type="button" class="btn btn-outline-secondary"
+                                                                    data-bs-dismiss="modal">
                                                                     Close
                                                                 </button>
-                                                                <button type="button" onclick="insertData()" class="btn btn-primary">Save
+                                                                <button type="button" onclick="insertData()"
+                                                                    class="btn btn-primary">Save
                                                                     changes</button>
                                                             </div>
                                                         </div>
@@ -145,7 +172,8 @@
                         </div>
                         <div class="row text-end">
                             <div class="col-sm-12">
-                                <button type="button" class="btn btn-primary text-end mx-4" onclick="submitForm()">Create Devis</button>
+                                <button type="button" class="btn btn-primary text-end mx-4"
+                                    onclick="submitForm()">Create Devis</button>
                             </div>
                         </div>
                 </form>
@@ -198,6 +226,35 @@
                             changes</button>
                     </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Vertically Centered Modal -->
+<div class="col-lg-4 col-md-6">
+    <!-- Modal -->
+    <div class="modal fade" id="modalCenter3" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="text-align: center">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body modal-confirm">
+                    <div class="icon-box">
+                        <i class='material-icons bx bx-x'></i>
+                    </div>
+                    <br />
+                    <h4 style="text-align: center">Are you sure you want to delete this detail devis? </h4>
+                    <p style="color: #999;"> Do you really want to delete these records? This <br /> process cannot be
+                        undone.
+                    </p>
+                </div>
+                <div class="modal-footer1">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button id="deleteButton" class="btn btn-danger">Delete</button>
                 </div>
             </div>
         </div>
@@ -313,8 +370,22 @@
             cell4.innerHTML = enteredDetails[i].tva + '%';
             cell5.innerHTML = (enteredDetails[i].puht * enteredDetails[i].qte);
 
-            cell6.innerHTML = '<button onclick="editRow(' + i + ')">Edit</button> ' +
-                '<button onclick="deleteRow(' + i + ')">Delete</button>';
+            cell6.innerHTML = 
+                '<div class="dropdown">' +
+                              '<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">' +
+                              '<i class="bx bx-dots-vertical-rounded"></i>' +
+                              '</button>' +
+                              '<div class="dropdown-menu">' +
+                              '<a class="dropdown-item " href="#"' +
+                              'onclick="editRow(' + i + ')"' +
+                              '>' +
+                              '<i class="bx bx-edit-alt me-1"></i> Edit' +
+                              '</a>' +
+                              '<a href="javascript:void(0);" class="dropdown-item delete-devis" data-devis-id="' + i + '" >'+
+                              '<i class="bx bx-trash me-1"></i> Delete' +
+                              '</a>' +
+                              '</div>' +
+                              '</div>';
 
             totalHT += (enteredDetails[i].puht * enteredDetails[i].qte);
             totalTTC += (enteredDetails[i].puht * enteredDetails[i].qte) * (1 + (enteredDetails[i].tva / 100));
@@ -419,6 +490,25 @@
         // Hide the modal
         $('#modalCenter2').modal('hide');
     }
+    $(document).on('click', '.delete-devis', function(event) {
+        var triggerElement = $(this); // Element that triggered the modal
+        var devisId = triggerElement.data('devis-id');
+        var deleteForm = $('#deleteForm' + devisId);
+
+        // Set the devis ID for the "Delete" button in the modal
+        $('#deleteButton').data('devis-id', devisId);
+
+        // Show the Bootstrap modal
+        $('#modalCenter3').modal('show');
+    });
+    $(document).on('click', '#deleteButton', function(event) {
+        // Handle the deletion process here
+        var devisId = $(this).data('devis-id');
+        deleteRow(devisId);
+
+        // Close the Bootstrap modal
+        $('#modalCenter3').modal('hide');
+    });
 
 </script>
 @endsection

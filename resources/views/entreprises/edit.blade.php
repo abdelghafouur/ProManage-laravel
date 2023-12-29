@@ -84,28 +84,6 @@
               </div>
             </div>
             <div class="mb-3 col-lg-6 col-md-6">
-              <label class="form-label" for="basic-default-fullname10">banque</label>
-              <input type="text" value="{{ $entreprise->banque }}" class="form-control" id="basic-default-fullname10"
-                name="banque" />
-            </div>
-            <div class="mb-3 col-lg-6 col-md-6">
-              <label class="form-label" for="basic-default-company11">rib</label>
-              <input type="text" value="{{ $entreprise->rib }}" class="form-control" id="basic-default-company11"
-                name="rib" />
-            </div>
-            <div class="mb-3 col-lg-6 col-md-6">
-              <label for="html5-date-input13" class="col-md-2 col-form-label">swift</label>
-              <div class="col-md-12">
-                <input class="form-control" value="{{ $entreprise->swift }}" type="text" name="swift"
-                  id="html5-date-input13" />
-              </div>
-            </div>
-            <div class="mb-3 col-lg-6 col-md-6">
-              <label class="form-label" for="basic-default-company12">iban</label>
-              <input type="text" value="{{ $entreprise->iban }}" class="form-control" id="basic-default-company12"
-                name="iban" />
-            </div>
-            <div class="mb-3 col-lg-6 col-md-6">
               <label for="html5-date-input14" class="col-md-2 col-form-label">validite</label>
               <div class="col-md-12">
                 <input class="form-control" value="{{ $entreprise->validite }}" type="text" name="validite"
@@ -148,10 +126,6 @@
     var iceFields = document.getElementsByName('ice');
     var ifFields = document.getElementsByName('if');
     var cnssFields = document.getElementsByName('cnss');
-    var banqueFields = document.getElementsByName('banque');
-    var ribFields = document.getElementsByName('rib');
-    var swiftFields = document.getElementsByName('swift');
-    var ibanFields = document.getElementsByName('iban');
     var validiteFields = document.getElementsByName('validite');
 
     var isError = false;
@@ -173,116 +147,6 @@
             isError = true;
         } else {
             emailFields[i].style.borderColor = '';
-        }
-    }
-
-    // Check Adresse field
-    for (var i = 0; i < adresseFields.length; i++) {
-        if (adresseFields[i].value.trim() === '') {
-            adresseFields[i].style.borderColor = 'red';
-            isError = true;
-        } else {
-            adresseFields[i].style.borderColor = '';
-        }
-    }
-
-    // Check Telephone field
-    for (var i = 0; i < telephoneFields.length; i++) {
-        if (telephoneFields[i].value.trim() === '') {
-            telephoneFields[i].style.borderColor = 'red';
-            isError = true;
-        } else {
-            telephoneFields[i].style.borderColor = '';
-        }
-    }
-
-    // Check Site field
-    for (var i = 0; i < siteFields.length; i++) {
-        if (siteFields[i].value.trim() === '') {
-            siteFields[i].style.borderColor = 'red';
-            isError = true;
-        } else {
-            siteFields[i].style.borderColor = '';
-        }
-    }
-
-    // Check Patente field
-    for (var i = 0; i < patenteFields.length; i++) {
-        if (patenteFields[i].value.trim() === '') {
-            patenteFields[i].style.borderColor = 'red';
-            isError = true;
-        } else {
-            patenteFields[i].style.borderColor = '';
-        }
-    }
-
-    // Check ICE field
-    for (var i = 0; i < iceFields.length; i++) {
-        if (iceFields[i].value.trim() === '') {
-            iceFields[i].style.borderColor = 'red';
-            isError = true;
-        } else {
-            iceFields[i].style.borderColor = '';
-        }
-    }
-
-    // Check IF field
-    for (var i = 0; i < ifFields.length; i++) {
-        if (ifFields[i].value.trim() === '') {
-            ifFields[i].style.borderColor = 'red';
-            isError = true;
-        } else {
-            ifFields[i].style.borderColor = '';
-        }
-    }
-
-    // Check CNSS field
-    for (var i = 0; i < cnssFields.length; i++) {
-        if (cnssFields[i].value.trim() === '') {
-            cnssFields[i].style.borderColor = 'red';
-            isError = true;
-        } else {
-            cnssFields[i].style.borderColor = '';
-        }
-    }
-
-    // Check Banque field
-    for (var i = 0; i < banqueFields.length; i++) {
-        if (banqueFields[i].value.trim() === '') {
-            banqueFields[i].style.borderColor = 'red';
-            isError = true;
-        } else {
-            banqueFields[i].style.borderColor = '';
-        }
-    }
-
-    // Check RIB field
-    for (var i = 0; i < ribFields.length; i++) {
-        if (ribFields[i].value.trim() === '') {
-            ribFields[i].style.borderColor = 'red';
-            isError = true;
-        } else {
-            ribFields[i].style.borderColor = '';
-        }
-    }
-
-    // Check Swift field
-    for (var i = 0; i < swiftFields.length; i++) {
-        if (swiftFields[i].value.trim() === '') {
-            swiftFields[i].style.borderColor = 'red';
-            isError = true;
-        } else {
-            swiftFields[i].style.borderColor = '';
-        }
-    }
-
-    // Check IBAN field
-    for (var i = 0; i < ibanFields.length; i++) {
-        if (ibanFields[i].value.trim() === '') {
-            ibanFields[i].style.borderColor = 'red';
-            isError = true;
-        } else {
-            ibanFields[i].style.borderColor = '';
         }
     }
 

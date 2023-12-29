@@ -17,6 +17,8 @@ class CreateFacturesTable extends Migration
             ->onUpdate('cascade');
             $table->foreignId('devis_id')->nullable()->constrained()->onDelete('cascade')
             ->onUpdate('cascade');
+            $table->foreignId('banque_id')->constrained()->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->date('date')->nullable();
             $table->string('devis');
             $table->timestamps();

@@ -42,18 +42,14 @@ class EntrepriseController extends Controller
 {
     $request->validate([
         'nom' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'adresse' => 'required|string|max:255',
-        'telephone' => 'required|string|max:30',
-        'site' => 'required|string|max:255',
-        'patente' => 'required|string|max:255',
-        'ice' => 'required|string|max:255',
-        'if' => 'required|string|max:255',
-        'cnss' => 'required|string|max:255',
-        'banque' => 'required|string|max:255',
-        'rib' => 'required|string|max:255',
-        'swift' => 'required|string|max:255',
-        'iban' => 'required|string|max:255',
+        'email' => 'nullable|email|max:255',
+        'adresse' => 'nullable|string|max:255',
+        'telephone' => 'nullable|string|max:30',
+        'site' => 'nullable|string|max:255',
+        'patente' => 'nullable|string|max:255',
+        'ice' => 'nullable|string|max:255',
+        'if' => 'nullable|string|max:255',
+        'cnss' => 'nullable|string|max:255',
         'validite' => 'required|string|max:255',
     ]);
 
@@ -94,18 +90,14 @@ class EntrepriseController extends Controller
         $entreprise = Entreprise::findOrFail($id);
         $request->validate([
             'nom' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'adresse' => 'required|string|max:255',
-            'telephone' => 'required|string|max:30',
-            'site' => 'required|string|max:255',
-            'patente' => 'required|string|max:255',
-            'ice' => 'required|string|max:255',
-            'if' => 'required|string|max:255',
-            'cnss' => 'required|string|max:255',
-            'banque' => 'required|string|max:255',
-            'rib' => 'required|string|max:255',
-            'swift' => 'required|string|max:255',
-            'iban' => 'required|string|max:255',
+            'email' => 'nullable|email|max:255',
+            'adresse' => 'nullable|string|max:255',
+            'telephone' => 'nullable|string|max:30',
+            'site' => 'nullable|string|max:255',
+            'patente' => 'nullable|string|max:255',
+            'ice' => 'nullable|string|max:255',
+            'if' => 'nullable|string|max:255',
+            'cnss' => 'nullable|string|max:255',
             'validite' => 'required|string|max:255',
         ]);
 

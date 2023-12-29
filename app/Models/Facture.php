@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Facture extends Model
 {
     use HasFactory;
-    protected $fillable = ['codeFacture','client_id','entreprise_id','devis_id','date','devis'];
+    protected $fillable = ['codeFacture','client_id','entreprise_id','devis_id', 'banque_id','date','devis'];
     
     // Relationship: Each Facture belongs to one Devis
     public function devis()
@@ -22,6 +22,10 @@ class Facture extends Model
     public function entreprise()
     {
         return $this->belongsTo(Entreprise::class,'entreprise_id');
+    }
+    public function banque()
+    {
+        return $this->belongsTo(Banque::class,'banque_id');
     }
     public function paiments()
     {

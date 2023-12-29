@@ -72,7 +72,7 @@
                     <div class="row row-bordered g-0">
                       <div class="col-md-12">
                         <h5 class="card-header m-0 me-2 pb-3">Rapport Mensuel</h5>
-                        <div id="totalRevenueChart" class="px-2"></div>
+                        <div id="chart" class="px-2"></div>
                       </div>
                     </div>
                   </div>
@@ -212,9 +212,40 @@
               </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
-      // Call the initializeTotalRevenueChart function with the data passed from the controller
-      initializeTotalRevenueChart(@json($chartData));
-   </script>
+      var options = {
+          series: [{
+              name: "Factures",
+              data: {!! json_encode(array_values($factureCounts)) !!}
+          }],
+          chart: {
+              height: 300,
+              type: 'line',
+              zoom: {
+                  enabled: false
+              }
+          },
+          dataLabels: {
+              enabled: false
+          },
+          stroke: {
+              curve: 'straight'
+          },
+          grid: {
+              row: {
+                  colors: ['#f3f3f3', 'transparent'],
+                  opacity: 0.5
+              },
+          },
+          xaxis: {
+              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          }
+      };
+  
+      var chart = new ApexCharts(document.querySelector("#chart"), options);
+      chart.render();
+    </script>
+  
    
 @endsection

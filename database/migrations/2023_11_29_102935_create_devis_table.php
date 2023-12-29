@@ -19,6 +19,8 @@ class CreateDevisTable extends Migration
             ->onUpdate('cascade');
             $table->foreignId('entreprise_id')->constrained()->onDelete('cascade')
             ->onUpdate('cascade');
+            $table->foreignId('banque_id')->constrained()->onDelete('cascade')
+            ->onUpdate('cascade');
             $table->string('codeDevis')->unique()->nullable();
             $table->string('designationDev')->nullable();
             $table->string('conditionsDeReglement')->nullable();

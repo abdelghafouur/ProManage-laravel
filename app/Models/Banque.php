@@ -5,27 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Entreprise extends Model
+class Banque extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'nom',
-        'logo',
-        'typelogo',
-        'ice',
-        'patente',
-        'if',
-        'cnss',
-        'tva',
-        'rc',
-        'adresse',
-        'telephone',
-        'email',
-        'site',
-        'default',
-        'validite',
-    ];
+    protected $fillable = ['nom', 'rib','swift','iban'];
+    // Add other attributes as needed
 
     public function factures()
     {

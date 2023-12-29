@@ -36,14 +36,6 @@
                         <dd class="col-sm-9">{{ $entreprise->if }}</dd>
                         <dt class="col-sm-3"><strong>C.N.S.S</strong> </dt>
                         <dd class="col-sm-9">{{ $entreprise->cnss }}</dd>
-                        <dt class="col-sm-3"><strong>Banque</strong> </dt>
-                        <dd class="col-sm-9">{{ $entreprise->banque }}</dd>
-                        <dt class="col-sm-3"><strong>RIB</strong> </dt>
-                        <dd class="col-sm-9">{{ $entreprise->rib }}</dd>
-                        <dt class="col-sm-3"><strong>Swift</strong> </dt>
-                        <dd class="col-sm-9">{{ $entreprise->swift }}</dd>
-                        <dt class="col-sm-3"><strong>Iban</strong> </dt>
-                        <dd class="col-sm-9">{{ $entreprise->iban }}</dd>
                         <dt class="col-sm-3"><strong>Validite</strong> </dt>
                         <dd class="col-sm-9">{{ $entreprise->validite }}</dd>
                     </dl>

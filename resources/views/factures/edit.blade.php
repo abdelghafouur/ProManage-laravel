@@ -40,10 +40,6 @@
                             </select>
                         </div>
                         <div class="mb-3 col-lg-6 col-md-6">
-                            <label class="form-label" for="date">Date</label>
-                            <input class="form-control" type="date" name="date" value="{{ $facture->date }}" />
-                        </div>
-                        <div class="mb-3 col-lg-6 col-md-6">
                             <label for="devis" class="col-md-2 col-form-label">Devis:</label>
                             <div class="col-md-12">
                                 <select id="defaultSelect" class="form-select" name="devis" required>
@@ -55,6 +51,21 @@
                                     </option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="mb-3 col-lg-6 col-md-6">
+                            <label for="devis_id" class="form-label">Banque:</label>
+                            <select name="banque_id" class="form-select">
+                                @foreach($banqueList as $banque)
+                                <option value="{{ $banque->id }}" {{ $facture->banque_id == $banque->id ? 'selected' : ''
+                                    }}>
+                                    {{ $banque->nom }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3 col-lg-6 col-md-6">
+                            <label class="form-label" for="date">Date</label>
+                            <input class="form-control" type="date" name="date" value="{{ $facture->date }}" />
                         </div>
                     </div>
                 </form>

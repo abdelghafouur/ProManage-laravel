@@ -10,6 +10,7 @@ use App\Models\Client;
 use App\Models\Entreprise;
 use App\Models\DetailsFacture;
 use App\Models\DetailsDevis;
+use App\Models\Banque;
 use Illuminate\Support\Facades\Response;
 use Barryvdh\DomPDF\Facade\Pdf;
 class PdfController extends Controller
@@ -24,6 +25,7 @@ class PdfController extends Controller
         // Retrieve Devis, Client, and Entreprise data from the database
         $DevisData = Devis::find($DevisId);
         $ClientData = Client::find($DevisData->client_id);
+        $BanqueData = Banque::find($DevisData->banque_id);
         $default = 1;
         $EntrepriseData = Entreprise::where('default', $default)->first();
     
@@ -35,7 +37,7 @@ class PdfController extends Controller
         // Render the views to HTML
         $headerHtml = view('pdf.header', compact('EntrepriseData','DevisData','ClientData'))->render();
         $footerHtml = view('pdf.footer', compact('EntrepriseData'))->render();
-        $tableHtml = view('pdf.table', compact('DevisData', 'EntrepriseData', 'ClientData'))->render();
+        $tableHtml = view('pdf.table', compact('DevisData', 'EntrepriseData', 'ClientData','BanqueData'))->render();
     
         // Combine HTML content with header and footer
         $html = $tableHtml;

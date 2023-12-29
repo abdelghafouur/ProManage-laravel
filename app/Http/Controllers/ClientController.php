@@ -29,9 +29,9 @@ class ClientController extends Controller
     {
         $request->validate([
             'nom' => 'required',
-            'email' => 'required|',
-            'telephone' => 'required',
-            'type' => 'required|in:Entreprise,Particulier,Autre',
+            'email' => 'nullable|',
+            'telephone' => 'nullable',
+            'type' => 'nullable|in:Entreprise,Particulier,Autre',
             'adresse' => 'nullable',
             'ice' => 'nullable|integer',
         ]);
@@ -85,9 +85,9 @@ class ClientController extends Controller
         $client = Client::findOrFail($id);
         $request->validate([
             'nom' => 'required',
-            'email' => 'required',
-            'telephone' => 'required',
-            'type' => 'required|in:Entreprise,Particulier,Autre',
+            'email' => 'nullable',
+            'telephone' => 'nullable',
+            'type' => 'nullable|in:Entreprise,Particulier,Autre',
             'adresse' => 'nullable',
             'ice' => 'nullable|integer',
         ]);

@@ -48,6 +48,17 @@
               </select>
             </div>
             <div class="mb-3 col-lg-6 col-md-6">
+              <label for="devis_id" class="form-label">Banque:</label>
+              <select name="banque_id" class="form-select">
+                  @foreach($banqueList as $banque)
+                  <option value="{{ $banque->id }}" {{ $devis->banque_id == $banque->id ? 'selected' : ''
+                      }}>
+                      {{ $banque->nom }}
+                  </option>
+                  @endforeach
+              </select>
+          </div>
+            <div class="mb-3 col-lg-6 col-md-6">
               <label for="html5-date-input" class="col-md-2 col-form-label">Date</label>
               <div class="col-md-12">
                 <input class="form-control" type="date" value="{{ $devis->date }}" name="date" id="html5-date-input"

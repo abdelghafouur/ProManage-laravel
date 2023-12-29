@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\Facture;
 use App\Models\Devis;
-
+use Carbon\Carbon;
 class DashboardController extends Controller
 {
     public function index()
@@ -15,13 +15,21 @@ class DashboardController extends Controller
         $latestFactures = Facture::orderBy('date', 'desc')->take(4)->get();
         $latestDevis = Devis::orderBy('date', 'desc')->take(4)->get();
         $totalClients = Client::count();
-        // Example data to be passed to the view
-        $chartData = [
-            'series' => [
-                ['name' => '2023', 'data' => [18, 7, 15, 11, 18, 12, 9, 5, 17, 15, 7, 10]],
-                ['name' => '2022', 'data' => [-13, -10, -9, -14, -5, -12, -15, -5, -10, -8, -13, -12]],
-            ],
-        ];
-        return view('dashboard', compact('latestClients', 'totalClients', 'latestFactures', 'latestDevis','chartData'));
+
+            // Get the current year
+        $currentYear = Carbon::now()->year;
+
+        // Fetch the counts for each month in the current year
+        $factureCounts = Facture::selectRaw('MONTH(date) as month, COUNT(*) as count')
+            ->whereYear('date', $currentYear)
+            ->groupBy('month')
+            ->orderBy('month')
+            ->pluck('count', 'month')
+            ->toArray();
+
+        // Fill in the counts for all months (0 if no records for a month)
+        $factureCounts = array_replace(array_fill(1, 12, 0), $factureCounts);
+
+        return view('dashboard', compact('latestClients', 'totalClients', 'latestFactures', 'latestDevis','factureCounts'));
     }
 }

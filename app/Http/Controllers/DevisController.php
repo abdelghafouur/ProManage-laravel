@@ -7,6 +7,8 @@ use App\Models\Devis;
 use App\Models\Client;
 use App\Models\Entreprise;
 use App\Models\DetailDevis;
+use App\Models\Banque;
+
 class DevisController extends Controller
 {
     public function __construct()
@@ -29,12 +31,13 @@ class DevisController extends Controller
         $clients = Client::all();
         $entreprises = Entreprise::all();
         $devis = null;
+        $banqueList = Banque::all();
         if($request->input('devis_id'))
             {
                 $selectedDevisId = $request->input('devis_id');
                 $devis = Devis::findOrFail($selectedDevisId);
             }
-        return view('devis.create', compact('clients', 'entreprises','devis'));
+        return view('devis.create', compact('clients', 'entreprises','devis','banqueList'));
     }
 
     // Store a newly created devis in the database.
@@ -45,6 +48,7 @@ class DevisController extends Controller
             'date' => 'nullable|date',
             'devis' => 'required',
             'client_id' => 'required|exists:clients,id',
+            'banque_id' => 'nullable|exists:banques,id',
         ]);
 
         $entrepriseDefault = Entreprise::where('default', 1)->value('id');
@@ -54,6 +58,7 @@ class DevisController extends Controller
             'entreprise_id' => $entrepriseDefault,
             'designationDev' => $request->input('designationDev'),
             'conditionsDeReglement' => $request->input('conditionsDeReglement'),
+            'banque_id' => $request->input('banque_id'),
             'date' => $request->input('date'),
             'devis' => $request->input('devis'),
             // Add other devis fields as needed
@@ -87,7 +92,7 @@ class DevisController extends Controller
     public function show($id)
     {
         // Find the facture by ID with the associated client, entreprise, and detailFactures
-        $devis = Devis::with(['client', 'entreprise', 'detailDevis'])->findOrFail($id);
+        $devis = Devis::with(['client', 'entreprise', 'detailDevis','banque'])->findOrFail($id);
     
         // Return the view with the facture data
         return view('devis.show', compact('devis'));
@@ -100,7 +105,8 @@ class DevisController extends Controller
         $detailDevis = $devis->detailDevis; 
         $clients = Client::all();
         $entreprises = Entreprise::all();
-        return view('devis.edit', compact('devis', 'clients', 'entreprises', 'detailDevis'));
+        $banqueList = Banque::all();
+        return view('devis.edit', compact('devis', 'clients', 'entreprises', 'detailDevis','banqueList'));
     }
 
     // Update the specified devis in the database.
@@ -114,6 +120,7 @@ class DevisController extends Controller
             'devis' => 'required|string',
             'designationDev' => 'nullable|string',
             'client_id' => 'required|exists:clients,id',
+            'banque_id' => 'nullable|exists:banques,id',
         ]);
         $entrepriseDefault = Entreprise::where('default', 1)->value('id');
     
@@ -125,6 +132,7 @@ class DevisController extends Controller
         $devis->conditionsDeReglement = $validatedData['conditionsDeReglement'];
         $devis->date = $validatedData['date'];
         $devis->devis = $validatedData['devis'];
+        $devis->banque_id = $validatedData['banque_id'];
         $devis->client_id = $validatedData['client_id'];
         $devis->entreprise_id = $entrepriseDefault;
 

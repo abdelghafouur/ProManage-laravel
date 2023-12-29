@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Devis extends Model
 {
     use HasFactory;
-    protected $fillable = ['client_id','entreprise_id', 'codeDevis', 'designationDev' ,'conditionsDeReglement','date','devis'];
+    protected $fillable = ['client_id','entreprise_id', 'codeDevis', 'banque_id','designationDev' ,'conditionsDeReglement','date','devis'];
 
     public function client()
     {
@@ -21,6 +21,10 @@ class Devis extends Model
     public function factures()
     {
         return $this->hasMany(Facture::class);
+    }
+    public function banque()
+    {
+        return $this->belongsTo(Banque::class,'banque_id');
     }
     public function detailDevis()
     {
